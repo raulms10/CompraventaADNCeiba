@@ -39,14 +39,14 @@ pipeline {
     stage('Clean & compileJava') {
       steps{
         echo "------------>Clean<------------"
-		sh 'gradle --b ./compraventa/build.gradle clean compileJava'	
+		sh 'gradle --b ./build.gradle clean compileJava'	
       }
     }
     
     stage('Compile & Unit Tests') {
       steps{
         echo "------------>Unit Tests<------------"
-		sh 'gradle --b ./compraventa/build.gradle test'		
+		sh 'gradle --b ./build.gradle test'		
       }
     }
 
@@ -62,7 +62,7 @@ pipeline {
     stage('Build') {
       steps {
         echo "------------>Build<------------"
-        sh 'gradle --b ./compraventa/build.gradle build -x test'
+        sh 'gradle --b ./build.gradle build -x test'
       }
     }  
   }
