@@ -4,6 +4,7 @@ plugins {
 	id 'java'
 	id 'war'
 	id 'eclipse'
+	id 'jacoco'
 }
 
 group = 'co.com.ceiba'
@@ -13,6 +14,9 @@ sourceCompatibility = '1.8'
 repositories {
 	mavenCentral()
 }
+
+apply plugin: 'java'
+apply plugin: 'jacoco'
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
@@ -29,4 +33,12 @@ dependencies {
 
 test {
 	useJUnitPlatform()
+}
+
+jacocoTestReport {
+	reports {
+	    csv.enabled = false
+	    xml.enabled = false
+	    html.enabled = true
+	}
 }
