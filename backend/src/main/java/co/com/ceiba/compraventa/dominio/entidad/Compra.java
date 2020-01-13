@@ -42,7 +42,7 @@ public class Compra {
 		
 		this.cedulaComprador = cedulaComprador;
 		this.nombreComprador = nombreComprador;
-		this.fechaCompra = fechaCompra;
+		this.fechaCompra = new Date(fechaCompra.getTime());
 		this.valorPagado = valorPagado;
 		this.producto = producto;
 	}
@@ -56,7 +56,7 @@ public class Compra {
 	}
 
 	public Date getFechaCompra() {
-		return fechaCompra;
+		return new Date(fechaCompra.getTime());
 	}
 	
 	public Long getValorPagado() {

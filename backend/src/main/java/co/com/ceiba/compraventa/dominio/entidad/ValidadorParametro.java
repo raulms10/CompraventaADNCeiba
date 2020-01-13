@@ -12,7 +12,7 @@ import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionValorObligatorio;
  * @author raul.martinez
  *
  */
-public class ValidadorParametro {
+public final class ValidadorParametro {
 
 	private ValidadorParametro() {}
 	

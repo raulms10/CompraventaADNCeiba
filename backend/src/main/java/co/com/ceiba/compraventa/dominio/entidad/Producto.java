@@ -65,7 +65,7 @@ public class Producto {
 		this.nombre = nombre;
 		this.valor = valor;
 		this.descuento = descuento;
-		this.fecha = fecha;
+		this.fecha = new Date(fecha.getTime());
 		this.cedulaVendedor = cedulaVendedor;
 		this.nombreVendedor = nombreVendedor;
 	}
@@ -87,7 +87,7 @@ public class Producto {
 	}
 
 	public Date getFecha() {
-		return fecha;
+		return new Date(fecha.getTime());
 	}
 
 	public String getCedulaVendedor() {
