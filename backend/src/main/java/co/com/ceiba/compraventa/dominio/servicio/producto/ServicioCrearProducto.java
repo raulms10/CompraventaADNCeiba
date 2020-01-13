@@ -43,7 +43,7 @@ public class ServicioCrearProducto {
 	}
 	
 	/**
-	 * Valida que el día de la semana esté entre Lunes a Viernes para poder agregar el producto
+	 * Valida que el d<ED>a de la semana est<E9> entre Lunes a Viernes para poder agregar el producto
 	 * @param producto
 	 */
 	private void validarDiaLunesAViernes(Date fecha) {
