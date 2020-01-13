@@ -13,7 +13,7 @@ import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionLunesViernes;
  * @author raul.martinez
  *
  */
-public class ValidadorFecha {
+public final class ValidadorFecha {
 	
 	private ValidadorFecha() {}
 	
