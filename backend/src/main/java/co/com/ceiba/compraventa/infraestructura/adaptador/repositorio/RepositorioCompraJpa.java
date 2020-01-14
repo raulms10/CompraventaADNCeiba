@@ -36,6 +36,6 @@ public class RepositorioCompraJpa implements RepositorioCompra {
 
 	@Override
 	public boolean existe(Compra compra) {
-		return true;
+		return false;
 	}
 }

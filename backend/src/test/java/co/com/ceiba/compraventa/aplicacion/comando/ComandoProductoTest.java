@@ -38,5 +38,23 @@ class ComandoProductoTest {
 		Assert.assertNull(comandoProducto.getCedulaVendedor());
 		Assert.assertNull(comandoProducto.getNombreVendedor());
 	}
+	
+	@Test
+	public void validarProductoConFechaNula() {
+		//Arrange
+		ComandoProductoTestDataBuilder comandoProductoTestDataBuilder = new ComandoProductoTestDataBuilder();
+		comandoProductoTestDataBuilder.conFecha(null);
+		//Act
+		ComandoProducto comandoProducto = comandoProductoTestDataBuilder.build();
+		// Assert
+		Assert.assertNotNull(comandoProducto);	
+		Assert.assertNotNull(comandoProducto.getCodigo());
+		Assert.assertNotNull(comandoProducto.getNombre());
+		Assert.assertNotNull(comandoProducto.getValor());
+		Assert.assertNotNull(comandoProducto.getDescuento());
+		Assert.assertNull(comandoProducto.getFecha());
+		Assert.assertNotNull(comandoProducto.getCedulaVendedor());
+		Assert.assertNotNull(comandoProducto.getNombreVendedor());
+	}
 
 }
