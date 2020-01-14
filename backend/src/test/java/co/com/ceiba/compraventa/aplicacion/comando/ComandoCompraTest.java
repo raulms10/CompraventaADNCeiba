@@ -3,8 +3,6 @@
  */
 package co.com.ceiba.compraventa.aplicacion.comando;
 
-import java.text.ParseException;
-
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
@@ -17,18 +15,33 @@ import co.com.ceiba.compraventa.aplicacion.testdatabuilder.ComandoCompraTestData
 class ComandoCompraTest {
 
 	@Test
-	public void validarCreacionCompra() throws ParseException {
+	public void validarCreacionCompraNoNula() {
 		//Arrange
 		ComandoCompraTestDataBuilder comandoCompraTestDataBuilder = new ComandoCompraTestDataBuilder();
 		//Act
 		ComandoCompra comandoCompra = comandoCompraTestDataBuilder.build();
 		// Assert
 		Assert.assertNotNull(comandoCompra);
+		Assert.assertNull(comandoCompra.getIdCompra());
 		Assert.assertNotNull(comandoCompra.getCedulaComprador());
 		Assert.assertNotNull(comandoCompra.getNombreComprador());
 		Assert.assertNotNull(comandoCompra.getFechaCompra());
 		Assert.assertNotNull(comandoCompra.getValorPagado());
-		Assert.assertNotNull(comandoCompra.getProducto());
+		Assert.assertNotNull(comandoCompra.getComandoProducto());
+	}
+	
+	@Test
+	public void validarCreacionCompraNula() {
+		//Arrange - Act
+		ComandoCompra comandoCompra = new ComandoCompra();
+		// Assert
+		Assert.assertNotNull(comandoCompra);
+		Assert.assertNull(comandoCompra.getIdCompra());
+		Assert.assertNull(comandoCompra.getCedulaComprador());
+		Assert.assertNull(comandoCompra.getNombreComprador());
+		Assert.assertNull(comandoCompra.getFechaCompra());
+		Assert.assertNull(comandoCompra.getValorPagado());
+		Assert.assertNull(comandoCompra.getComandoProducto());
 	}
 
 }

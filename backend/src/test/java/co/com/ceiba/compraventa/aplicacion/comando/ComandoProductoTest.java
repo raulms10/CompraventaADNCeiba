@@ -8,7 +8,7 @@ import co.com.ceiba.compraventa.aplicacion.testdatabuilder.ComandoProductoTestDa
 class ComandoProductoTest {
 
 	@Test
-	public void validarCreacionProducto() {
+	public void validarCreacionProductoNoNulo() {
 		//Arrange
 		ComandoProductoTestDataBuilder comandoProductoTestDataBuilder = new ComandoProductoTestDataBuilder();
 		//Act
@@ -24,15 +24,19 @@ class ComandoProductoTest {
 		Assert.assertNotNull(comandoProducto.getNombreVendedor());
 	}
 	
-//	@Test
-//	public void validarCodigoProducto() {
-//		//Arrange
-//		ComandoProductoTestDataBuilder comandoProductoTestDataBuilder = new ComandoProductoTestDataBuilder();
-//		//Act
-//		comandoProductoTestDataBuilder.conCodigo("770055");
-//		ComandoProducto comandoProducto = comandoProductoTestDataBuilder.build();
-//		// Assert
-//		Assert.assertEquals("770055", comandoProducto.getCodigo());
-//	}
+	@Test
+	public void validarCreacionProductoNulo() {
+		//Arrange - Act
+		ComandoProducto comandoProducto = new ComandoProducto();
+		// Assert
+		Assert.assertNotNull(comandoProducto);	
+		Assert.assertNull(comandoProducto.getCodigo());
+		Assert.assertNull(comandoProducto.getNombre());
+		Assert.assertNull(comandoProducto.getValor());
+		Assert.assertNull(comandoProducto.getDescuento());
+		Assert.assertNull(comandoProducto.getFecha());
+		Assert.assertNull(comandoProducto.getCedulaVendedor());
+		Assert.assertNull(comandoProducto.getNombreVendedor());
+	}
 
 }

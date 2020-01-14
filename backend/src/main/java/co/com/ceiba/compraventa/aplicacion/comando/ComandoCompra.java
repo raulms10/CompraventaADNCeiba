@@ -5,8 +5,6 @@ package co.com.ceiba.compraventa.aplicacion.comando;
 
 import java.util.Date;
 
-import co.com.ceiba.compraventa.dominio.entidad.Producto;
-
 /**
  * @author raul.martinez
  *
@@ -18,18 +16,18 @@ public class ComandoCompra {
 	private String nombreComprador;
 	private Date fechaCompra;
 	private Long valorPagado;
-	private Producto producto;
+	private ComandoProducto comandoProducto;
 	
-	public ComandoCompra() {}
-	
-	public ComandoCompra(Long idCompra, String cedulaComprador, String nombreComprador, Date fechaCompra, Long valorPagado, Producto producto) {
+	public ComandoCompra(Long idCompra, String cedulaComprador, String nombreComprador, Date fechaCompra, Long valorPagado, ComandoProducto comandoProducto) {
 		this.idCompra = idCompra;
 		this.cedulaComprador = cedulaComprador;
 		this.nombreComprador = nombreComprador;
-		this.fechaCompra = fechaCompra;
+		this.fechaCompra = fechaCompra == null ? null : new Date(fechaCompra.getTime());
 		this.valorPagado = valorPagado;
-		this.producto = producto;
+		this.comandoProducto = comandoProducto;
 	}
+	
+	public ComandoCompra() {}
 
 	public Long getIdCompra() {
 		return idCompra;
@@ -44,14 +42,14 @@ public class ComandoCompra {
 	}
 	
 	public Date getFechaCompra() {
-		return fechaCompra;
+		return fechaCompra == null ? null : new Date(fechaCompra.getTime());
 	}
 	
 	public Long getValorPagado() {
 		return valorPagado;
 	}
 	
-	public Producto getProducto() {
-		return producto;
+	public ComandoProducto getComandoProducto() {
+		return comandoProducto;
 	}
 }

@@ -30,7 +30,6 @@ public class RepositorioProductoJpa implements RepositorioProducto {
 
 	@Override
 	public void crear(Producto producto) {
-		System.out.println("Se supone que guarda Producto");
 		ProductoEntity productoEntity = modelMapper.map(producto, ProductoEntity.class);
 		productoJpa.save(productoEntity);
 	}

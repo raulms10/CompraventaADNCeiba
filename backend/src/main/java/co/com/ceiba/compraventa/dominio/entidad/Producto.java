@@ -4,7 +4,6 @@
 package co.com.ceiba.compraventa.dominio.entidad;
 
 import java.util.Date;
-
 /**
  * 
  * @author raul.martinez
@@ -69,7 +68,7 @@ public class Producto {
 		this.cedulaVendedor = cedulaVendedor;
 		this.nombreVendedor = nombreVendedor;
 	}
-
+	
 	public String getCodigo() {
 		return codigo;
 	}

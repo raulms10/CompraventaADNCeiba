@@ -13,5 +13,4 @@ import co.com.ceiba.compraventa.infraestructura.entidad.CompraEntity;
  */
 public interface CompraJpa extends JpaRepository<CompraEntity, Long> {
 
-	// void existe(String cedulaVendedor, String codigoProducto);
 }
