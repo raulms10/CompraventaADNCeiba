@@ -1,0 +1,42 @@
+/**
+ * 
+ */
+package co.com.ceiba.compraventa.infraestructura.adaptador.repositorio;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import co.com.ceiba.compraventa.dominio.entidad.Compra;
+import co.com.ceiba.compraventa.dominio.repositorio.RepositorioCompra;
+import co.com.ceiba.compraventa.infraestructura.entidad.CompraEntity;
+import co.com.ceiba.compraventa.infraestructura.jpa.CompraJpa;
+
+/**
+ * @author raul.martinez
+ *
+ */
+@Repository
+public class RepositorioCompraJpa implements RepositorioCompra {
+	
+	@Autowired
+	private final CompraJpa compraJpa;
+	
+	private ModelMapper modelMapper = new ModelMapper();
+	
+	public RepositorioCompraJpa(CompraJpa compraJpa) {
+		this.compraJpa = compraJpa;
+	}
+
+	@Override
+	public void crear(Compra compra) {
+		System.out.println("Se supone que guarda");
+		CompraEntity compraEntity = modelMapper.map(compra, CompraEntity.class);
+		compraJpa.save(compraEntity);
+	}
+
+	@Override
+	public boolean existe(Compra compra) {
+		return true;
+	}
+}

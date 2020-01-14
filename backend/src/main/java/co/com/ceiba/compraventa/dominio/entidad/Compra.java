@@ -11,6 +11,7 @@ import java.util.Date;
  */
 public class Compra {
 	
+	private Long idCompra;
 	private String cedulaComprador;
 	private String nombreComprador;
 	private Date fechaCompra;
@@ -29,7 +30,7 @@ public class Compra {
 	private static final int LONGITUD_MAXIMA_DE_CEDULA_COMPRADOR = 12;
 	private static final int LONGITUD_MAXIMA_DE_NOMBRE_COMPRADOR = 60;
 	
-	public Compra(String cedulaComprador, String nombreComprador, Date fechaCompra, Long valorPagado, Producto producto) {
+	public Compra(Long idCompra, String cedulaComprador, String nombreComprador, Date fechaCompra, Long valorPagado, Producto producto) {
 		//Se valida los datos obligatorios
 		ValidadorParametro.validarObligatorio(cedulaComprador, LA_CEDULA_COMPRADOR_ES_DATO_OBLIGATORIO);
 		ValidadorParametro.validarObligatorio(nombreComprador, EL_NOMBRE_COMPRADOR_ES_DATO_OBLIGATORIO);
@@ -40,11 +41,16 @@ public class Compra {
 		ValidadorParametro.validarLongitudMaxima(cedulaComprador, LONGITUD_MAXIMA_DE_CEDULA_COMPRADOR, String.format(LA_CEDULA_COMPRADOR_DEBE_TENER_MAXIMO_CARACTERES, LONGITUD_MAXIMA_DE_CEDULA_COMPRADOR));
 		ValidadorParametro.validarLongitudMaxima(nombreComprador, LONGITUD_MAXIMA_DE_NOMBRE_COMPRADOR, String.format(EL_NOMBRE_COMPRADOR_DEBE_TENER_MAXIMO_CARACTERES, LONGITUD_MAXIMA_DE_NOMBRE_COMPRADOR));
 		
+		this.idCompra = idCompra;
 		this.cedulaComprador = cedulaComprador;
 		this.nombreComprador = nombreComprador;
 		this.fechaCompra = new Date(fechaCompra.getTime());
 		this.valorPagado = valorPagado;
 		this.producto = producto;
+	}
+	
+	public Long getIdCompra() {
+		return idCompra;
 	}
 
 	public String getCedulaComprador() {

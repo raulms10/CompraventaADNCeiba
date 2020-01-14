@@ -1,7 +1,7 @@
 /**
  * 
  */
-package co.com.ceiba.compraventa.dominio.testdatabuilder.producto;
+package co.com.ceiba.compraventa.dominio.testdatabuilder;
 
 import java.util.Date;
 
