@@ -30,7 +30,6 @@ public class RepositorioCompraJpa implements RepositorioCompra {
 
 	@Override
 	public void crear(Compra compra) {
-		System.out.println("Se supone que guarda");
 		CompraEntity compraEntity = modelMapper.map(compra, CompraEntity.class);
 		compraJpa.save(compraEntity);
 	}

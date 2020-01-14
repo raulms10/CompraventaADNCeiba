@@ -19,17 +19,17 @@ public class ComandoProducto {
 	private String cedulaVendedor;
 	private String nombreVendedor;
 	
-	public ComandoProducto() {}
-	
 	public ComandoProducto(String codigo, String nombre, Long valor, Long descuento, Date fecha, String cedulaVendedor, String nombreVendedor) {
 		this.codigo = codigo;
 		this.nombre = nombre;
 		this.valor = valor;
 		this.descuento = descuento;
-		this.fecha = fecha;
+		this.fecha = fecha == null ? null : new Date(fecha.getTime());
 		this.cedulaVendedor = cedulaVendedor;
 		this.nombreVendedor = nombreVendedor;
 	}
+	
+	public ComandoProducto() {}
 
 	public String getCodigo() {
 		return codigo;
@@ -48,7 +48,7 @@ public class ComandoProducto {
 	}
 	
 	public Date getFecha() {
-		return fecha;
+		return fecha == null ? null : new Date(fecha.getTime());
 	}
 	
 	public String getCedulaVendedor() {

@@ -47,6 +47,6 @@ public class ServicioCrearProducto {
 	 * @param producto
 	 */
 	private void validarDiaLunesAViernes(Date fecha) {
-		ValidadorFecha.validarDiaLunesAViernes(fecha, SOLO_CREA_PRODCUTOS_LUNES_A_VIERNES+"l");
+		ValidadorFecha.validarDiaLunesAViernes(fecha, SOLO_CREA_PRODCUTOS_LUNES_A_VIERNES);
 	}
 }
