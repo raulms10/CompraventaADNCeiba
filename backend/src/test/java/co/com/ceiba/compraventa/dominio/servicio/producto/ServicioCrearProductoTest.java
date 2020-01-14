@@ -17,7 +17,7 @@ import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionDuplicidad;
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionLunesViernes;
 import co.com.ceiba.compraventa.dominio.repositorio.RepositorioProducto;
 import co.com.ceiba.compraventa.dominio.servicio.producto.ServicioCrearProducto;
-import co.com.ceiba.compraventa.dominio.testdatabuilder.producto.ProductoTestDataBuilder;
+import co.com.ceiba.compraventa.dominio.testdatabuilder.ProductoTestDataBuilder;
 
 /**
  * @author raul.martinez

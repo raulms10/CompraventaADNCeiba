@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import co.com.ceiba.compraventa.dominio.BasePrueba;
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionLongitudMaxima;
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionValorObligatorio;
-import co.com.ceiba.compraventa.dominio.testdatabuilder.compra.CompraTestDataBuilder;
+import co.com.ceiba.compraventa.dominio.testdatabuilder.CompraTestDataBuilder;
 
 /**
  * @author raul.martinez

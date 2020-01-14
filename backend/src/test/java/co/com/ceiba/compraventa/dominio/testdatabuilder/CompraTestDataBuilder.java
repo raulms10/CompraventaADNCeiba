@@ -1,13 +1,12 @@
 /**
  * 
  */
-package co.com.ceiba.compraventa.dominio.testdatabuilder.compra;
+package co.com.ceiba.compraventa.dominio.testdatabuilder;
 
 import java.util.Date;
 
 import co.com.ceiba.compraventa.dominio.entidad.Compra;
 import co.com.ceiba.compraventa.dominio.entidad.Producto;
-import co.com.ceiba.compraventa.dominio.testdatabuilder.producto.ProductoTestDataBuilder;
 
 /**
  * @author raul.martinez
@@ -15,6 +14,7 @@ import co.com.ceiba.compraventa.dominio.testdatabuilder.producto.ProductoTestDat
  */
 public class CompraTestDataBuilder {
 
+	private Long idCompra;
 	private String cedulaComprador;
 	private String nombreComprador;
 	private Date fechaCompra;
@@ -22,6 +22,7 @@ public class CompraTestDataBuilder {
 	private Producto producto;
 	
 	public CompraTestDataBuilder() {
+		this.idCompra = null;
 		this.cedulaComprador = "50549708";
 		this.nombreComprador = "Carla Baltazar Ortiz";
 		this.fechaCompra = new Date();
@@ -55,6 +56,6 @@ public class CompraTestDataBuilder {
 	}
 	
 	public Compra build() {
-		return new Compra(cedulaComprador, nombreComprador, fechaCompra, valorPagado, producto);
+		return new Compra(idCompra, cedulaComprador, nombreComprador, fechaCompra, valorPagado, producto);
 	}
 }

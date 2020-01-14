@@ -13,7 +13,7 @@ import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionLongitudMaxima;
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionRango;
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionValorMinimo;
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionValorObligatorio;
-import co.com.ceiba.compraventa.dominio.testdatabuilder.producto.ProductoTestDataBuilder;
+import co.com.ceiba.compraventa.dominio.testdatabuilder.ProductoTestDataBuilder;
 
 /**
  * @author raul.martinez
@@ -45,7 +45,7 @@ class ProductoTest {
 	private static final Long MAXIMO_DESCUENTO_PERMITIDO = 75L;
 	
 	@Test
-	public void validarCreacionProducto() throws ParseException {
+	public void validarCreacionProducto() {
 		//Arrange
 		ProductoTestDataBuilder productoTestDataBuilder = new ProductoTestDataBuilder();
 		//Act

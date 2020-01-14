@@ -17,8 +17,8 @@ import co.com.ceiba.compraventa.dominio.entidad.Producto;
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionDuplicidad;
 import co.com.ceiba.compraventa.dominio.repositorio.RepositorioCompra;
 import co.com.ceiba.compraventa.dominio.servicio.compra.ServicioCrearCompra;
-import co.com.ceiba.compraventa.dominio.testdatabuilder.compra.CompraTestDataBuilder;
-import co.com.ceiba.compraventa.dominio.testdatabuilder.producto.ProductoTestDataBuilder;
+import co.com.ceiba.compraventa.dominio.testdatabuilder.CompraTestDataBuilder;
+import co.com.ceiba.compraventa.dominio.testdatabuilder.ProductoTestDataBuilder;
 
 /**
  * @author raul.martinez
