@@ -22,7 +22,7 @@ public class ComandoProductoTestDataBuilder {
 	private String nombreVendedor;
 	
 	public ComandoProductoTestDataBuilder() {
-		this.codigo = "7705689";
+		this.codigo = "7705686";
 		this.nombre = "Nevera Haceb 2 puertas";
 		this.valor = 1785999L;
 		this.descuento = 8L;
