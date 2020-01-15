@@ -29,7 +29,7 @@ public class ManejadorError extends ResponseEntityExceptionHandler {
     
     private static final Logger LOGGER_ERROR = LoggerFactory.getLogger(ManejadorError.class);
 
-    private static final String HA_OCURRIDO_ERROR_CONCTATE_ADMINISTRADOR = "Ha ocurrido un error, por favor contactar al administrador.";
+    private static final String HA_OCURRIDO_ERROR_CONCTACTE_ADMINISTRADOR = "Ha ocurrido un error, por favor contactar al administrador.";
 
     private static final ConcurrentHashMap<String, Integer> CODIGOS_ESTADO = new ConcurrentHashMap<>();
 
@@ -55,7 +55,7 @@ public class ManejadorError extends ResponseEntityExceptionHandler {
             resultado = new ResponseEntity<>(error, HttpStatus.valueOf(codigo));
         } else {
             LOGGER_ERROR.error(excepcionNombre, exception);
-            Error error = new Error(excepcionNombre, HA_OCURRIDO_ERROR_CONCTATE_ADMINISTRADOR);
+            Error error = new Error(excepcionNombre, HA_OCURRIDO_ERROR_CONCTACTE_ADMINISTRADOR);
             resultado = new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 

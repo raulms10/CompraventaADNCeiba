@@ -49,6 +49,11 @@ public class ComandoCompraTestDataBuilder {
 		return this;
 	}
 	
+	public ComandoCompraTestDataBuilder conComandoProducto(ComandoProducto comandoProducto) {
+		this.comandoProducto = comandoProducto;
+		return this;
+	}
+	
 	public ComandoCompra build() {
 		return new ComandoCompra(idCompra, cedulaComprador, nombreComprador, fechaCompra, valorPagado, comandoProducto);
 	}
