@@ -3,8 +3,6 @@
  */
 package co.com.ceiba.compraventa.dominio.entidad;
 
-import java.text.ParseException;
-
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
