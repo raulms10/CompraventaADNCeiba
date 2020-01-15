@@ -81,6 +81,10 @@ class CompraControladorTest {
     	comandoCompraTestDataBuilder.conFechaCompra(fecha);
         ComandoCompra comandoCompra = comandoCompraTestDataBuilder.build();
         // Act - Assert
+        this.mockMvc.perform(post("/producto/crear")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(comandoProducto)))
+        		.andExpect(status().isOk());
         this.mockMvc.perform(post("/compra/crear")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(comandoCompra)))
