@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.com.ceiba.compraventa.aplicacion.comando.ComandoCompra;
-import co.com.ceiba.compraventa.aplicacion.comando.manejador.compra.ManejadorCrearCompra;
+import co.com.ceiba.compraventa.aplicacion.manejador.compra.ManejadorCrearCompra;
 
 /**
  * @author raul.martinez
  *
  */
 @RestController
-@RequestMapping(value = "/compra/")
+@RequestMapping(value = "/compras")
 public class CompraControlador {
 
 	private final ManejadorCrearCompra manejadorCrearCompra;
@@ -25,7 +25,7 @@ public class CompraControlador {
 		this.manejadorCrearCompra = manejadorCrearCompra;
 	}
 	
-	@PostMapping(value = "crear")
+	@PostMapping
 	public void crear(@RequestBody ComandoCompra comandoCompra) {
 		this.manejadorCrearCompra.ejecutar(comandoCompra);
 	}

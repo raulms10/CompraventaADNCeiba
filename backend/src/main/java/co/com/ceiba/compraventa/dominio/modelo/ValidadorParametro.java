@@ -1,7 +1,7 @@
 /**
  * 
  */
-package co.com.ceiba.compraventa.dominio.entidad;
+package co.com.ceiba.compraventa.dominio.modelo;
 
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionLongitudMaxima;
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionRango;

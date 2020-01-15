@@ -1,7 +1,7 @@
 /**
  * 
  */
-package co.com.ceiba.compraventa.infraestructura.controlador;
+package co.com.ceiba.compraventa.infraestructura.integracion;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -27,12 +27,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import co.com.ceiba.compraventa.CompraventaApplication;
 import co.com.ceiba.compraventa.aplicacion.comando.ComandoProducto;
-import co.com.ceiba.compraventa.aplicacion.testdatabuilder.ComandoProductoTestDataBuilder;
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionLongitudMaxima;
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionLunesViernes;
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionRango;
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionValorMinimo;
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionValorObligatorio;
+import co.com.ceiba.compraventa.infraestructura.testdatabuilder.ComandoProductoTestDataBuilder;
 /**
  * @author raul.martinez
  *
@@ -67,6 +67,8 @@ class ProductoControladorTest {
 	private static final Long MAXIMO_DESCUENTO_PERMITIDO = 75L;
 	
 	private static final String SOLO_CREA_PRODCUTOS_LUNES_A_VIERNES = "Solo se permite crear productos de lunes a viernes.";
+	
+	private static final String URL_PRODUCTOS = "/productos";
 
 	@Autowired
 	private WebApplicationContext context;
@@ -89,7 +91,7 @@ class ProductoControladorTest {
     	comandoProductoTestDataBuilder.conFecha(new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-14"));
         ComandoProducto comandoProducto = comandoProductoTestDataBuilder.build();
         // Act - Assert
-        mockMvc.perform(post("/producto/crear")
+        mockMvc.perform(post(URL_PRODUCTOS)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(comandoProducto)))
         		.andExpect(status().isOk());
@@ -102,7 +104,7 @@ class ProductoControladorTest {
     	comandoProductoTestDataBuilder.conCodigo(null);
         ComandoProducto comandoProducto = comandoProductoTestDataBuilder.build();
         // Act - Assert
-        mockMvc.perform(post("/producto/crear")
+        mockMvc.perform(post(URL_PRODUCTOS)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(comandoProducto)))
         		.andExpect(status().isBadRequest())
@@ -117,7 +119,7 @@ class ProductoControladorTest {
     	comandoProductoTestDataBuilder.conNombre(null);
         ComandoProducto comandoProducto = comandoProductoTestDataBuilder.build();
         // Act - Assert
-        mockMvc.perform(post("/producto/crear")
+        mockMvc.perform(post(URL_PRODUCTOS)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(comandoProducto)))
         		.andExpect(status().isBadRequest())
@@ -132,7 +134,7 @@ class ProductoControladorTest {
     	comandoProductoTestDataBuilder.conValor(null);
         ComandoProducto comandoProducto = comandoProductoTestDataBuilder.build();
         // Act - Assert
-        mockMvc.perform(post("/producto/crear")
+        mockMvc.perform(post(URL_PRODUCTOS)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(comandoProducto)))
         		.andExpect(status().isBadRequest())
@@ -147,7 +149,7 @@ class ProductoControladorTest {
     	comandoProductoTestDataBuilder.conDescuento(null);
         ComandoProducto comandoProducto = comandoProductoTestDataBuilder.build();
         // Act - Assert
-        mockMvc.perform(post("/producto/crear")
+        mockMvc.perform(post(URL_PRODUCTOS)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(comandoProducto)))
         		.andExpect(status().isBadRequest())
@@ -162,7 +164,7 @@ class ProductoControladorTest {
     	comandoProductoTestDataBuilder.conFecha(null);
         ComandoProducto comandoProducto = comandoProductoTestDataBuilder.build();
         // Act - Assert
-        mockMvc.perform(post("/producto/crear")
+        mockMvc.perform(post(URL_PRODUCTOS)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(comandoProducto)))
         		.andExpect(status().isBadRequest())
@@ -177,7 +179,7 @@ class ProductoControladorTest {
     	comandoProductoTestDataBuilder.conCedulaVendedor(null);
         ComandoProducto comandoProducto = comandoProductoTestDataBuilder.build();
         // Act - Assert
-        mockMvc.perform(post("/producto/crear")
+        mockMvc.perform(post(URL_PRODUCTOS)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(comandoProducto)))
         		.andExpect(status().isBadRequest())
@@ -192,7 +194,7 @@ class ProductoControladorTest {
     	comandoProductoTestDataBuilder.conNombreVendedor(null);
         ComandoProducto comandoProducto = comandoProductoTestDataBuilder.build();
         // Act - Assert
-        mockMvc.perform(post("/producto/crear")
+        mockMvc.perform(post(URL_PRODUCTOS)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(comandoProducto)))
         		.andExpect(status().isBadRequest())
@@ -207,7 +209,7 @@ class ProductoControladorTest {
     	comandoProductoTestDataBuilder.conCodigo("784523213894395349857");
         ComandoProducto comandoProducto = comandoProductoTestDataBuilder.build();
         // Act - Assert
-        mockMvc.perform(post("/producto/crear")
+        mockMvc.perform(post(URL_PRODUCTOS)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(comandoProducto)))
         		.andExpect(status().isBadRequest())
@@ -223,7 +225,7 @@ class ProductoControladorTest {
     	comandoProductoTestDataBuilder.conNombre("Este nombre es demasiado largo para crear un producto pruebe con otro nombre");
         ComandoProducto comandoProducto = comandoProductoTestDataBuilder.build();
         // Act - Assert
-        mockMvc.perform(post("/producto/crear")
+        mockMvc.perform(post(URL_PRODUCTOS)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(comandoProducto)))
         		.andExpect(status().isBadRequest())
@@ -238,7 +240,7 @@ class ProductoControladorTest {
     	comandoProductoTestDataBuilder.conCedulaVendedor("700555678093223");
         ComandoProducto comandoProducto = comandoProductoTestDataBuilder.build();
         // Act - Assert
-        mockMvc.perform(post("/producto/crear")
+        mockMvc.perform(post(URL_PRODUCTOS)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(comandoProducto)))
         		.andExpect(status().isBadRequest())
@@ -253,7 +255,7 @@ class ProductoControladorTest {
     	comandoProductoTestDataBuilder.conNombreVendedor("Este nombre de vendedor es demasiado largo para crear un producto");
         ComandoProducto comandoProducto = comandoProductoTestDataBuilder.build();
         // Act - Assert
-        mockMvc.perform(post("/producto/crear")
+        mockMvc.perform(post(URL_PRODUCTOS)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(comandoProducto)))
         		.andExpect(status().isBadRequest())
@@ -268,7 +270,7 @@ class ProductoControladorTest {
     	comandoProductoTestDataBuilder.conDescuento(80L);
         ComandoProducto comandoProducto = comandoProductoTestDataBuilder.build();
         // Act - Assert
-        mockMvc.perform(post("/producto/crear")
+        mockMvc.perform(post(URL_PRODUCTOS)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(comandoProducto)))
         		.andExpect(status().isBadRequest())
@@ -283,7 +285,7 @@ class ProductoControladorTest {
     	comandoProductoTestDataBuilder.conDescuento(-10L);
         ComandoProducto comandoProducto = comandoProductoTestDataBuilder.build();
         // Act - Assert
-        mockMvc.perform(post("/producto/crear")
+        mockMvc.perform(post(URL_PRODUCTOS)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(comandoProducto)))
         		.andExpect(status().isBadRequest())
@@ -298,7 +300,7 @@ class ProductoControladorTest {
     	comandoProductoTestDataBuilder.conValor(-1000L);
         ComandoProducto comandoProducto = comandoProductoTestDataBuilder.build();
         // Act - Assert
-        mockMvc.perform(post("/producto/crear")
+        mockMvc.perform(post(URL_PRODUCTOS)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(comandoProducto)))
         		.andExpect(status().isBadRequest())
@@ -313,7 +315,7 @@ class ProductoControladorTest {
     	comandoProductoTestDataBuilder.conFecha(new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-11"));
         ComandoProducto comandoProducto = comandoProductoTestDataBuilder.build();
         // Act - Assert
-        mockMvc.perform(post("/producto/crear")
+        mockMvc.perform(post(URL_PRODUCTOS)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(comandoProducto)))
         		.andExpect(status().isBadRequest())
@@ -328,7 +330,7 @@ class ProductoControladorTest {
     	comandoProductoTestDataBuilder.conFecha(new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-12"));
         ComandoProducto comandoProducto = comandoProductoTestDataBuilder.build();
         // Act - Assert
-        mockMvc.perform(post("/producto/crear")
+        mockMvc.perform(post(URL_PRODUCTOS)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(comandoProducto)))
         		.andExpect(status().isBadRequest())

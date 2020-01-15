@@ -11,6 +11,7 @@ import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionLongitudMaxima;
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionRango;
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionValorMinimo;
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionValorObligatorio;
+import co.com.ceiba.compraventa.dominio.modelo.Producto;
 import co.com.ceiba.compraventa.dominio.testdatabuilder.ProductoTestDataBuilder;
 
 /**

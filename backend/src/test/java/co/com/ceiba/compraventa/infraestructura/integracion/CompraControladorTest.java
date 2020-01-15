@@ -1,7 +1,7 @@
 /**
  * 
  */
-package co.com.ceiba.compraventa.infraestructura.controlador;
+package co.com.ceiba.compraventa.infraestructura.integracion;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -29,10 +29,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import co.com.ceiba.compraventa.CompraventaApplication;
 import co.com.ceiba.compraventa.aplicacion.comando.ComandoCompra;
 import co.com.ceiba.compraventa.aplicacion.comando.ComandoProducto;
-import co.com.ceiba.compraventa.aplicacion.testdatabuilder.ComandoCompraTestDataBuilder;
-import co.com.ceiba.compraventa.aplicacion.testdatabuilder.ComandoProductoTestDataBuilder;
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionLongitudMaxima;
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionValorObligatorio;
+import co.com.ceiba.compraventa.infraestructura.testdatabuilder.ComandoCompraTestDataBuilder;
+import co.com.ceiba.compraventa.infraestructura.testdatabuilder.ComandoProductoTestDataBuilder;
 /**
  * @author raul.martinez
  *
@@ -55,6 +55,10 @@ class CompraControladorTest {
 	
 	private static final int LONGITUD_MAXIMA_DE_CEDULA_COMPRADOR = 12;
 	private static final int LONGITUD_MAXIMA_DE_NOMBRE_COMPRADOR = 60;
+	
+	private static final String URL_COMPRAS = "/compras";
+	private static final String URL_PRODUCTOS = "/productos";
+	
 	@Autowired
 	private WebApplicationContext context;
 	
@@ -81,11 +85,11 @@ class CompraControladorTest {
     	comandoCompraTestDataBuilder.conFechaCompra(fecha);
         ComandoCompra comandoCompra = comandoCompraTestDataBuilder.build();
         // Act - Assert
-        this.mockMvc.perform(post("/producto/crear")
+        this.mockMvc.perform(post(URL_PRODUCTOS)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(comandoProducto)))
         		.andExpect(status().isOk());
-        this.mockMvc.perform(post("/compra/crear")
+        this.mockMvc.perform(post(URL_COMPRAS)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(comandoCompra)))
         		.andExpect(status().isOk());
@@ -98,7 +102,7 @@ class CompraControladorTest {
     	comandoCompraTestDataBuilder.conCedulaComprador(null);
         ComandoCompra comandoCompra = comandoCompraTestDataBuilder.build();
         // Act - Assert
-        this.mockMvc.perform(post("/compra/crear")
+        this.mockMvc.perform(post(URL_COMPRAS)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(comandoCompra)))
         		.andExpect(status().isBadRequest())
@@ -113,7 +117,7 @@ class CompraControladorTest {
     	comandoCompraTestDataBuilder.conNombreComprador(null);
         ComandoCompra comandoCompra = comandoCompraTestDataBuilder.build();
         // Act - Assert
-        this.mockMvc.perform(post("/compra/crear")
+        this.mockMvc.perform(post(URL_COMPRAS)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(comandoCompra)))
         		.andExpect(status().isBadRequest())
@@ -128,7 +132,7 @@ class CompraControladorTest {
     	comandoCompraTestDataBuilder.conFechaCompra(null);
         ComandoCompra comandoCompra = comandoCompraTestDataBuilder.build();
         // Act - Assert
-        this.mockMvc.perform(post("/compra/crear")
+        this.mockMvc.perform(post(URL_COMPRAS)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(comandoCompra)))
         		.andExpect(status().isBadRequest())
@@ -143,7 +147,7 @@ class CompraControladorTest {
     	comandoCompraTestDataBuilder.conValorPagado(null);
         ComandoCompra comandoCompra = comandoCompraTestDataBuilder.build();
         // Act - Assert
-        this.mockMvc.perform(post("/compra/crear")
+        this.mockMvc.perform(post(URL_COMPRAS)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(comandoCompra)))
         		.andExpect(status().isBadRequest())
@@ -158,7 +162,7 @@ class CompraControladorTest {
     	comandoCompraTestDataBuilder.conComandoProducto(null);
         ComandoCompra comandoCompra = comandoCompraTestDataBuilder.build();
         // Act - Assert
-        this.mockMvc.perform(post("/compra/crear")
+        this.mockMvc.perform(post(URL_COMPRAS)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(comandoCompra)))
         		.andExpect(status().isInternalServerError())
@@ -173,7 +177,7 @@ class CompraControladorTest {
     	comandoCompraTestDataBuilder.conCedulaComprador("700555678093223");
         ComandoCompra comandoCompra = comandoCompraTestDataBuilder.build();
         // Act - Assert
-        this.mockMvc.perform(post("/compra/crear")
+        this.mockMvc.perform(post(URL_COMPRAS)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(comandoCompra)))
         		.andExpect(status().isBadRequest())
@@ -188,7 +192,7 @@ class CompraControladorTest {
     	comandoCompraTestDataBuilder.conNombreComprador("Este nombre de vendedor es demasiado largo para crear un producto");
         ComandoCompra comandoCompra = comandoCompraTestDataBuilder.build();
         // Act - Assert
-        this.mockMvc.perform(post("/compra/crear")
+        this.mockMvc.perform(post(URL_COMPRAS)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(comandoCompra)))
         		.andExpect(status().isBadRequest())

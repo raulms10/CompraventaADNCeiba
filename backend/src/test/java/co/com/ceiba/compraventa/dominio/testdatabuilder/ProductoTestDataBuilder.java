@@ -5,7 +5,7 @@ package co.com.ceiba.compraventa.dominio.testdatabuilder;
 
 import java.util.Date;
 
-import co.com.ceiba.compraventa.dominio.entidad.Producto;
+import co.com.ceiba.compraventa.dominio.modelo.Producto;
 
 /**
  * @author raul.martinez

@@ -1,12 +1,12 @@
 /**
  * 
  */
-package co.com.ceiba.compraventa.aplicacion.comando.fabrica;
+package co.com.ceiba.compraventa.aplicacion.fabrica;
 
 import org.springframework.stereotype.Component;
 
 import co.com.ceiba.compraventa.aplicacion.comando.ComandoProducto;
-import co.com.ceiba.compraventa.dominio.entidad.Producto;
+import co.com.ceiba.compraventa.dominio.modelo.Producto;
 
 /**
  * @author raul.martinez

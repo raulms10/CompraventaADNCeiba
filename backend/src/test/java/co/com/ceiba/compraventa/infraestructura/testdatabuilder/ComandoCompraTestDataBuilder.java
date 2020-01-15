@@ -1,7 +1,7 @@
 /**
  * 
  */
-package co.com.ceiba.compraventa.aplicacion.testdatabuilder;
+package co.com.ceiba.compraventa.infraestructura.testdatabuilder;
 
 import java.util.Date;
 
