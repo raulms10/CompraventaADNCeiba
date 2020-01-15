@@ -14,5 +14,5 @@ import co.com.ceiba.compraventa.infraestructura.entidad.ProductoEntity;
  */
 @Repository
 public interface ProductoJpa extends JpaRepository<ProductoEntity, String> {
-
+	
 }

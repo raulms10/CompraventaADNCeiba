@@ -29,6 +29,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import co.com.ceiba.compraventa.CompraventaApplication;
 import co.com.ceiba.compraventa.aplicacion.comando.ComandoCompra;
 import co.com.ceiba.compraventa.aplicacion.comando.ComandoProducto;
+import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionDuplicidad;
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionLongitudMaxima;
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionValorObligatorio;
 import co.com.ceiba.compraventa.infraestructura.testdatabuilder.ComandoCompraTestDataBuilder;
@@ -52,6 +53,8 @@ class CompraControladorTest {
 	
 	private static final String LA_CEDULA_COMPRADOR_DEBE_TENER_MAXIMO_CARACTERES = "La c<E9>dula del comprador debe tener m<E1>ximo %s caracteres.";
 	private static final String EL_NOMBRE_COMPRADOR_DEBE_TENER_MAXIMO_CARACTERES = "El nombre del comprador debe tener m<E1>ximo %s caracteres.";
+	
+	private static final String PRODUCTO_HA_SIDO_VENDIDO = "El producto ya ha sido vendido.";
 	
 	private static final int LONGITUD_MAXIMA_DE_CEDULA_COMPRADOR = 12;
 	private static final int LONGITUD_MAXIMA_DE_NOMBRE_COMPRADOR = 60;
@@ -198,5 +201,33 @@ class CompraControladorTest {
         		.andExpect(status().isBadRequest())
         		.andExpect(jsonPath("$.nombreExcepcion").value(ExcepcionLongitudMaxima.class.getSimpleName()))
         		.andExpect(jsonPath("$.mensaje").value(String.format(EL_NOMBRE_COMPRADOR_DEBE_TENER_MAXIMO_CARACTERES, LONGITUD_MAXIMA_DE_NOMBRE_COMPRADOR)));
+    }
+    
+    @Test
+    public void validarCrearConProductoVendido() throws Exception {
+        // Arrange
+    	Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-15");
+    	ComandoProductoTestDataBuilder comandoProductoTestDataBuilder = new ComandoProductoTestDataBuilder();
+    	comandoProductoTestDataBuilder.conFecha(fecha);
+        ComandoProducto comandoProducto = comandoProductoTestDataBuilder.build();
+        ComandoCompraTestDataBuilder comandoCompraTestDataBuilder = new ComandoCompraTestDataBuilder();
+    	comandoCompraTestDataBuilder.conComandoProducto(comandoProducto);
+    	comandoCompraTestDataBuilder.conFechaCompra(fecha);
+        ComandoCompra comandoCompra = comandoCompraTestDataBuilder.build();
+        // Act - Assert
+        this.mockMvc.perform(post(URL_PRODUCTOS)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(comandoProducto)))
+        		.andExpect(status().isOk());
+        this.mockMvc.perform(post(URL_COMPRAS)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(comandoCompra)))
+        		.andExpect(status().isOk());
+        this.mockMvc.perform(post(URL_COMPRAS)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(comandoCompra)))
+        		.andExpect(status().isBadRequest())
+        		.andExpect(jsonPath("$.nombreExcepcion").value(ExcepcionDuplicidad.class.getSimpleName()))
+        		.andExpect(jsonPath("$.mensaje").value(PRODUCTO_HA_SIDO_VENDIDO));
     }
 }
