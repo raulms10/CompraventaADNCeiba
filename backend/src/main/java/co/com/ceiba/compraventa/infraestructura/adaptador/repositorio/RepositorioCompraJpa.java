@@ -3,6 +3,8 @@
  */
 package co.com.ceiba.compraventa.infraestructura.adaptador.repositorio;
 
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -36,6 +38,8 @@ public class RepositorioCompraJpa implements RepositorioCompra {
 
 	@Override
 	public boolean existe(Compra compra) {
-		return false;
+		CompraEntity compraEntity = modelMapper.map(compra, CompraEntity.class);
+		List<CompraEntity> listFindByProducto = compraJpa.findByProducto(compraEntity.getProducto());
+		return !listFindByProducto.isEmpty();
 	}
 }

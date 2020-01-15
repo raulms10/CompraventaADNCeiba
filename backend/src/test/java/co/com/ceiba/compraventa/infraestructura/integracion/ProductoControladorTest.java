@@ -27,6 +27,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import co.com.ceiba.compraventa.CompraventaApplication;
 import co.com.ceiba.compraventa.aplicacion.comando.ComandoProducto;
+import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionDuplicidad;
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionLongitudMaxima;
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionLunesViernes;
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionRango;
@@ -67,6 +68,7 @@ class ProductoControladorTest {
 	private static final Long MAXIMO_DESCUENTO_PERMITIDO = 75L;
 	
 	private static final String SOLO_CREA_PRODCUTOS_LUNES_A_VIERNES = "Solo se permite crear productos de lunes a viernes.";
+	private static final String PRODUCTO_YA_EXISTE = "El producto ya ha sido ingresado.";
 	
 	private static final String URL_PRODUCTOS = "/productos";
 
@@ -336,5 +338,24 @@ class ProductoControladorTest {
         		.andExpect(status().isBadRequest())
         		.andExpect(jsonPath("$.nombreExcepcion").value(ExcepcionLunesViernes.class.getSimpleName()))
         		.andExpect(jsonPath("$.mensaje").value(SOLO_CREA_PRODCUTOS_LUNES_A_VIERNES));
+    }
+    
+    @Test
+    public void validarCrearProductoIngresado() throws Exception{
+        // Arrange
+    	ComandoProductoTestDataBuilder comandoProductoTestDataBuilder = new ComandoProductoTestDataBuilder();
+    	comandoProductoTestDataBuilder.conFecha(new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-14"));
+        ComandoProducto comandoProducto = comandoProductoTestDataBuilder.build();
+        // Act - Assert
+        mockMvc.perform(post(URL_PRODUCTOS)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(comandoProducto)))
+        		.andExpect(status().isOk());
+        mockMvc.perform(post(URL_PRODUCTOS)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(comandoProducto)))
+        		.andExpect(status().isBadRequest())
+        		.andExpect(jsonPath("$.nombreExcepcion").value(ExcepcionDuplicidad.class.getSimpleName()))
+        		.andExpect(jsonPath("$.mensaje").value(PRODUCTO_YA_EXISTE));
     }
 }

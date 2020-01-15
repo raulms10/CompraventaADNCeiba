@@ -3,6 +3,8 @@
  */
 package co.com.ceiba.compraventa.infraestructura.adaptador.repositorio;
 
+import java.util.Optional;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -36,7 +38,9 @@ public class RepositorioProductoJpa implements RepositorioProducto {
 
 	@Override
 	public boolean existe(Producto producto) {
-		return false;
+		ProductoEntity productoEntity = modelMapper.map(producto, ProductoEntity.class);
+		Optional<ProductoEntity> productoById = productoJpa.findById(productoEntity.getCodigo());
+		return productoById.isPresent();
 	}
 
 }
