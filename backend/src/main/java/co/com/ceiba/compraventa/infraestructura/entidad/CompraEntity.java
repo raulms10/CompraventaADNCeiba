@@ -6,7 +6,6 @@ package co.com.ceiba.compraventa.infraestructura.entidad;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -46,7 +45,7 @@ public class CompraEntity implements Serializable {
 	@Column(name = "valor_pagado")
 	private Long valorPagado;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
 	@JoinColumn(name = "producto", referencedColumnName = "codigo", nullable = false)
 	private ProductoEntity producto;
 
