@@ -1,7 +1,7 @@
 /**
  * 
  */
-package co.com.ceiba.compraventa.infraestructura.adaptador.servicio.producto;
+package co.com.ceiba.compraventa.infraestructura.configuracion;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +14,7 @@ import co.com.ceiba.compraventa.dominio.servicio.producto.ServicioCrearProducto;
  *
  */
 @Configuration
-public class ServicioCrearProductoBean {
+public class ProductoConfiguracionBean {
 
 	@Bean
 	public ServicioCrearProducto servicioCrearProducto(RepositorioProducto repositorioProducto) {

@@ -12,9 +12,9 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import co.com.ceiba.compraventa.dominio.BasePrueba;
-import co.com.ceiba.compraventa.dominio.entidad.Compra;
-import co.com.ceiba.compraventa.dominio.entidad.Producto;
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionDuplicidad;
+import co.com.ceiba.compraventa.dominio.modelo.Compra;
+import co.com.ceiba.compraventa.dominio.modelo.Producto;
 import co.com.ceiba.compraventa.dominio.repositorio.RepositorioCompra;
 import co.com.ceiba.compraventa.dominio.servicio.compra.ServicioCrearCompra;
 import co.com.ceiba.compraventa.dominio.testdatabuilder.CompraTestDataBuilder;

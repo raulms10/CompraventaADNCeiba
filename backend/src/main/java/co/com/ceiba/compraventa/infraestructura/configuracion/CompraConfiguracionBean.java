@@ -1,7 +1,7 @@
 /**
  * 
  */
-package co.com.ceiba.compraventa.infraestructura.adaptador.servicio.compra;
+package co.com.ceiba.compraventa.infraestructura.configuracion;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +14,7 @@ import co.com.ceiba.compraventa.dominio.servicio.compra.ServicioCrearCompra;
  *
  */
 @Configuration
-public class ServicioCrearCompraBean {
+public class CompraConfiguracionBean {
 
 	@Bean
 	public ServicioCrearCompra servicioCrearCompra(RepositorioCompra repositorioCompra) {

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package co.com.ceiba.compraventa.dominio.entidad;
+package co.com.ceiba.compraventa.dominio.modelo;
 
 import java.util.Date;
 

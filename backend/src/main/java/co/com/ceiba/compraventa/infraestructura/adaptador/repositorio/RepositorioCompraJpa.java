@@ -7,7 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import co.com.ceiba.compraventa.dominio.entidad.Compra;
+import co.com.ceiba.compraventa.dominio.modelo.Compra;
 import co.com.ceiba.compraventa.dominio.repositorio.RepositorioCompra;
 import co.com.ceiba.compraventa.infraestructura.entidad.CompraEntity;
 import co.com.ceiba.compraventa.infraestructura.jpa.CompraJpa;

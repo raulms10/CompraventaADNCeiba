@@ -3,8 +3,8 @@
  */
 package co.com.ceiba.compraventa.dominio.servicio.compra;
 
-import co.com.ceiba.compraventa.dominio.entidad.Compra;
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionDuplicidad;
+import co.com.ceiba.compraventa.dominio.modelo.Compra;
 import co.com.ceiba.compraventa.dominio.repositorio.RepositorioCompra;
 
 /**

@@ -1,13 +1,13 @@
 /**
  * 
  */
-package co.com.ceiba.compraventa.aplicacion.comando.manejador.producto;
+package co.com.ceiba.compraventa.aplicacion.manejador.producto;
 
 import org.springframework.stereotype.Component;
 
 import co.com.ceiba.compraventa.aplicacion.comando.ComandoProducto;
-import co.com.ceiba.compraventa.aplicacion.comando.fabrica.FabricaProducto;
-import co.com.ceiba.compraventa.dominio.entidad.Producto;
+import co.com.ceiba.compraventa.aplicacion.fabrica.FabricaProducto;
+import co.com.ceiba.compraventa.dominio.modelo.Producto;
 import co.com.ceiba.compraventa.dominio.servicio.producto.ServicioCrearProducto;
 
 /**

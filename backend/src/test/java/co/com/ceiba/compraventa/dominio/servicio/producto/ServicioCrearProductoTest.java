@@ -12,9 +12,9 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import co.com.ceiba.compraventa.dominio.BasePrueba;
-import co.com.ceiba.compraventa.dominio.entidad.Producto;
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionDuplicidad;
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionLunesViernes;
+import co.com.ceiba.compraventa.dominio.modelo.Producto;
 import co.com.ceiba.compraventa.dominio.repositorio.RepositorioProducto;
 import co.com.ceiba.compraventa.dominio.servicio.producto.ServicioCrearProducto;
 import co.com.ceiba.compraventa.dominio.testdatabuilder.ProductoTestDataBuilder;

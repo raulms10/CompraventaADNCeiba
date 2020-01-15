@@ -5,9 +5,9 @@ package co.com.ceiba.compraventa.dominio.servicio.producto;
 
 import java.util.Date;
 
-import co.com.ceiba.compraventa.dominio.entidad.Producto;
-import co.com.ceiba.compraventa.dominio.entidad.ValidadorFecha;
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionDuplicidad;
+import co.com.ceiba.compraventa.dominio.modelo.Producto;
+import co.com.ceiba.compraventa.dominio.modelo.ValidadorFecha;
 import co.com.ceiba.compraventa.dominio.repositorio.RepositorioProducto;
 
 /**
@@ -31,10 +31,6 @@ public class ServicioCrearProducto {
 		this.repositorioProducto.crear(producto);
 	}
 	
-	/**
-	 * Valida la existencia previa del producto que se va a agregar
-	 * @param producto
-	 */
 	private void validarExistenciaPrevia(Producto producto) {
 		boolean existe = this.repositorioProducto.existe(producto);
 		if (existe) {
@@ -42,10 +38,6 @@ public class ServicioCrearProducto {
 		}
 	}
 	
-	/**
-	 * Valida que el d<ED>a de la semana est<E9> entre Lunes a Viernes para poder agregar el producto
-	 * @param producto
-	 */
 	private void validarDiaLunesAViernes(Date fecha) {
 		ValidadorFecha.validarDiaLunesAViernes(fecha, SOLO_CREA_PRODCUTOS_LUNES_A_VIERNES);
 	}

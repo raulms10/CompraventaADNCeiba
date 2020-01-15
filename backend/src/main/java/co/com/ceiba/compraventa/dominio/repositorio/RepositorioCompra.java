@@ -3,7 +3,7 @@
  */
 package co.com.ceiba.compraventa.dominio.repositorio;
 
-import co.com.ceiba.compraventa.dominio.entidad.Compra;
+import co.com.ceiba.compraventa.dominio.modelo.Compra;
 
 /**
  * @author raul.martinez
