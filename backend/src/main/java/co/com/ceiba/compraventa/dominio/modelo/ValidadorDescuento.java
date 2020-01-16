@@ -15,7 +15,6 @@ public final class ValidadorDescuento {
 	
 	public static void validarDescuentoLosViernes(Long valorPagado, Long valor, Long descuento, String mensaje) {
 		Long valorConDescuento = valor - valor * descuento / 100L;
-		System.out.println("Valores: " + valor + " -" + descuento + "%" + " = " + valorPagado + ", se obtiene: " + valorConDescuento + " valido: " + valorConDescuento.equals(valorPagado));
 		boolean esDescuentoValido = valorConDescuento.equals(valorPagado);
 		if (!esDescuentoValido) {
 			throw new ExcepcionDescuento(mensaje);
