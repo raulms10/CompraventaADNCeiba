@@ -29,6 +29,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import co.com.ceiba.compraventa.CompraventaApplication;
 import co.com.ceiba.compraventa.aplicacion.comando.ComandoCompra;
 import co.com.ceiba.compraventa.aplicacion.comando.ComandoProducto;
+import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionDescuento;
+import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionDiferenteValorPagado;
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionDuplicidad;
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionLongitudMaxima;
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionValorObligatorio;
@@ -54,7 +56,9 @@ class CompraControladorTest {
 	private static final String LA_CEDULA_COMPRADOR_DEBE_TENER_MAXIMO_CARACTERES = "La c<E9>dula del comprador debe tener m<E1>ximo %s caracteres.";
 	private static final String EL_NOMBRE_COMPRADOR_DEBE_TENER_MAXIMO_CARACTERES = "El nombre del comprador debe tener m<E1>ximo %s caracteres.";
 	
-	private static final String PRODUCTO_HA_SIDO_VENDIDO = "El producto ya ha sido vendido.";
+	private static final String EL_PRODUCTO_HA_SIDO_VENDIDO = "El producto ya ha sido vendido.";
+	private static final String EL_VALOR_PAGADO_DIFERENTE_A_VALOR = "El valor pagado es diferente al valor del producto";
+	private static final String EL_VALOR_PAGADO_NO_ES_DESCUENTO = "El valor pagado no corresponde al descuento aplicado al producto";
 	
 	private static final int LONGITUD_MAXIMA_DE_CEDULA_COMPRADOR = 12;
 	private static final int LONGITUD_MAXIMA_DE_NOMBRE_COMPRADOR = 60;
@@ -101,7 +105,9 @@ class CompraControladorTest {
     @Test
     public void validarCrearConCedulaCompradorNula() throws Exception {
         // Arrange
+    	Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-14");
     	ComandoCompraTestDataBuilder comandoCompraTestDataBuilder = new ComandoCompraTestDataBuilder();
+    	comandoCompraTestDataBuilder.conFechaCompra(fecha);
     	comandoCompraTestDataBuilder.conCedulaComprador(null);
         ComandoCompra comandoCompra = comandoCompraTestDataBuilder.build();
         // Act - Assert
@@ -116,7 +122,9 @@ class CompraControladorTest {
     @Test
     public void validarCrearConNombreCompradorNulo() throws Exception {
         // Arrange
+    	Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-14");
     	ComandoCompraTestDataBuilder comandoCompraTestDataBuilder = new ComandoCompraTestDataBuilder();
+    	comandoCompraTestDataBuilder.conFechaCompra(fecha);
     	comandoCompraTestDataBuilder.conNombreComprador(null);
         ComandoCompra comandoCompra = comandoCompraTestDataBuilder.build();
         // Act - Assert
@@ -131,7 +139,9 @@ class CompraControladorTest {
     @Test
     public void validarCrearConFechaCompraNula() throws Exception {
         // Arrange
+    	Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-14");
     	ComandoCompraTestDataBuilder comandoCompraTestDataBuilder = new ComandoCompraTestDataBuilder();
+    	comandoCompraTestDataBuilder.conFechaCompra(fecha);
     	comandoCompraTestDataBuilder.conFechaCompra(null);
         ComandoCompra comandoCompra = comandoCompraTestDataBuilder.build();
         // Act - Assert
@@ -146,7 +156,9 @@ class CompraControladorTest {
     @Test
     public void validarCrearConValorPagadoNulo() throws Exception {
         // Arrange
+    	Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-14");
     	ComandoCompraTestDataBuilder comandoCompraTestDataBuilder = new ComandoCompraTestDataBuilder();
+    	comandoCompraTestDataBuilder.conFechaCompra(fecha);
     	comandoCompraTestDataBuilder.conValorPagado(null);
         ComandoCompra comandoCompra = comandoCompraTestDataBuilder.build();
         // Act - Assert
@@ -161,7 +173,9 @@ class CompraControladorTest {
     @Test
     public void validarCrearConComandoProductoNulo() throws Exception {
         // Arrange
+    	Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-14");
     	ComandoCompraTestDataBuilder comandoCompraTestDataBuilder = new ComandoCompraTestDataBuilder();
+    	comandoCompraTestDataBuilder.conFechaCompra(fecha);
     	comandoCompraTestDataBuilder.conComandoProducto(null);
         ComandoCompra comandoCompra = comandoCompraTestDataBuilder.build();
         // Act - Assert
@@ -176,7 +190,9 @@ class CompraControladorTest {
     @Test
     public void validarCrearConCedulaCompradorDeLongitudMaxima() throws Exception {
         // Arrange
+    	Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-14");
     	ComandoCompraTestDataBuilder comandoCompraTestDataBuilder = new ComandoCompraTestDataBuilder();
+    	comandoCompraTestDataBuilder.conFechaCompra(fecha);
     	comandoCompraTestDataBuilder.conCedulaComprador("700555678093223");
         ComandoCompra comandoCompra = comandoCompraTestDataBuilder.build();
         // Act - Assert
@@ -191,7 +207,9 @@ class CompraControladorTest {
     @Test
     public void validarCrearConNombreCompradorDeLongitudMaxima() throws Exception {
         // Arrange
+    	Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-14");
     	ComandoCompraTestDataBuilder comandoCompraTestDataBuilder = new ComandoCompraTestDataBuilder();
+    	comandoCompraTestDataBuilder.conFechaCompra(fecha);
     	comandoCompraTestDataBuilder.conNombreComprador("Este nombre de vendedor es demasiado largo para crear un producto");
         ComandoCompra comandoCompra = comandoCompraTestDataBuilder.build();
         // Act - Assert
@@ -228,6 +246,70 @@ class CompraControladorTest {
                 .content(objectMapper.writeValueAsString(comandoCompra)))
         		.andExpect(status().isBadRequest())
         		.andExpect(jsonPath("$.nombreExcepcion").value(ExcepcionDuplicidad.class.getSimpleName()))
-        		.andExpect(jsonPath("$.mensaje").value(PRODUCTO_HA_SIDO_VENDIDO));
+        		.andExpect(jsonPath("$.mensaje").value(EL_PRODUCTO_HA_SIDO_VENDIDO));
+    }
+    
+    @Test
+    public void validarCrearElViernesSinAplicarDescuento() throws Exception {
+        // Arrange
+    	Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-17");
+    	ComandoCompraTestDataBuilder comandoCompraTestDataBuilder = new ComandoCompraTestDataBuilder();
+    	comandoCompraTestDataBuilder.conFechaCompra(fecha);
+        ComandoCompra comandoCompra = comandoCompraTestDataBuilder.build();
+        // Act - Assert
+        this.mockMvc.perform(post(URL_COMPRAS)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(comandoCompra)))
+        		.andExpect(status().isBadRequest())
+        		.andExpect(jsonPath("$.nombreExcepcion").value(ExcepcionDescuento.class.getSimpleName()))
+        		.andExpect(jsonPath("$.mensaje").value(EL_VALOR_PAGADO_NO_ES_DESCUENTO));
+    }
+    
+    @Test
+    public void validarCrearConDescuentoElViernes() throws Exception {
+        // Arrange
+    	Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-17");
+    	ComandoProductoTestDataBuilder comandoProductoTestDataBuilder = new ComandoProductoTestDataBuilder();
+    	comandoProductoTestDataBuilder.conFecha(fecha);
+    	comandoProductoTestDataBuilder.conValor(400000L);
+    	comandoProductoTestDataBuilder.conDescuento(10L);
+        ComandoProducto comandoProducto = comandoProductoTestDataBuilder.build();
+        ComandoCompraTestDataBuilder comandoCompraTestDataBuilder = new ComandoCompraTestDataBuilder();
+    	comandoCompraTestDataBuilder.conComandoProducto(comandoProducto);
+    	comandoCompraTestDataBuilder.conFechaCompra(fecha);
+    	comandoCompraTestDataBuilder.conValorPagado(360000L);
+        ComandoCompra comandoCompra = comandoCompraTestDataBuilder.build();
+        // Act - Assert
+        this.mockMvc.perform(post(URL_PRODUCTOS)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(comandoProducto)))
+        		.andExpect(status().isOk());
+        this.mockMvc.perform(post(URL_COMPRAS)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(comandoCompra)))
+        		.andExpect(status().isOk());
+        }
+    
+    @Test
+    public void validarCrearConValorPagadoDiferenteAValorNoViernes() throws Exception {
+        // Arrange
+    	Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-13");
+    	ComandoProductoTestDataBuilder comandoProductoTestDataBuilder = new ComandoProductoTestDataBuilder();
+    	comandoProductoTestDataBuilder.conFecha(fecha);
+    	comandoProductoTestDataBuilder.conValor(500000L);
+        ComandoProducto comandoProducto = comandoProductoTestDataBuilder.build();
+        ComandoCompraTestDataBuilder comandoCompraTestDataBuilder = new ComandoCompraTestDataBuilder();
+    	comandoCompraTestDataBuilder.conComandoProducto(comandoProducto);
+    	comandoCompraTestDataBuilder.conFechaCompra(fecha);
+    	comandoCompraTestDataBuilder.conValorPagado(300000L);
+        ComandoCompra comandoCompra = comandoCompraTestDataBuilder.build();
+        
+        // Act - Assert
+        this.mockMvc.perform(post(URL_COMPRAS)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(comandoCompra)))
+        		.andExpect(status().isBadRequest())
+        		.andExpect(jsonPath("$.nombreExcepcion").value(ExcepcionDiferenteValorPagado.class.getSimpleName()))
+        		.andExpect(jsonPath("$.mensaje").value(EL_VALOR_PAGADO_DIFERENTE_A_VALOR));
     }
 }
