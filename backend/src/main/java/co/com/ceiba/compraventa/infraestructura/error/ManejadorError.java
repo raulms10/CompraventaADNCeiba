@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionDescuento;
+import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionDiferenteValorPagado;
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionDuplicidad;
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionLongitudMaxima;
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionLunesViernes;
@@ -34,6 +36,8 @@ public class ManejadorError extends ResponseEntityExceptionHandler {
     private static final ConcurrentHashMap<String, Integer> CODIGOS_ESTADO = new ConcurrentHashMap<>();
 
     public ManejadorError() {
+    	CODIGOS_ESTADO.put(ExcepcionDescuento.class.getSimpleName(), HttpStatus.BAD_REQUEST.value());
+    	CODIGOS_ESTADO.put(ExcepcionDiferenteValorPagado.class.getSimpleName(), HttpStatus.BAD_REQUEST.value());
         CODIGOS_ESTADO.put(ExcepcionDuplicidad.class.getSimpleName(), HttpStatus.BAD_REQUEST.value());
         CODIGOS_ESTADO.put(ExcepcionLongitudMaxima.class.getSimpleName(), HttpStatus.BAD_REQUEST.value());
         CODIGOS_ESTADO.put(ExcepcionLunesViernes.class.getSimpleName(), HttpStatus.BAD_REQUEST.value());

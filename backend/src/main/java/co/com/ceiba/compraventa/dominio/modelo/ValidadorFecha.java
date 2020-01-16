@@ -26,5 +26,4 @@ public final class ValidadorFecha {
 			throw new ExcepcionLunesViernes(mensaje);
 		}
 	}
-
 }
