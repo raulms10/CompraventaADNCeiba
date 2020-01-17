@@ -54,11 +54,11 @@ public class ComandoCompra {
 	}
 
 	public Date getFechaCompra() {
-		return fechaCompra;
+		return fechaCompra == null ? null : new Date(fechaCompra.getTime());
 	}
 
 	public void setFechaCompra(Date fechaCompra) {
-		this.fechaCompra = fechaCompra;
+		this.fechaCompra = fechaCompra == null ? null : new Date(fechaCompra.getTime());;
 	}
 
 	public Long getValorPagado() {

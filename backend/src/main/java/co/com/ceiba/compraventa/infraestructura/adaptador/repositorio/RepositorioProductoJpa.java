@@ -41,8 +41,8 @@ public class RepositorioProductoJpa implements RepositorioProducto {
 
 	@Override
 	public boolean existe(Producto producto) {
-		ProductoEntity productoEntity = modelMapper.map(producto, ProductoEntity.class);
-		Optional<ProductoEntity> productoById = productoJpa.findById(productoEntity.getCodigo());
+		// ProductoEntity productoEntity = modelMapper.map(producto, ProductoEntity.class);
+		Optional<ProductoEntity> productoById = productoJpa.findById(producto.getCodigo());
 		return productoById.isPresent();
 	}
 
@@ -65,8 +65,8 @@ public class RepositorioProductoJpa implements RepositorioProducto {
 
 	@Override
 	public boolean comprado(Producto producto) {
-		ProductoEntity productoEntity = modelMapper.map(producto, ProductoEntity.class);
-		List<ProductoEntity> listProductos = productoJpa.findByCompra(productoEntity.getCodigo());
+		// ProductoEntity productoEntity = modelMapper.map(producto, ProductoEntity.class);
+		List<ProductoEntity> listProductos = productoJpa.findByCompra(producto.getCodigo());
 		return !listProductos.isEmpty();
 	}
 }

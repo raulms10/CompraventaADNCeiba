@@ -5,7 +5,6 @@ package co.com.ceiba.compraventa.aplicacion.comando;
 
 import java.util.Date;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
@@ -72,11 +71,11 @@ public class ComandoProducto {
 	}
 
 	public Date getFecha() {
-		return fecha;
+		return fecha == null ? null : new Date(fecha.getTime());
 	}
 
 	public void setFecha(Date fecha) {
-		this.fecha = fecha;
+		this.fecha = fecha == null ? null : new Date(fecha.getTime());
 	}
 
 	public String getCedulaVendedor() {
@@ -104,10 +103,10 @@ public class ComandoProducto {
 	}
 
 	public Date getFechaEliminar() {
-		return fechaEliminar;
+		return fechaEliminar == null ? null : new Date(fechaEliminar.getTime());
 	}
 
 	public void setFechaEliminar(Date fechaEliminar) {
-		this.fechaEliminar = fechaEliminar;
+		this.fechaEliminar = fechaEliminar == null ? null : new Date(fechaEliminar.getTime());
 	}	
 }
