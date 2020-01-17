@@ -3,11 +3,14 @@
  */
 package co.com.ceiba.compraventa.infraestructura.integracion;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.transaction.Transactional;
 
@@ -26,13 +29,17 @@ import org.springframework.web.context.WebApplicationContext;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import co.com.ceiba.compraventa.CompraventaApplication;
+import co.com.ceiba.compraventa.aplicacion.comando.ComandoCompra;
 import co.com.ceiba.compraventa.aplicacion.comando.ComandoProducto;
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionDuplicidad;
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionLongitudMaxima;
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionLunesViernes;
+import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionProductoComprado;
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionRango;
+import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionSabadoDomingo;
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionValorMinimo;
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionValorObligatorio;
+import co.com.ceiba.compraventa.infraestructura.testdatabuilder.ComandoCompraTestDataBuilder;
 import co.com.ceiba.compraventa.infraestructura.testdatabuilder.ComandoProductoTestDataBuilder;
 /**
  * @author raul.martinez
@@ -70,7 +77,12 @@ class ProductoControladorTest {
 	private static final String SOLO_CREA_PRODCUTOS_LUNES_A_VIERNES = "Solo se permite crear productos de lunes a viernes.";
 	private static final String PRODUCTO_YA_EXISTE = "El producto ya ha sido ingresado.";
 	
+	private static final String NO_ELIMINA_PRODUCTO_COMPRADO = "No es posible eliminar un producto comprado.";
+	private static final String NO_ELIMINA_PRODUCTO_SABADO_O_DOMINGO = "No es posible eliminar un producto los d<ED>as s<E1>bados y domingos.";
+	private static final String LA_FEHCA_ELIMINAR_ES_DATO_OBLIGATORIO = "La fecha para eliminar el producto es un dato obligatorio.";
+	
 	private static final String URL_PRODUCTOS = "/productos";
+	private static final String URL_COMPRAS = "/compras";
 
 	@Autowired
 	private WebApplicationContext context;
@@ -341,7 +353,7 @@ class ProductoControladorTest {
     }
     
     @Test
-    public void validarCrearProductoIngresado() throws Exception{
+    public void validarCrearProductoIngresado() throws Exception {
         // Arrange
     	ComandoProductoTestDataBuilder comandoProductoTestDataBuilder = new ComandoProductoTestDataBuilder();
     	comandoProductoTestDataBuilder.conFecha(new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-14"));
@@ -357,5 +369,155 @@ class ProductoControladorTest {
         		.andExpect(status().isBadRequest())
         		.andExpect(jsonPath("$.nombreExcepcion").value(ExcepcionDuplicidad.class.getSimpleName()))
         		.andExpect(jsonPath("$.mensaje").value(PRODUCTO_YA_EXISTE));
+    }
+       
+    @Test 
+    public void validarListar() throws Exception {
+    	// Arrange
+    	ComandoProductoTestDataBuilder comandoProductoTestDataBuilder = new ComandoProductoTestDataBuilder();
+    	comandoProductoTestDataBuilder.conFecha(new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-14"));
+        ComandoProducto comandoProducto = comandoProductoTestDataBuilder.build();
+        mockMvc.perform(post(URL_PRODUCTOS)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(comandoProducto)))
+        		.andExpect(status().isOk());
+    	// Act - Assert
+        mockMvc.perform(get(URL_PRODUCTOS)
+        		.contentType(MediaType.APPLICATION_JSON))
+        		.andExpect(status().isOk())
+        		.andExpect(jsonPath("$").isArray())
+        		.andExpect(jsonPath("$[0].codigo").isNotEmpty());
+    }
+    
+    @Test 
+    public void validarListarConCedula111() throws Exception {
+    	// Arrange
+    	ComandoProductoTestDataBuilder comandoProductoTestDataBuilder = new ComandoProductoTestDataBuilder();
+    	comandoProductoTestDataBuilder.conFecha(new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-14"));
+    	comandoProductoTestDataBuilder.conCedulaVendedor("111");
+        ComandoProducto comandoProducto = comandoProductoTestDataBuilder.build();
+        mockMvc.perform(post(URL_PRODUCTOS)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(comandoProducto)))
+        		.andExpect(status().isOk());
+    	// Act - Assert
+        mockMvc.perform(get(URL_PRODUCTOS+"?cedula=111")
+        		.contentType(MediaType.APPLICATION_JSON))
+        		.andExpect(status().isOk())
+        		.andExpect(jsonPath("$").isArray())
+        		.andExpect(jsonPath("$[0].codigo").value(comandoProducto.getCodigo()))
+        		.andExpect(jsonPath("$[0].cedulaVendedor").value("111"));
+    }
+    
+    @Test 
+    public void validarEliminar() throws Exception {
+    	// Arrange
+    	ComandoProductoTestDataBuilder comandoProductoTestDataBuilder = new ComandoProductoTestDataBuilder();
+    	comandoProductoTestDataBuilder.conCedulaVendedor("111");
+    	comandoProductoTestDataBuilder.conCodigo("1010");
+    	comandoProductoTestDataBuilder.conFecha(new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-15"));
+        ComandoProducto comandoProducto = comandoProductoTestDataBuilder.build();
+        mockMvc.perform(post(URL_PRODUCTOS)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(comandoProducto)))
+        		.andExpect(status().isOk());
+    	// Act - Assert
+        mockMvc.perform(delete(URL_PRODUCTOS)
+        		.contentType(MediaType.APPLICATION_JSON)
+        		.content(objectMapper.writeValueAsString(comandoProducto).replace("}", ",\"fechaEliminar\":\"2020-01-16\"}")))
+		        .andExpect(status().isOk());
+    }
+    
+    @Test 
+    public void validarEliminarSabado() throws Exception {
+    	// Arrange
+    	ComandoProductoTestDataBuilder comandoProductoTestDataBuilder = new ComandoProductoTestDataBuilder();
+    	comandoProductoTestDataBuilder.conCedulaVendedor("111");
+    	comandoProductoTestDataBuilder.conFecha(new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-15"));
+        ComandoProducto comandoProducto = comandoProductoTestDataBuilder.build();
+        mockMvc.perform(post(URL_PRODUCTOS)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(comandoProducto)))
+        		.andExpect(status().isOk());
+    	// Act - Assert
+        mockMvc.perform(delete(URL_PRODUCTOS)
+        		.contentType(MediaType.APPLICATION_JSON)
+        		.content(objectMapper.writeValueAsString(comandoProducto).replace("}", ",\"fechaEliminar\":\"2020-01-25\"}")))
+		        .andExpect(status().isBadRequest())
+				.andExpect(jsonPath("$.nombreExcepcion").value(ExcepcionSabadoDomingo.class.getSimpleName()))
+				.andExpect(jsonPath("$.mensaje").value(NO_ELIMINA_PRODUCTO_SABADO_O_DOMINGO));
+    }
+    
+    @Test 
+    public void validarEliminarDomingo() throws Exception {
+    	// Arrange
+    	ComandoProductoTestDataBuilder comandoProductoTestDataBuilder = new ComandoProductoTestDataBuilder();
+    	comandoProductoTestDataBuilder.conCedulaVendedor("111");
+    	comandoProductoTestDataBuilder.conFecha(new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-16"));
+        ComandoProducto comandoProducto = comandoProductoTestDataBuilder.build();
+        mockMvc.perform(post(URL_PRODUCTOS)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(comandoProducto)))
+        		.andExpect(status().isOk());
+    	// Act - Assert
+        mockMvc.perform(delete(URL_PRODUCTOS)
+        		.contentType(MediaType.APPLICATION_JSON)
+        		.content(objectMapper.writeValueAsString(comandoProducto).replace("}", ",\"fechaEliminar\":\"2020-01-26\"}")))
+		        .andExpect(status().isBadRequest())
+				.andExpect(jsonPath("$.nombreExcepcion").value(ExcepcionSabadoDomingo.class.getSimpleName()))
+				.andExpect(jsonPath("$.mensaje").value(NO_ELIMINA_PRODUCTO_SABADO_O_DOMINGO));
+    }
+    
+    @Test 
+    public void validarFechaEliminarNula() throws Exception {
+    	// Arrange
+    	ComandoProductoTestDataBuilder comandoProductoTestDataBuilder = new ComandoProductoTestDataBuilder();
+    	comandoProductoTestDataBuilder.conCedulaVendedor("111");
+    	comandoProductoTestDataBuilder.conFecha(new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-16"));
+        ComandoProducto comandoProducto = comandoProductoTestDataBuilder.build();
+        comandoProducto.setFechaEliminar(null);
+        mockMvc.perform(post(URL_PRODUCTOS)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(comandoProducto)))
+        		.andExpect(status().isOk());
+    	// Act - Assert
+        mockMvc.perform(delete(URL_PRODUCTOS)
+        		.contentType(MediaType.APPLICATION_JSON)
+        		.content(objectMapper.writeValueAsString(comandoProducto)))
+		        .andExpect(status().isBadRequest())
+				.andExpect(jsonPath("$.nombreExcepcion").value(ExcepcionValorObligatorio.class.getSimpleName()))
+				.andExpect(jsonPath("$.mensaje").value(LA_FEHCA_ELIMINAR_ES_DATO_OBLIGATORIO));
+    }
+    
+    @Test 
+    public void validarEliminarProductoComprado() throws Exception {
+    	// Arrange
+    	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    	Date fecha = simpleDateFormat.parse("2020-01-14");
+    	ComandoProductoTestDataBuilder comandoProductoTestDataBuilder = new ComandoProductoTestDataBuilder();
+    	comandoProductoTestDataBuilder.conFecha(fecha);
+        ComandoProducto comandoProducto = comandoProductoTestDataBuilder.build();
+        ComandoCompraTestDataBuilder comandoCompraTestDataBuilder = new ComandoCompraTestDataBuilder();
+    	comandoCompraTestDataBuilder.conComandoProducto(comandoProducto);
+    	comandoCompraTestDataBuilder.conFechaCompra(fecha);
+        ComandoCompra comandoCompra = comandoCompraTestDataBuilder.build();
+     
+        this.mockMvc.perform(post(URL_PRODUCTOS)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(comandoProducto)))
+        		.andExpect(status().isOk());
+        this.mockMvc.perform(post(URL_COMPRAS)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(comandoCompra)))
+        		.andExpect(status().isOk());
+        fecha = simpleDateFormat.parse("2020-01-15");
+        
+        // Act - Assert
+        mockMvc.perform(delete(URL_PRODUCTOS)
+        		.contentType(MediaType.APPLICATION_JSON)
+        		.content(objectMapper.writeValueAsString(comandoProducto).replace("}", ",\"fechaEliminar\":\"2020-01-16\"}")))
+		        .andExpect(status().isBadRequest())
+				.andExpect(jsonPath("$.nombreExcepcion").value(ExcepcionProductoComprado.class.getSimpleName()))
+				.andExpect(jsonPath("$.mensaje").value(NO_ELIMINA_PRODUCTO_COMPRADO));
     }
 }

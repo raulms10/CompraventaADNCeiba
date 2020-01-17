@@ -3,6 +3,9 @@
  */
 package co.com.ceiba.compraventa.dominio.repositorio;
 
+import java.util.List;
+
+import co.com.ceiba.compraventa.aplicacion.comando.ComandoProducto;
 import co.com.ceiba.compraventa.dominio.modelo.Producto;
 
 /**
@@ -23,4 +26,22 @@ public interface RepositorioProducto {
 	 * @return si existe o no
 	 */
 	boolean existe(Producto producto);
+	
+	/**
+	 * Permite buscar los productos sin ningun criterio
+	 * @return
+	 */
+	List<ComandoProducto> listar(String cedulaVendedor);
+	
+	/**
+	 * Permite eliminar el producto
+	 * @param producto
+	 */
+	void eliminar(Producto producto);
+	
+	/**
+	 * Permite actualizar el producto
+	 * @param poducto
+	 */
+	boolean comprado(Producto producto);
 }
