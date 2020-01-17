@@ -58,7 +58,7 @@ public class ComandoCompra {
 	}
 
 	public void setFechaCompra(Date fechaCompra) {
-		this.fechaCompra = fechaCompra == null ? null : new Date(fechaCompra.getTime());;
+		this.fechaCompra = fechaCompra == null ? null : new Date(fechaCompra.getTime());
 	}
 
 	public Long getValorPagado() {
