@@ -33,23 +33,47 @@ public class ComandoCompra {
 		return idCompra;
 	}
 
+	public void setIdCompra(Long idCompra) {
+		this.idCompra = idCompra;
+	}
+
 	public String getCedulaComprador() {
 		return cedulaComprador;
 	}
-	
+
+	public void setCedulaComprador(String cedulaComprador) {
+		this.cedulaComprador = cedulaComprador;
+	}
+
 	public String getNombreComprador() {
 		return nombreComprador;
 	}
-	
-	public Date getFechaCompra() {
-		return fechaCompra == null ? null : new Date(fechaCompra.getTime());
+
+	public void setNombreComprador(String nombreComprador) {
+		this.nombreComprador = nombreComprador;
 	}
-	
+
+	public Date getFechaCompra() {
+		return fechaCompra;
+	}
+
+	public void setFechaCompra(Date fechaCompra) {
+		this.fechaCompra = fechaCompra;
+	}
+
 	public Long getValorPagado() {
 		return valorPagado;
 	}
-	
+
+	public void setValorPagado(Long valorPagado) {
+		this.valorPagado = valorPagado;
+	}
+
 	public ComandoProducto getComandoProducto() {
 		return comandoProducto;
+	}
+
+	public void setComandoProducto(ComandoProducto comandoProducto) {
+		this.comandoProducto = comandoProducto;
 	}
 }

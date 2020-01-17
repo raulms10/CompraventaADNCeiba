@@ -74,11 +74,11 @@ public class CompraEntity implements Serializable {
 	}
 
 	public Date getFechaCompra() {
-		return fechaCompra == null ? null : new Date(fechaCompra.getTime());
+		return new Date(fechaCompra.getTime());
 	}
 
 	public void setFechaCompra(Date fechaCompra) {
-		this.fechaCompra = fechaCompra == null ? null : new Date(fechaCompra.getTime());
+		this.fechaCompra = new Date(fechaCompra.getTime());
 	}
 
 	public Long getValorPagado() {

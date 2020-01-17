@@ -9,6 +9,7 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -46,6 +47,9 @@ public class ProductoEntity implements Serializable {
 	@Column(name = "nombre_vendedor")
 	private String nombreVendedor;
 	
+	@OneToOne(mappedBy = "producto")
+	private CompraEntity compra;
+	
 	public String getCodigo() {
 		return codigo;
 	}
@@ -79,11 +83,11 @@ public class ProductoEntity implements Serializable {
 	}
 
 	public Date getFecha() {
-		return fecha == null ? null : new Date(fecha.getTime());
+		return fecha = new Date(fecha.getTime());
 	}
 
 	public void setFecha(Date fecha) {
-		this.fecha = fecha == null ? null : new Date(fecha.getTime());
+		this.fecha = new Date(fecha.getTime());
 	}
 
 	public String getCedulaVendedor() {
@@ -100,5 +104,13 @@ public class ProductoEntity implements Serializable {
 
 	public void setNombreVendedor(String nombreVendedor) {
 		this.nombreVendedor = nombreVendedor;
+	}
+
+	public CompraEntity getCompra() {
+		return compra;
+	}
+
+	public void setCompra(CompraEntity compra) {
+		this.compra = compra;
 	}
 }

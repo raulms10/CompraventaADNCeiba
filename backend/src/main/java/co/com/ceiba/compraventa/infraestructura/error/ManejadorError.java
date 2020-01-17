@@ -18,7 +18,9 @@ import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionDiferenteValorPagado;
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionDuplicidad;
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionLongitudMaxima;
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionLunesViernes;
+import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionProductoComprado;
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionRango;
+import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionSabadoDomingo;
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionValorMinimo;
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionValorObligatorio;
 
@@ -41,7 +43,9 @@ public class ManejadorError extends ResponseEntityExceptionHandler {
         CODIGOS_ESTADO.put(ExcepcionDuplicidad.class.getSimpleName(), HttpStatus.BAD_REQUEST.value());
         CODIGOS_ESTADO.put(ExcepcionLongitudMaxima.class.getSimpleName(), HttpStatus.BAD_REQUEST.value());
         CODIGOS_ESTADO.put(ExcepcionLunesViernes.class.getSimpleName(), HttpStatus.BAD_REQUEST.value());
+        CODIGOS_ESTADO.put(ExcepcionProductoComprado.class.getSimpleName(), HttpStatus.BAD_REQUEST.value());
         CODIGOS_ESTADO.put(ExcepcionRango.class.getSimpleName(), HttpStatus.BAD_REQUEST.value());
+        CODIGOS_ESTADO.put(ExcepcionSabadoDomingo.class.getSimpleName(), HttpStatus.BAD_REQUEST.value());
         CODIGOS_ESTADO.put(ExcepcionValorMinimo.class.getSimpleName(), HttpStatus.BAD_REQUEST.value());
         CODIGOS_ESTADO.put(ExcepcionValorObligatorio.class.getSimpleName(), HttpStatus.BAD_REQUEST.value());
     }
