@@ -1,6 +1,6 @@
 {
-    "/agw-ayv": {
-      "target": "http://dllo-sura-avregional.ceiba.com.co:8100",
+    "/compraventa": {
+      "target": "http://localhost:4880",
       "logLevel": "debug"
     }
 

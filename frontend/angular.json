@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "app-base": {
+    "compraventa": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/app-base",
+            "outputPath": "dist/compraventa",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -58,18 +58,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "app-base:build"
+            "browserTarget": "compraventa:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "app-base:build:production"
+              "browserTarget": "compraventa:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "app-base:build"
+            "browserTarget": "compraventa:build"
           }
         },
         "test": {
@@ -106,15 +106,15 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "app-base:serve"
+            "devServerTarget": "compraventa:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "app-base:serve:production"
+              "devServerTarget": "compraventa:serve:production"
             }
           }
         }
       }
     }},
-  "defaultProject": "app-base"
+  "defaultProject": "compraventa"
 }

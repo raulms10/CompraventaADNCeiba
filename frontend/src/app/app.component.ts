@@ -8,7 +8,7 @@ import { Item } from '@ceiba/navbar';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app-base';
+  title = 'Compraventa';
   public companies: Item[] = [
     { url: '/home', nombre: 'home' },
     { url: '/producto', nombre: 'producto' }
