@@ -83,7 +83,7 @@ public class ProductoEntity implements Serializable {
 	}
 
 	public Date getFecha() {
-		return fecha = new Date(fecha.getTime());
+		return new Date(fecha.getTime());
 	}
 
 	public void setFecha(Date fecha) {
