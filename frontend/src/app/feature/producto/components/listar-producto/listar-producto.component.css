@@ -1,0 +1,25 @@
+.col-70-izquierda {
+  float: left;
+  width: 70%;
+}
+
+.col-30-derecha {
+  float: right;
+  width: 30%;
+  text-align: right;
+}
+
+@media screen and (max-width: 320px) {
+  .col-70-izquierda {
+    width: 100%;
+  }
+
+  .col-30-derecha {
+    width: 100%;
+    text-align: left;
+  }
+
+  .header-subtittle {
+    margin: 0px;
+  }
+}

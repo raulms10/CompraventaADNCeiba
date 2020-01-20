@@ -51,7 +51,7 @@ import co.com.ceiba.compraventa.infraestructura.testdatabuilder.ComandoProductoT
 @Transactional
 class ProductoControladorTest {
 	
-	private static final String EL_CODIGO_ES_DATO_OBLIGATORIO = "El c<F3>digo del producto es un dato obligatorio.";
+	private static final String EL_CODIGO_ES_DATO_OBLIGATORIO = "El codigo del producto es un dato obligatorio.";
 	private static final String EL_NOMBRE_ES_DATO_OBLIGATORIO = "El nombre del producto es un dato obligatoio.";
 	private static final String EL_VALOR_ES_DATO_OBLIGATORIO = "El valor del producto es un dato obligatoio.";
 	private static final String EL_DESCUENTO_ES_DATO_OBLIGATORIO = "El descuento del producto es un dato obligatoio.";
@@ -59,10 +59,10 @@ class ProductoControladorTest {
 	private static final String LA_CEDULA_VENDEDOR_ES_DATO_OBLIGATORIO = "La cedula del vendedor es un dato obligatoio.";
 	private static final String EL_NOMBRE_VENDEDOR_ES_DATO_OBLIGATORIO = "El nombre del vendedor es un dato obligatoio.";
 	
-	private static final String EL_CODIGO_DEBE_TENER_MAXIMO_CARACTERES = "El c<F3>digo del producto debe tener m<E1>ximo %s caracteres.";
-	private static final String EL_NOMBRE_DEBE_TENER_MAXIMO_CARACTERES = "El nombre del producto debe tener m<E1>ximo %s caracteres.";
-	private static final String LA_CEDULA_VENDEDOR_DEBE_TENER_MAXIMO_CARACTERES = "La c<E9>dula del vendedor debe tener m<E1>ximo %s caracteres.";
-	private static final String EL_NOMBRE_VENDEDOR_DEBE_TENER_MAXIMO_CARACTERES = "El nombre del vendedor debe tener m<E1>ximo %s caracteres.";
+	private static final String EL_CODIGO_DEBE_TENER_MAXIMO_CARACTERES = "El codigo del producto debe tener maximo %s caracteres.";
+	private static final String EL_NOMBRE_DEBE_TENER_MAXIMO_CARACTERES = "El nombre del producto debe tener maximo %s caracteres.";
+	private static final String LA_CEDULA_VENDEDOR_DEBE_TENER_MAXIMO_CARACTERES = "La cedula del vendedor debe tener maximo %s caracteres.";
+	private static final String EL_NOMBRE_VENDEDOR_DEBE_TENER_MAXIMO_CARACTERES = "El nombre del vendedor debe tener maximo %s caracteres.";
 	private static final String EL_DESCUENTO_DEBE_ESTAR_EN_EL_RANGO = "El porcentaje de descuento debe estar entre %s y %s";
 	private static final String EL_VALOR_DEBE_SER_MAYOR_QUE = "El valor del producto debe ser mayor que %s";
 	
@@ -78,7 +78,7 @@ class ProductoControladorTest {
 	private static final String PRODUCTO_YA_EXISTE = "El producto ya ha sido ingresado.";
 	
 	private static final String NO_ELIMINA_PRODUCTO_COMPRADO = "No es posible eliminar un producto comprado.";
-	private static final String NO_ELIMINA_PRODUCTO_SABADO_O_DOMINGO = "No es posible eliminar un producto los d<ED>as s<E1>bados y domingos.";
+	private static final String NO_ELIMINA_PRODUCTO_SABADO_O_DOMINGO = "No es posible eliminar un producto los dias sabados y domingos.";
 	private static final String LA_FEHCA_ELIMINAR_ES_DATO_OBLIGATORIO = "La fecha para eliminar el producto es un dato obligatorio.";
 	
 	private static final String URL_PRODUCTOS = "/productos";
@@ -414,7 +414,7 @@ class ProductoControladorTest {
     	// Arrange
     	ComandoProductoTestDataBuilder comandoProductoTestDataBuilder = new ComandoProductoTestDataBuilder();
     	comandoProductoTestDataBuilder.conCedulaVendedor("111");
-    	comandoProductoTestDataBuilder.conCodigo("1010");
+    	comandoProductoTestDataBuilder.conCodigo("1010000001");
     	comandoProductoTestDataBuilder.conFecha(new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-15"));
         ComandoProducto comandoProducto = comandoProductoTestDataBuilder.build();
         mockMvc.perform(post(URL_PRODUCTOS)

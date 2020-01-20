@@ -1,0 +1,203 @@
+@import '~@angular/material/theming';
+@import '~material-design-icons/iconfont/material-icons.css';
+
+@include mat-core();
+
+$primary: mat-palette($mat-green, 900);
+$primary-dark: #003300;
+// $primary-light: #4c8c4a;
+$accent:  mat-palette($mat-light-green, A700);
+$accent-dark: #32cb00;
+// $accent-light: #b0ff57;
+$warn:    mat-palette($mat-red, 700);
+$color-accent: #64dd17;
+$color-primary: #1b5e20;
+$color-background:#f0f0f0;
+
+$config: mat-typography-config();
+
+$theme: mat-light-theme($primary, $accent, $warn);
+
+@include angular-material-theme($theme);
+
+$padding-value: 1.5vw;
+$margin-value: 1.5vw;
+
+/* Reset */
+html, body, div {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Box-sizing border-box */
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+/* Set up a default font and some padding to provide breathing room */
+body {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+td, th {
+  text-align: left;
+  border: 0.1px solid #ddd;
+}
+
+p {
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 20px;
+  margin-bottom: 1em;
+  margin-top: 1em;
+}
+
+ul {
+  margin: 10px 0 0;
+  padding: 0 0 0 20px;
+}
+
+li {
+  font-weight: 400;
+  margin-top: 4px;
+}
+
+input {
+  border: 1px solid #106cc8;
+  font-size: 14px;
+  /*height: 40px;*/
+  outline: none;
+  padding: 8px;
+}
+
+button {
+  background-color: #106cc8;
+  border-style: none;
+  color: rgba(255, 255, 255, 0.87);
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  /*height: 40px;*/
+  padding: 8px 18px;
+  text-decoration: none;
+  margin: 4px !important;
+}
+
+button:hover {
+  background-color: #28739e;
+}
+
+.container {
+  margin: $margin-value;
+  padding: $padding-value;
+  margin-top: 0px;
+  padding-top: 0px;
+  text-align: center;
+}
+
+.container-button-center {
+  width: 100%;
+  padding-bottom: 20px;
+  text-align: center;
+}
+
+.header-subtittle {
+  width: 100%;
+  color: $color-primary;
+  margin: 0px 20px 0px;
+  text-align: left;
+}
+
+.label-required {
+  color: #f44336;
+  padding-left: 1px;
+}
+
+.mat-header-cell {
+  text-align: center;
+  background-color: $color-background
+}
+
+.label-header-table {
+  color: $color-accent;
+  font-weight: bold;
+  text-align: center;
+}
+
+td.mat-cell, td.mat-footer-cell, th.mat-header-cell {
+  padding-right: 5px !important;
+  padding-left: 5px !important;
+}
+
+h2 {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+h3 {
+  color: $color-primary;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.text-left {
+  text-align: left !important;
+}
+
+.card-principal {
+  box-shadow: none !important;
+}
+
+.margin-0 {
+  margin: 0px;
+}
+
+.margin-bottom-0 {
+  margin-bottom: 0px;
+}
+
+.tam-100 {
+  width: 100%;
+}
+
+.tam-98 {
+  width: 98%;
+}
+
+.tam-97 {
+  width: 97%;
+}
+
+.margin-top-15 {
+  margin-top: 15px;
+}
+
+.margin-left-15 {
+  margin-left: 15px
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

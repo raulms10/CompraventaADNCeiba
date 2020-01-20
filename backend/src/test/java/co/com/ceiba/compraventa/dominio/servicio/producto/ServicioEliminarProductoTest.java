@@ -26,7 +26,7 @@ import co.com.ceiba.compraventa.dominio.testdatabuilder.ProductoTestDataBuilder;
 class ServicioEliminarProductoTest {
 
 	private static final String NO_ELIMINA_PRODUCTO_COMPRADO = "No es posible eliminar un producto comprado.";
-	private static final String NO_ELIMINA_PRODUCTO_SABADO_O_DOMINGO = "No es posible eliminar un producto los d<ED>as s<E1>bados y domingos.";
+	private static final String NO_ELIMINA_PRODUCTO_SABADO_O_DOMINGO = "No es posible eliminar un producto los dias sabados y domingos.";
 	private static final String LA_FEHCA_ELIMINAR_ES_DATO_OBLIGATORIO = "La fecha para eliminar el producto es un dato obligatorio.";
 	
 	@Test

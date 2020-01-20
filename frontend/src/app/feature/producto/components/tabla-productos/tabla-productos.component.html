@@ -1,0 +1,46 @@
+<div>
+  <table mat-table [dataSource]="dataSource" matSort aria-describedby="acciones">
+  <ng-container matColumnDef="acciones" stickyEnd>
+    <th id="acciones" mat-header-cell *matHeaderCellDef class="label-header-table"> Acciones </th>
+    <td mat-cell data-label="Acciones: " *matCellDef="let row" class="text-center">
+      <div>
+        <button matTooltip="Eliminar producto" mat-icon-button aria-label="Acciones">
+          <mat-icon color="primary">delete</mat-icon>
+        </button>
+      </div>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="codigo" >
+    <th id="codigo" mat-header-cell *matHeaderCellDef class="label-header-table"> Código </th>
+    <td mat-cell data-label="Código producto: " *matCellDef="let row">{{row.codigo}}&nbsp;</td>
+  </ng-container>
+
+  <ng-container matColumnDef="nombre" >
+    <th id="nombre" mat-header-cell *matHeaderCellDef class="label-header-table"> Nombre </th>
+    <td mat-cell data-label="Nombre: " *matCellDef="let row">{{row.nombre}}&nbsp;</td>
+  </ng-container>
+
+  <ng-container matColumnDef="valor">
+    <th id="valor" mat-header-cell *matHeaderCellDef class="label-header-table" > Valor ($) </th>
+    <td mat-cell data-label="Valor ($): " *matCellDef="let row">{{row.valor}}&nbsp;</td>
+  </ng-container>
+
+  <ng-container matColumnDef="fecha_creacion">
+    <th id="fecha_creacion" mat-header-cell *matHeaderCellDef class="label-header-table"> Fecha de registro </th>
+    <td mat-cell data-label="Fecha creación: " *matCellDef="let row">{{row.fecha}}&nbsp;</td>
+  </ng-container>
+
+  <ng-container matColumnDef="descuento">
+    <th id="descuento" mat-header-cell *matHeaderCellDef class="label-header-table" > Descuento (%)</th>
+    <td mat-cell data-label="Descuento (%): " *matCellDef="let row">{{row.descuento}}&nbsp;</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columnasMostrar"></tr>
+  <tr mat-row  *matRowDef="let row; columns: columnasMostrar;"></tr>
+</table>
+</div>
+<div>
+<div class="not-records" *ngIf="dataSource.data.length === 0">Sin registros</div>
+<mat-paginator [pageSizeOptions]="[5, 10, 15, 25, 50]" [pageSize]="15" showFirstLastButtons></mat-paginator>
+</div>

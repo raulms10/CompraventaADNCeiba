@@ -7,8 +7,9 @@ import { HomeComponent } from './feature/home/home.component';
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent, canActivate: [SecurityGuard]  },
+  { path: 'compra', loadChildren: () => import('./feature/compra/compra.module').then(mod => mod.CompraModule) },
   { path: 'producto', loadChildren: () => import('./feature/producto/producto.module').then(mod => mod.ProductoModule) }
-  
+
 ];
 
 @NgModule({

@@ -1,5 +1,8 @@
-<app-toolbar></app-toolbar>
-<app-navbar [items]='companies'></app-navbar>
+<mat-toolbar color="primary">
+  <span class="text-center tam-100">Compraventa TodoEnUno</span>
+</mat-toolbar>
+<nav mat-tab-nav-bar>
+  <a mat-tab-link *ngFor="let item of companies"
+    (click)="navegar(item.url)" [active]="itemActivo == item.url"> {{item.nombre}} </a>
+</nav>
 <router-outlet></router-outlet>
-
-

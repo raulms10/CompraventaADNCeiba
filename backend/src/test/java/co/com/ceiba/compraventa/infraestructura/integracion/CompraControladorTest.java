@@ -48,13 +48,13 @@ class CompraControladorTest {
 	
 	private static final String HA_OCURRIDO_ERROR_CONCTACTE_ADMINISTRADOR = "Ha ocurrido un error, por favor contactar al administrador.";
 	
-	private static final String LA_CEDULA_COMPRADOR_ES_DATO_OBLIGATORIO = "La c<E9>dula del comprador es un dato obligatoio.";
+	private static final String LA_CEDULA_COMPRADOR_ES_DATO_OBLIGATORIO = "La cedula del comprador es un dato obligatoio.";
 	private static final String EL_NOMBRE_COMPRADOR_ES_DATO_OBLIGATORIO = "El nombre del comprador es un dato obligatoio.";
 	private static final String LA_FECHA_COMPRA_ES_DATO_OBLIGATORIO = "La fecha de compra es un dato obligatorio.";
 	private static final String EL_VALOR_PAGADO_ES_DATO_OBLIGATORIO = "El valor pagado es un dato obligatorio.";
 	
-	private static final String LA_CEDULA_COMPRADOR_DEBE_TENER_MAXIMO_CARACTERES = "La c<E9>dula del comprador debe tener m<E1>ximo %s caracteres.";
-	private static final String EL_NOMBRE_COMPRADOR_DEBE_TENER_MAXIMO_CARACTERES = "El nombre del comprador debe tener m<E1>ximo %s caracteres.";
+	private static final String LA_CEDULA_COMPRADOR_DEBE_TENER_MAXIMO_CARACTERES = "La cedula del comprador debe tener maximo %s caracteres.";
+	private static final String EL_NOMBRE_COMPRADOR_DEBE_TENER_MAXIMO_CARACTERES = "El nombre del comprador debe tener maximo %s caracteres.";
 	
 	private static final String EL_PRODUCTO_HA_SIDO_VENDIDO = "El producto ya ha sido vendido.";
 	private static final String EL_VALOR_PAGADO_DIFERENTE_A_VALOR = "El valor pagado es diferente al valor del producto";

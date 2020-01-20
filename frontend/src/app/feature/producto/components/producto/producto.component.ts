@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+
 import { ProductoService } from '../../shared/service/producto.service';
 import { Producto } from '../../shared/model/producto';
 
@@ -13,9 +14,4 @@ export class ProductoComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  cerar(producto: Producto) {
-    this.productoServices.guardar(producto);
-  }
-
 }

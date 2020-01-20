@@ -18,14 +18,14 @@ import co.com.ceiba.compraventa.dominio.testdatabuilder.CompraTestDataBuilder;
  */
 class CompraTest {
 	
-	private static final String LA_CEDULA_COMPRADOR_ES_DATO_OBLIGATORIO = "La c<E9>dula del comprador es un dato obligatoio.";
+	private static final String LA_CEDULA_COMPRADOR_ES_DATO_OBLIGATORIO = "La cedula del comprador es un dato obligatoio.";
 	private static final String EL_NOMBRE_COMPRADOR_ES_DATO_OBLIGATORIO = "El nombre del comprador es un dato obligatoio.";
 	private static final String LA_FECHA_COMPRA_ES_DATO_OBLIGATORIO = "La fecha de compra es un dato obligatorio.";
 	private static final String EL_VALOR_PAGADO_ES_DATO_OBLIGATORIO = "El valor pagado es un dato obligatorio.";
 	private static final String EL_PRODUCTO_ES_DATO_OBLIGATORIO = "El producto es un dato obligatorio.";
 	
-	private static final String LA_CEDULA_COMPRADOR_DEBE_TENER_MAXIMO_CARACTERES = "La c<E9>dula del comprador debe tener m<E1>ximo %s caracteres.";
-	private static final String EL_NOMBRE_COMPRADOR_DEBE_TENER_MAXIMO_CARACTERES = "El nombre del comprador debe tener m<E1>ximo %s caracteres.";
+	private static final String LA_CEDULA_COMPRADOR_DEBE_TENER_MAXIMO_CARACTERES = "La cedula del comprador debe tener maximo %s caracteres.";
+	private static final String EL_NOMBRE_COMPRADOR_DEBE_TENER_MAXIMO_CARACTERES = "El nombre del comprador debe tener maximo %s caracteres.";
 	
 	private static final int LONGITUD_MAXIMA_DE_CEDULA_COMPRADOR = 12;
 	private static final int LONGITUD_MAXIMA_DE_NOMBRE_COMPRADOR = 60;

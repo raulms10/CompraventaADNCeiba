@@ -12,12 +12,12 @@ const routes: Routes = [
     component: ProductoComponent,
     children: [
       {
-        path: 'crear',
-        component: CrearProductoComponent
+        path: '',
+        component: ListarProductoComponent
       },
       {
-        path: 'listar',
-        component: ListarProductoComponent
+        path: 'crear',
+        component: CrearProductoComponent
       },
       {
         path: 'borrar',

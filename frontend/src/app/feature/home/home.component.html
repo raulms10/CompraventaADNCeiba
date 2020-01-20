@@ -1,1 +1,67 @@
-<p>home works!</p>
+<form [formGroup]="form" (ngSubmit)="enviar()">
+  <div class="container">
+    <mat-card class="card-principal">
+      <mat-card-content>
+        <mat-card>
+          <mat-card-header>
+            <div class="header-subtittle">
+              <div>
+                <h2> ¡Compra lo que quieres o véndelo!  </h2>
+              </div>
+            </div>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="text-left" style="display: inline-block; width: 100%;">
+              <span>¿Estás pensando en comprar o vender productos nuevos o usados? Estás en el lugar correcto, estás en  <strong>¡Compraventas TodoEnUno!</strong></span>
+              <br>
+              <mat-divider></mat-divider>
+              <br>
+              <div>
+                <h3>Ingrese sus datos para continuar</h3>
+              </div>
+              <div class="tam-98">
+                <div class="col-33">
+                  <mat-form-field class="tam-97">
+                    <mat-label>Cédula vendedor <label class="label-required">*</label></mat-label>
+                    <input matInput placeholder="Ingrese la cédula del vendedor " formControlName="formCedula" />
+                    <mat-error *ngIf="form.get('formCedula').hasError('required')">
+                      Debe ingresar la cédula del vendedor
+                    </mat-error>
+                    <mat-error *ngIf="form.get('formCedula').hasError('espacios')">
+                      La cédula no puede ser solo espacios
+                    </mat-error>
+                    <mat-error *ngIf="form.get('formCedula').hasError('maxlength') && !form.get('formCedula').hasError('espacios')">
+                      Debe ingresar máximo 12 caracteres
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-67">
+                  <mat-form-field class="tam-97">
+                    <mat-label>Nombre vendedor <label class="label-required">*</label></mat-label>
+                    <input matInput placeholder="Ingrese el nombre del vendedor " formControlName="formNombreVendedor" />
+                    <mat-error *ngIf="form.get('formNombreVendedor').hasError('required')">
+                      Debe ingresar el nombre del vendedor
+                    </mat-error>
+                    <mat-error *ngIf="form.get('formNombreVendedor').hasError('espacios')">
+                      El nombre no puede ser solo espacios
+                    </mat-error>
+                    <mat-error *ngIf="form.get('formNombreVendedor').hasError('maxlength') && !form.get('formNombreVendedor').hasError('espacios')">
+                      Debe ingresar máximo 60 caracteres
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </mat-card-content>
+          <mat-card-footer> </mat-card-footer>
+        </mat-card>
+      </mat-card-content>
+      <mat-card-footer>
+        <div class="container-button-center">
+          <button matTooltip="Ingresar" mat-raised-button color="primary" type="submit">INGRESAR</button>
+          <button matTooltip="Cancelar" (click)="limpiar()" mat-raised-button color="accent" type="button">LIMPIAR</button>
+        </div>
+      </mat-card-footer>
+    </mat-card>
+  </div>
+</form>
