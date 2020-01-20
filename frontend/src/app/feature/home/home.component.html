@@ -22,10 +22,10 @@
               <div class="tam-98">
                 <div class="col-33">
                   <mat-form-field class="tam-97">
-                    <mat-label>Cédula vendedor <label class="label-required">*</label></mat-label>
-                    <input matInput placeholder="Ingrese la cédula del vendedor " formControlName="formCedula" />
+                    <mat-label>Cédula <label class="label-required">*</label></mat-label>
+                    <input matInput placeholder="Ingrese su cédula " formControlName="formCedula" />
                     <mat-error *ngIf="form.get('formCedula').hasError('required')">
-                      Debe ingresar la cédula del vendedor
+                      Debe ingresar su cédula
                     </mat-error>
                     <mat-error *ngIf="form.get('formCedula').hasError('espacios')">
                       La cédula no puede ser solo espacios
@@ -37,10 +37,10 @@
                 </div>
                 <div class="col-67">
                   <mat-form-field class="tam-97">
-                    <mat-label>Nombre vendedor <label class="label-required">*</label></mat-label>
-                    <input matInput placeholder="Ingrese el nombre del vendedor " formControlName="formNombreVendedor" />
+                    <mat-label>Nombre <label class="label-required">*</label></mat-label>
+                    <input matInput placeholder="Ingrese su nombre " formControlName="formNombreVendedor" />
                     <mat-error *ngIf="form.get('formNombreVendedor').hasError('required')">
-                      Debe ingresar el nombre del vendedor
+                      Debe ingresar su nombre
                     </mat-error>
                     <mat-error *ngIf="form.get('formNombreVendedor').hasError('espacios')">
                       El nombre no puede ser solo espacios

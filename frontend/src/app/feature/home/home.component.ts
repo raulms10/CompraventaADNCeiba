@@ -31,9 +31,9 @@ export class HomeComponent implements OnInit {
       this.cedula = this.form.get('formCedula').value;
       this.nombre = this.form.get('formNombreVendedor').value;
       if (this.guardarEnLocalStorage()) {
-        //location.replace('/producto');
+        location.replace('/producto');
       } else {
-        this.abrirSnackBar('No se soporta LocalStorage');
+        this.abrirSnackBar('No se soporta LocalStorage.');
       }
     } else {
       this.abrirSnackBar(Constantes.CAMPOS_INVALIDOS);

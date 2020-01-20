@@ -2,13 +2,13 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { MatSnackBar, MatSnackBarRef, SimpleSnackBar } from '@angular/material';
+import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 import { Validador } from 'src/app/shared/utilidades/validador';
 import { ProductoService } from '../../shared/service/producto.service';
 import { Constantes } from 'src/app/shared/utilidades/constantes';
 import { Producto } from '../../shared/model/producto';
-import { Subscription } from 'rxjs';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-crear-producto',
@@ -97,8 +97,7 @@ export class CrearProductoComponent implements OnInit, OnDestroy {
   }
 
   obtenerValorConDescuento(valor: number, descuento: number) {
-    const desc = valor - valor * descuento / 100;
-    return Math.ceil(desc);
+    return Validador.obtenerDescuento(valor, descuento);
   }
 
   private obtenerProducto(): Producto {

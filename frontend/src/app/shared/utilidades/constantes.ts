@@ -1,6 +1,7 @@
 export class Constantes {
   static diaSabadoDoming = '6,0'; // El cero representa el domingo
   static diasLunesAViernes = '1,2,3,4,5';
+  static diaViernes = '5';
 
   static FORMATO_FECHA = 'yyyy-MM-dd';
 

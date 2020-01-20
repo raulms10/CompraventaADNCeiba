@@ -65,6 +65,17 @@ export class BaseService {
         );
     }
 
+    protected doDelete<T, R>(serviceUrl: string, body: T, opts?: Options): Observable<R> {
+      const ropts = this.createOptions(opts);
+      console.log(['Obj: ', JSON.stringify(body)]);
+      // ropts.headers .set('body', JSON.stringify(body));
+      // ropts.headers = new HttpHeaders({{ 'Content-Type': 'application/json'}, 'body': body});
+
+      return this.http.request('delete', serviceUrl, {body: body}).pipe(
+          map(response => response as R)
+      );
+  }
+
     protected doGetParameters<T>(serviceUrl: string, parametros: HttpParams, opts?: Options): Observable<T> {
         const ropts = this.createOptions(opts);
         const options = parametros !== null ? {

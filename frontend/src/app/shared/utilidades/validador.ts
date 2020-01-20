@@ -50,6 +50,11 @@ export class Validador {
     return str === undefined || str === '' || str == null || str === 'null';
   }
 
+  static obtenerDescuento(valor: number, descuento: number) {
+    const desc = valor - valor * descuento / 100;
+    return Math.ceil(desc);
+  }
+
   static getFormatoFecha(fecha: Date) {
     if (fecha === undefined || fecha === null) {
       return '';

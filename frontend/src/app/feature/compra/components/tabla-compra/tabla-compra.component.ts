@@ -6,6 +6,8 @@ import { Producto } from 'src/app/feature/producto/shared/model/producto';
 import { Compra } from '../../shared/model/compra.model';
 import { CompraService } from '../../shared/service/compra.service';
 import { Constantes } from 'src/app/shared/utilidades/constantes';
+import { DatePipe } from '@angular/common';
+import { Validador } from 'src/app/shared/utilidades/validador';
 
 @Component({
   selector: 'app-tabla-compra',
@@ -19,12 +21,14 @@ export class TablaCompraComponent implements OnInit, OnDestroy {
   columnasMostrar: string[];
   dataSource: MatTableDataSource<Producto>;
   @Input() productos: Producto[];
+  @Input() cedula: string;
+  @Input() nombre: string;
   cargando = false;
   snackBarRef: MatSnackBarRef<SimpleSnackBar>;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
-  constructor(protected compraService: CompraService, private snackBar: MatSnackBar) { }
+  constructor(protected compraService: CompraService, private snackBar: MatSnackBar, public datepipe: DatePipe) { }
 
   ngOnInit() {
     this.inizializarDatasource();
@@ -50,7 +54,10 @@ export class TablaCompraComponent implements OnInit, OnDestroy {
     producto.compra = undefined;
     const compra = new Compra();
     compra.comandoProducto = producto;
-    console.log(['Producto', producto, compra]);
+    compra.cedulaComprador = this.cedula;
+    compra.nombreComprador = this.nombre;
+    compra.fechaCompra = this.datepipe.transform(new Date(), Constantes.FORMATO_FECHA);
+    compra.valorPagado = this.calcularValorPagado(producto);
     return compra;
   }
 
@@ -59,8 +66,9 @@ export class TablaCompraComponent implements OnInit, OnDestroy {
       (result) => {
         this.snackBarRef = this.abrirSnackBar(Constantes.COMPRA_GUARDADA);
         this.snackBarRef.afterDismissed().subscribe(() => {
-          location.reload();
+          // location.reload();
         });
+        this.cargando = false;
       },
       (error) => {
         console.log(error);
@@ -70,8 +78,19 @@ export class TablaCompraComponent implements OnInit, OnDestroy {
     ));
   }
 
+  private calcularValorPagado(prod: Producto): number {
+    const esViernes = Validador.esDiaSemanaPermitido(Constantes.diaViernes);
+    let valorAPagar: number;
+    if (esViernes === true) {
+      valorAPagar = Validador.obtenerDescuento(prod.valor, prod.descuento);
+    } else {
+      valorAPagar = prod.valor;
+    }
+    return valorAPagar;
+  }
+
   comprarProducto(producto: Producto) {
-    console.log(['Origen', producto]);
+    this.cargando = true;
     const compra: Compra = this.obtenerCompra(producto);
     this.guardarCompra(compra);
   }

@@ -1,4 +1,6 @@
+<app-cargando [mostrar]="cargando"></app-cargando>
 <div *ngIf="!cargando">
+<div>
   <table mat-table [dataSource]="dataSource" matSort aria-describedby="acciones">
   <ng-container matColumnDef="acciones" stickyEnd>
     <th id="acciones" mat-header-cell *matHeaderCellDef class="label-header-table"> Acciones </th>
@@ -51,4 +53,5 @@
 <div>
 <div class="not-records" *ngIf="dataSource.data.length === 0">Sin registros</div>
 <mat-paginator [pageSizeOptions]="[5, 10, 15, 25, 50]" [pageSize]="15" showFirstLastButtons></mat-paginator>
+</div>
 </div>
