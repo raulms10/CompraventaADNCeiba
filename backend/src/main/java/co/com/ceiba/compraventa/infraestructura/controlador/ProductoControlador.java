@@ -3,6 +3,9 @@
  */
 package co.com.ceiba.compraventa.infraestructura.controlador;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -46,7 +49,9 @@ public class ProductoControlador {
 	}
 	
 	@DeleteMapping
-	public void eliminar(@RequestBody ComandoProducto comandoProducto) {
-		this.manejadorEliminarProducto.ejecutar(comandoProducto);
+	public void eliminar(@RequestParam(value = "codigo", required = false) String codigo, @RequestParam(value = "fecha", required = false) String fecha) throws ParseException {
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date fechaEliminar = fecha == null ? null : simpleDateFormat.parse(fecha);
+		this.manejadorEliminarProducto.ejecutar(codigo, fechaEliminar);
 	}
 }

@@ -80,6 +80,7 @@ class ProductoControladorTest {
 	private static final String NO_ELIMINA_PRODUCTO_COMPRADO = "No es posible eliminar un producto comprado.";
 	private static final String NO_ELIMINA_PRODUCTO_SABADO_O_DOMINGO = "No es posible eliminar un producto los dias sabados y domingos.";
 	private static final String LA_FEHCA_ELIMINAR_ES_DATO_OBLIGATORIO = "La fecha para eliminar el producto es un dato obligatorio.";
+	private static final String EL_CODIGO_PRODCUTO_ES_DATO_OBLIGATORIO = "El codigo del producto es un dato obligatorio.";
 	
 	private static final String URL_PRODUCTOS = "/productos";
 	private static final String URL_COMPRAS = "/compras";
@@ -401,12 +402,13 @@ class ProductoControladorTest {
                 .content(objectMapper.writeValueAsString(comandoProducto)))
         		.andExpect(status().isOk());
     	// Act - Assert
-        mockMvc.perform(get(URL_PRODUCTOS+"?cedula=111")
-        		.contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get(URL_PRODUCTOS)
+        		.param("cedula", "111"))
         		.andExpect(status().isOk())
         		.andExpect(jsonPath("$").isArray())
         		.andExpect(jsonPath("$[0].codigo").value(comandoProducto.getCodigo()))
-        		.andExpect(jsonPath("$[0].cedulaVendedor").value("111"));
+        		.andExpect(jsonPath("$[0].cedulaVendedor").value("111"))
+        		.andExpect(jsonPath("$[1]").doesNotExist());
     }
     
     @Test 
@@ -423,8 +425,8 @@ class ProductoControladorTest {
         		.andExpect(status().isOk());
     	// Act - Assert
         mockMvc.perform(delete(URL_PRODUCTOS)
-        		.contentType(MediaType.APPLICATION_JSON)
-        		.content(objectMapper.writeValueAsString(comandoProducto).replace("}", ",\"fechaEliminar\":\"2020-01-16\"}")))
+        		.param("codigo", comandoProducto.getCodigo())
+        		.param("fecha", "2020-01-15"))
 		        .andExpect(status().isOk());
     }
     
@@ -441,8 +443,8 @@ class ProductoControladorTest {
         		.andExpect(status().isOk());
     	// Act - Assert
         mockMvc.perform(delete(URL_PRODUCTOS)
-        		.contentType(MediaType.APPLICATION_JSON)
-        		.content(objectMapper.writeValueAsString(comandoProducto).replace("}", ",\"fechaEliminar\":\"2020-01-25\"}")))
+        		.param("codigo", comandoProducto.getCodigo())
+        		.param("fecha", "2020-01-25"))
 		        .andExpect(status().isBadRequest())
 				.andExpect(jsonPath("$.nombreExcepcion").value(ExcepcionSabadoDomingo.class.getSimpleName()))
 				.andExpect(jsonPath("$.mensaje").value(NO_ELIMINA_PRODUCTO_SABADO_O_DOMINGO));
@@ -461,11 +463,30 @@ class ProductoControladorTest {
         		.andExpect(status().isOk());
     	// Act - Assert
         mockMvc.perform(delete(URL_PRODUCTOS)
-        		.contentType(MediaType.APPLICATION_JSON)
-        		.content(objectMapper.writeValueAsString(comandoProducto).replace("}", ",\"fechaEliminar\":\"2020-01-26\"}")))
+        		.param("codigo", comandoProducto.getCodigo())
+        		.param("fecha", "2020-01-26"))
 		        .andExpect(status().isBadRequest())
 				.andExpect(jsonPath("$.nombreExcepcion").value(ExcepcionSabadoDomingo.class.getSimpleName()))
 				.andExpect(jsonPath("$.mensaje").value(NO_ELIMINA_PRODUCTO_SABADO_O_DOMINGO));
+    }
+    
+    @Test 
+    public void validarEliminarCodigoNulo() throws Exception {
+    	// Arrange
+    	ComandoProductoTestDataBuilder comandoProductoTestDataBuilder = new ComandoProductoTestDataBuilder();
+    	comandoProductoTestDataBuilder.conCedulaVendedor("111");
+    	comandoProductoTestDataBuilder.conFecha(new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-16"));
+        ComandoProducto comandoProducto = comandoProductoTestDataBuilder.build();
+        mockMvc.perform(post(URL_PRODUCTOS)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(comandoProducto)))
+        		.andExpect(status().isOk());
+    	// Act - Assert
+        mockMvc.perform(delete(URL_PRODUCTOS)
+        		.param("fecha", "2020-01-14"))
+		        .andExpect(status().isBadRequest())
+				.andExpect(jsonPath("$.nombreExcepcion").value(ExcepcionValorObligatorio.class.getSimpleName()))
+				.andExpect(jsonPath("$.mensaje").value(EL_CODIGO_PRODCUTO_ES_DATO_OBLIGATORIO));
     }
     
     @Test 
@@ -475,15 +496,13 @@ class ProductoControladorTest {
     	comandoProductoTestDataBuilder.conCedulaVendedor("111");
     	comandoProductoTestDataBuilder.conFecha(new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-16"));
         ComandoProducto comandoProducto = comandoProductoTestDataBuilder.build();
-        comandoProducto.setFechaEliminar(null);
         mockMvc.perform(post(URL_PRODUCTOS)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(comandoProducto)))
         		.andExpect(status().isOk());
     	// Act - Assert
         mockMvc.perform(delete(URL_PRODUCTOS)
-        		.contentType(MediaType.APPLICATION_JSON)
-        		.content(objectMapper.writeValueAsString(comandoProducto)))
+        		.param("codigo", comandoProducto.getCodigo()))
 		        .andExpect(status().isBadRequest())
 				.andExpect(jsonPath("$.nombreExcepcion").value(ExcepcionValorObligatorio.class.getSimpleName()))
 				.andExpect(jsonPath("$.mensaje").value(LA_FEHCA_ELIMINAR_ES_DATO_OBLIGATORIO));
@@ -510,12 +529,11 @@ class ProductoControladorTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(comandoCompra)))
         		.andExpect(status().isOk());
-        fecha = simpleDateFormat.parse("2020-01-15");
-        
+               
         // Act - Assert
         mockMvc.perform(delete(URL_PRODUCTOS)
-        		.contentType(MediaType.APPLICATION_JSON)
-        		.content(objectMapper.writeValueAsString(comandoProducto).replace("}", ",\"fechaEliminar\":\"2020-01-16\"}")))
+        		.param("codigo", comandoProducto.getCodigo())
+        		.param("fecha", "2020-01-15"))
 		        .andExpect(status().isBadRequest())
 				.andExpect(jsonPath("$.nombreExcepcion").value(ExcepcionProductoComprado.class.getSimpleName()))
 				.andExpect(jsonPath("$.mensaje").value(NO_ELIMINA_PRODUCTO_COMPRADO));

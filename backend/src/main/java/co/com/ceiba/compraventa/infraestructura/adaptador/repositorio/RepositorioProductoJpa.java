@@ -57,14 +57,13 @@ public class RepositorioProductoJpa implements RepositorioProducto {
 	}
 
 	@Override
-	public void eliminar(Producto producto) {
-		ProductoEntity productoEntity = modelMapper.map(producto, ProductoEntity.class);
-		productoJpa.delete(productoEntity);
+	public void eliminar(String codigo) {
+		productoJpa.deleteById(codigo);
 	}
 
 	@Override
-	public boolean comprado(Producto producto) {
-		List<ProductoEntity> listProductos = productoJpa.findByCompra(producto.getCodigo());
+	public boolean comprado(String codigo) {
+		List<ProductoEntity> listProductos = productoJpa.findByCompra(codigo);
 		return !listProductos.isEmpty();
 	}
 }

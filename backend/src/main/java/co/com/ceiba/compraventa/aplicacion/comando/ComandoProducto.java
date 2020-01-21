@@ -5,9 +5,6 @@ package co.com.ceiba.compraventa.aplicacion.comando;
 
 import java.util.Date;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonProperty.Access;
-
 /**
  * @author raul.martinez
  *
@@ -22,9 +19,6 @@ public class ComandoProducto {
 	private String cedulaVendedor;
 	private String nombreVendedor;
 	private ComandoCompra compra;
-	
-	@JsonProperty(access = Access.WRITE_ONLY)
-	private Date fechaEliminar;
 	
 	public ComandoProducto(String codigo, String nombre, Long valor, Long descuento, Date fecha, String cedulaVendedor, String nombreVendedor) {
 		this.codigo = codigo;
@@ -100,13 +94,5 @@ public class ComandoProducto {
 
 	public void setCompra(ComandoCompra compra) {
 		this.compra = compra;
-	}
-
-	public Date getFechaEliminar() {
-		return fechaEliminar == null ? null : new Date(fechaEliminar.getTime());
-	}
-
-	public void setFechaEliminar(Date fechaEliminar) {
-		this.fechaEliminar = fechaEliminar == null ? null : new Date(fechaEliminar.getTime());
 	}	
 }
