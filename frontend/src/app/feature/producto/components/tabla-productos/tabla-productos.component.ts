@@ -6,6 +6,8 @@ import { Producto } from '../../shared/model/producto';
 import { ProductoService } from 'src/app/feature/producto/shared/service/producto.service';
 import { Constantes } from 'src/app/shared/utilidades/constantes';
 import { Validador } from 'src/app/shared/utilidades/validador';
+import { HttpParams } from '@angular/common/http';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-tabla-productos',
@@ -24,7 +26,8 @@ export class TablaProductosComponent implements OnInit {
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
-  constructor(protected productoService: ProductoService, private snackBar: MatSnackBar) { }
+  constructor(protected productoService: ProductoService, private snackBar: MatSnackBar,
+              public datepipe: DatePipe) { }
 
   ngOnInit() {
     this.inizializarDatasource();
@@ -53,19 +56,18 @@ export class TablaProductosComponent implements OnInit {
   }
 
   private eliminarProducto(producto: Producto) {
-    console.log(['ProdEl', producto]);
-    this.subscriptionServices.push(this.productoService.eliminar(producto).subscribe(
+    let parametros = new HttpParams();
+    parametros = parametros.append('codigo', producto.codigo);
+    parametros = parametros.append('fecha', this.datepipe.transform(new Date(), Constantes.FORMATO_FECHA));
+    this.subscriptionServices.push(this.productoService.eliminar(parametros).subscribe(
       (result) => {
         this.cargando = false;
-        this.snackBarRef = this.abrirSnackBar(Constantes.PRODUCTO_GUARDADO);
-        this.snackBarRef.afterDismissed().subscribe(() => {
-          const index = this.productos.indexOf(producto);
-          if (index !== -1) {
-            this.productos.splice(index, 1);
-          }
-          this.resetDataSource();
-        });
-        this.cargando = false;
+        const index = this.productos.indexOf(producto);
+        if (index !== -1) {
+          this.productos.splice(index, 1);
+        }
+        this.resetDataSource();
+        this.abrirSnackBar(Constantes.PRODUCTO_ELIMINADO);
       },
       (error) => {
         console.log(error);
