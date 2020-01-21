@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
   cedula: string;
   nombre: string;
 
-  constructor(private router: Router, private snackBar: MatSnackBar) { }
+  constructor(private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.verificarLocalStorage();

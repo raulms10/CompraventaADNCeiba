@@ -6,13 +6,13 @@
           <mat-card-header>
             <div class="header-subtittle">
               <div class="col-50">
-                <h2> Crear producto </h2>
+                <h2 id="producto-titulo-crear"> Crear producto </h2>
               </div>
             </div>
           </mat-card-header>
           <mat-card-content>
             <app-cargando [mostrar]="cargando"></app-cargando>
-            <div *ngIf="!cargando" class="header-subtittle" style="display: inline-block;">
+            <div id="form-crear-producto" *ngIf="!cargando" class="header-subtittle" style="display: inline-block;">
               <div class="tam-98">
                 <div class="col-33">
                   <mat-form-field class="tam-97">

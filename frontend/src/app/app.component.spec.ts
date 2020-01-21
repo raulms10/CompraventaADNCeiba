@@ -1,6 +1,8 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { MatTabsModule } from '@angular/material';
+import { RouterTestingModule } from '@angular/router/testing';
 
 
 describe('AppComponent', () => {
@@ -10,7 +12,7 @@ describe('AppComponent', () => {
         AppComponent
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      imports: []
+      imports: [MatTabsModule, RouterTestingModule]
     }).compileComponents();
   }));
 
@@ -20,10 +22,10 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'compraventa'`, () => {
+  it(`should have as title 'Compraventa'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('compraventa');
+    expect(app.title).toEqual('Compraventa');
   });
 
 

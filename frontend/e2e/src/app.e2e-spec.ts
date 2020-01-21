@@ -8,9 +8,14 @@ describe('workspace-project App', () => {
     page = new AppPage();
   });
 
-  it('should display welcome message', () => {
+  it('debe tener el titulo de la pagina igual a Compraventa', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('Angular Seed');
+    expect(page.getTitlePageText()).toEqual('Compraventa');
+  });
+
+  it('debe mostrar el mensaje de bievenida de TodoEnUno', () => {
+    page.navigateTo();
+    expect(page.getTitleText()).toEqual('Compraventa TodoEnUno');
   });
 
   afterEach(async () => {
