@@ -16,6 +16,7 @@ describe('AppCargandoComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CargandoComponent);
     component = fixture.componentInstance;
+    component.mostrar = true;
     fixture.detectChanges();
   });
 

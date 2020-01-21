@@ -6,7 +6,7 @@
           <mat-card-header>
             <div class="header-subtittle">
               <div>
-                <h2> ¡Compra lo que quieres o véndelo!  </h2>
+                <h2 id="titulo-publicidad"> ¡Compra lo que quieres o véndelo!  </h2>
               </div>
             </div>
           </mat-card-header>
@@ -23,8 +23,8 @@
                 <div class="col-33">
                   <mat-form-field class="tam-97">
                     <mat-label>Cédula <label class="label-required">*</label></mat-label>
-                    <input matInput placeholder="Ingrese su cédula " formControlName="formCedula" />
-                    <mat-error *ngIf="form.get('formCedula').hasError('required')">
+                    <input id="home-input-cedula" matInput placeholder="Ingrese su cédula " formControlName="formCedula" />
+                    <mat-error id="home-error-cedula" *ngIf="form.get('formCedula').hasError('required')">
                       Debe ingresar su cédula
                     </mat-error>
                     <mat-error *ngIf="form.get('formCedula').hasError('espacios')">
@@ -38,8 +38,8 @@
                 <div class="col-67">
                   <mat-form-field class="tam-97">
                     <mat-label>Nombre <label class="label-required">*</label></mat-label>
-                    <input matInput placeholder="Ingrese su nombre " formControlName="formNombreVendedor" />
-                    <mat-error *ngIf="form.get('formNombreVendedor').hasError('required')">
+                    <input id="home-input-nombre" matInput placeholder="Ingrese su nombre " formControlName="formNombreVendedor" />
+                    <mat-error id="home-error-nombre" *ngIf="form.get('formNombreVendedor').hasError('required')">
                       Debe ingresar su nombre
                     </mat-error>
                     <mat-error *ngIf="form.get('formNombreVendedor').hasError('espacios')">
@@ -58,8 +58,8 @@
       </mat-card-content>
       <mat-card-footer>
         <div class="container-button-center">
-          <button matTooltip="Ingresar" mat-raised-button color="primary" type="submit">INGRESAR</button>
-          <button matTooltip="Cancelar" (click)="limpiar()" mat-raised-button color="accent" type="button">LIMPIAR</button>
+          <button id="home-btn-ingresar" matTooltip="Ingresar" mat-raised-button color="primary" type="submit">INGRESAR</button>
+          <button id="home-btn-limpiar" matTooltip="Limpiar" (click)="limpiar()" mat-raised-button color="accent" type="button">LIMPIAR</button>
         </div>
       </mat-card-footer>
     </mat-card>

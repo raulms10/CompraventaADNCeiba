@@ -5,10 +5,10 @@
         <mat-card-header>
           <div class="header-subtittle">
             <div class="col-70-izquierda">
-              <h2> Mis productos </h2>
+              <h2 id="producto-titulo-tabla"> Mis productos </h2>
             </div>
             <div class="col-30-derecha">
-              <button *ngIf="!cargando" matTooltip="Crear producto" (click)="irACrearProducto()" mat-raised-button color="primary" type="button">CREAR</button>
+              <button id="producto-btn-nuevo" *ngIf="!cargando" matTooltip="Crear producto" (click)="irACrearProducto()" mat-raised-button color="primary" type="button">CREAR</button>
             </div>
           </div>
         </mat-card-header>

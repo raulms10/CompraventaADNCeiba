@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TablaProductosComponent } from './tabla-productos.component';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { DatePipe } from '@angular/common';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('TablaProductosComponent', () => {
   let component: TablaProductosComponent;
@@ -8,7 +12,13 @@ describe('TablaProductosComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TablaProductosComponent ]
+      declarations: [ TablaProductosComponent ],
+      imports: [
+        SharedModule,
+        BrowserAnimationsModule,
+        BrowserModule
+      ],
+      providers: [DatePipe]
     })
     .compileComponents();
   }));

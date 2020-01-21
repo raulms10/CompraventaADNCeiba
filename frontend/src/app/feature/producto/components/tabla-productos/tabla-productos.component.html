@@ -1,6 +1,6 @@
 <app-cargando [mostrar]="cargando"></app-cargando>
 <div *ngIf="!cargando">
-<div>
+<div id="tabla-productos">
   <table mat-table [dataSource]="dataSource" matSort aria-describedby="acciones">
   <ng-container matColumnDef="acciones" stickyEnd>
     <th id="acciones" mat-header-cell *matHeaderCellDef class="label-header-table"> Acciones </th>

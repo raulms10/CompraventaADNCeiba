@@ -1,9 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CrearProductoComponent } from './crear-producto.component';
-import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { CommonModule, DatePipe } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserModule } from '@angular/platform-browser';
 
 describe('CrearProductoComponent', () => {
   let component: CrearProductoComponent;
@@ -14,9 +16,12 @@ describe('CrearProductoComponent', () => {
       declarations: [ CrearProductoComponent ],
       imports: [
         CommonModule,
-        HttpClientModule,
-        RouterTestingModule
+        RouterTestingModule,
+        SharedModule,
+        BrowserAnimationsModule,
+        BrowserModule
       ],
+      providers: [DatePipe]
     })
     .compileComponents();
   }));
