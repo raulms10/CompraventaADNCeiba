@@ -7,7 +7,6 @@ import java.util.Date;
 
 import org.springframework.stereotype.Component;
 
-import co.com.ceiba.compraventa.aplicacion.fabrica.FabricaProducto;
 import co.com.ceiba.compraventa.dominio.servicio.producto.ServicioEliminarProducto;
 
 /**
@@ -19,7 +18,7 @@ public class ManejadorEliminarProducto {
 
 	private final ServicioEliminarProducto servicioEliminarProducto;
 		
-	public ManejadorEliminarProducto(ServicioEliminarProducto servicioEliminarProducto, FabricaProducto fabricaProducto) {
+	public ManejadorEliminarProducto(ServicioEliminarProducto servicioEliminarProducto) {
 		this.servicioEliminarProducto = servicioEliminarProducto;
 	}
 	

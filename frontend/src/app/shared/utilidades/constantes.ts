@@ -12,6 +12,7 @@ export class Constantes {
 
   static PRODUCTO_GUARDADO = 'El producto ha sido guardado.';
   static COMPRA_GUARDADA = 'La compra ha sido guardada.';
+  static PRODUCTO_ELIMINADO = 'El producto ha sido eliminado.';
 
   static DEBE_INGRESAR_DATOS = 'Debe ingresar su cédula y nombre para continuar.';
 }

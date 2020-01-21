@@ -66,12 +66,11 @@ export class HomeComponent implements OnInit {
       localStorage.setItem('cedula', encodeURIComponent(this.cedula));
       localStorage.setItem('nombre', encodeURIComponent(this.nombre));
       return true;
-  } else {
-      // LocalStorage no soportado en este navegador
-      console.log('No se soporta LocalStorage');
-      return false;
-  }
-
+    } else {
+        // LocalStorage no soportado en este navegador
+        console.log('No se soporta LocalStorage');
+        return false;
+    }
   }
 
   private abrirSnackBar(message: string): MatSnackBarRef<SimpleSnackBar> {

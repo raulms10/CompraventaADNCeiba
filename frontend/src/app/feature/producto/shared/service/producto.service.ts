@@ -28,7 +28,7 @@ export class ProductoService extends BaseService {
     return this.doPost<Producto, boolean>(`${environment.endpoint}productos`, producto, this.optsName('crear/actualizar productos'));
   }
 
-  public eliminar(producto: Producto) {
-    return this.doDelete<Producto, boolean>(`${environment.endpoint}productos`, producto, this.optsName('eliminar productos'));
+  public eliminar(parametros: HttpParams) {
+    return this.doDelete<boolean>(`${environment.endpoint}productos`, parametros, this.optsName('eliminar productos'));
   }
 }
