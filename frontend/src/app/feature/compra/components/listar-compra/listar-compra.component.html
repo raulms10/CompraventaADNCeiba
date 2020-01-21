@@ -1,0 +1,23 @@
+<div class="container">
+  <mat-card class="card-principal">
+    <mat-card-content>
+      <mat-card>
+        <mat-card-header>
+          <div class="header-subtittle">
+            <div>
+              <h2> Catálogo </h2>
+            </div>
+          </div>
+        </mat-card-header>
+        <mat-card-content>
+          <app-cargando [mostrar]="cargando"></app-cargando>
+          <div *ngIf="!cargando" >
+            <app-tabla-compra [productos]="productos" [cedula]="cedula" [nombre]="nombre"></app-tabla-compra>
+          </div>
+        </mat-card-content>
+        <mat-card-footer> </mat-card-footer>
+      </mat-card>
+    </mat-card-content>
+    <mat-card-footer></mat-card-footer>
+  </mat-card>
+</div>

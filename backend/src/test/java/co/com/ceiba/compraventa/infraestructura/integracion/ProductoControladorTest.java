@@ -51,7 +51,7 @@ import co.com.ceiba.compraventa.infraestructura.testdatabuilder.ComandoProductoT
 @Transactional
 class ProductoControladorTest {
 	
-	private static final String EL_CODIGO_ES_DATO_OBLIGATORIO = "El c<F3>digo del producto es un dato obligatorio.";
+	private static final String EL_CODIGO_ES_DATO_OBLIGATORIO = "El codigo del producto es un dato obligatorio.";
 	private static final String EL_NOMBRE_ES_DATO_OBLIGATORIO = "El nombre del producto es un dato obligatoio.";
 	private static final String EL_VALOR_ES_DATO_OBLIGATORIO = "El valor del producto es un dato obligatoio.";
 	private static final String EL_DESCUENTO_ES_DATO_OBLIGATORIO = "El descuento del producto es un dato obligatoio.";
@@ -59,10 +59,10 @@ class ProductoControladorTest {
 	private static final String LA_CEDULA_VENDEDOR_ES_DATO_OBLIGATORIO = "La cedula del vendedor es un dato obligatoio.";
 	private static final String EL_NOMBRE_VENDEDOR_ES_DATO_OBLIGATORIO = "El nombre del vendedor es un dato obligatoio.";
 	
-	private static final String EL_CODIGO_DEBE_TENER_MAXIMO_CARACTERES = "El c<F3>digo del producto debe tener m<E1>ximo %s caracteres.";
-	private static final String EL_NOMBRE_DEBE_TENER_MAXIMO_CARACTERES = "El nombre del producto debe tener m<E1>ximo %s caracteres.";
-	private static final String LA_CEDULA_VENDEDOR_DEBE_TENER_MAXIMO_CARACTERES = "La c<E9>dula del vendedor debe tener m<E1>ximo %s caracteres.";
-	private static final String EL_NOMBRE_VENDEDOR_DEBE_TENER_MAXIMO_CARACTERES = "El nombre del vendedor debe tener m<E1>ximo %s caracteres.";
+	private static final String EL_CODIGO_DEBE_TENER_MAXIMO_CARACTERES = "El codigo del producto debe tener maximo %s caracteres.";
+	private static final String EL_NOMBRE_DEBE_TENER_MAXIMO_CARACTERES = "El nombre del producto debe tener maximo %s caracteres.";
+	private static final String LA_CEDULA_VENDEDOR_DEBE_TENER_MAXIMO_CARACTERES = "La cedula del vendedor debe tener maximo %s caracteres.";
+	private static final String EL_NOMBRE_VENDEDOR_DEBE_TENER_MAXIMO_CARACTERES = "El nombre del vendedor debe tener maximo %s caracteres.";
 	private static final String EL_DESCUENTO_DEBE_ESTAR_EN_EL_RANGO = "El porcentaje de descuento debe estar entre %s y %s";
 	private static final String EL_VALOR_DEBE_SER_MAYOR_QUE = "El valor del producto debe ser mayor que %s";
 	
@@ -78,8 +78,9 @@ class ProductoControladorTest {
 	private static final String PRODUCTO_YA_EXISTE = "El producto ya ha sido ingresado.";
 	
 	private static final String NO_ELIMINA_PRODUCTO_COMPRADO = "No es posible eliminar un producto comprado.";
-	private static final String NO_ELIMINA_PRODUCTO_SABADO_O_DOMINGO = "No es posible eliminar un producto los d<ED>as s<E1>bados y domingos.";
+	private static final String NO_ELIMINA_PRODUCTO_SABADO_O_DOMINGO = "No es posible eliminar un producto los dias sabados y domingos.";
 	private static final String LA_FEHCA_ELIMINAR_ES_DATO_OBLIGATORIO = "La fecha para eliminar el producto es un dato obligatorio.";
+	private static final String EL_CODIGO_PRODCUTO_ES_DATO_OBLIGATORIO = "El codigo del producto es un dato obligatorio.";
 	
 	private static final String URL_PRODUCTOS = "/productos";
 	private static final String URL_COMPRAS = "/compras";
@@ -401,12 +402,13 @@ class ProductoControladorTest {
                 .content(objectMapper.writeValueAsString(comandoProducto)))
         		.andExpect(status().isOk());
     	// Act - Assert
-        mockMvc.perform(get(URL_PRODUCTOS+"?cedula=111")
-        		.contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get(URL_PRODUCTOS)
+        		.param("cedula", "111"))
         		.andExpect(status().isOk())
         		.andExpect(jsonPath("$").isArray())
         		.andExpect(jsonPath("$[0].codigo").value(comandoProducto.getCodigo()))
-        		.andExpect(jsonPath("$[0].cedulaVendedor").value("111"));
+        		.andExpect(jsonPath("$[0].cedulaVendedor").value("111"))
+        		.andExpect(jsonPath("$[1]").doesNotExist());
     }
     
     @Test 
@@ -414,7 +416,7 @@ class ProductoControladorTest {
     	// Arrange
     	ComandoProductoTestDataBuilder comandoProductoTestDataBuilder = new ComandoProductoTestDataBuilder();
     	comandoProductoTestDataBuilder.conCedulaVendedor("111");
-    	comandoProductoTestDataBuilder.conCodigo("1010");
+    	comandoProductoTestDataBuilder.conCodigo("1010000001");
     	comandoProductoTestDataBuilder.conFecha(new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-15"));
         ComandoProducto comandoProducto = comandoProductoTestDataBuilder.build();
         mockMvc.perform(post(URL_PRODUCTOS)
@@ -423,8 +425,8 @@ class ProductoControladorTest {
         		.andExpect(status().isOk());
     	// Act - Assert
         mockMvc.perform(delete(URL_PRODUCTOS)
-        		.contentType(MediaType.APPLICATION_JSON)
-        		.content(objectMapper.writeValueAsString(comandoProducto).replace("}", ",\"fechaEliminar\":\"2020-01-16\"}")))
+        		.param("codigo", comandoProducto.getCodigo())
+        		.param("fecha", "2020-01-15"))
 		        .andExpect(status().isOk());
     }
     
@@ -441,8 +443,8 @@ class ProductoControladorTest {
         		.andExpect(status().isOk());
     	// Act - Assert
         mockMvc.perform(delete(URL_PRODUCTOS)
-        		.contentType(MediaType.APPLICATION_JSON)
-        		.content(objectMapper.writeValueAsString(comandoProducto).replace("}", ",\"fechaEliminar\":\"2020-01-25\"}")))
+        		.param("codigo", comandoProducto.getCodigo())
+        		.param("fecha", "2020-01-25"))
 		        .andExpect(status().isBadRequest())
 				.andExpect(jsonPath("$.nombreExcepcion").value(ExcepcionSabadoDomingo.class.getSimpleName()))
 				.andExpect(jsonPath("$.mensaje").value(NO_ELIMINA_PRODUCTO_SABADO_O_DOMINGO));
@@ -461,11 +463,30 @@ class ProductoControladorTest {
         		.andExpect(status().isOk());
     	// Act - Assert
         mockMvc.perform(delete(URL_PRODUCTOS)
-        		.contentType(MediaType.APPLICATION_JSON)
-        		.content(objectMapper.writeValueAsString(comandoProducto).replace("}", ",\"fechaEliminar\":\"2020-01-26\"}")))
+        		.param("codigo", comandoProducto.getCodigo())
+        		.param("fecha", "2020-01-26"))
 		        .andExpect(status().isBadRequest())
 				.andExpect(jsonPath("$.nombreExcepcion").value(ExcepcionSabadoDomingo.class.getSimpleName()))
 				.andExpect(jsonPath("$.mensaje").value(NO_ELIMINA_PRODUCTO_SABADO_O_DOMINGO));
+    }
+    
+    @Test 
+    public void validarEliminarCodigoNulo() throws Exception {
+    	// Arrange
+    	ComandoProductoTestDataBuilder comandoProductoTestDataBuilder = new ComandoProductoTestDataBuilder();
+    	comandoProductoTestDataBuilder.conCedulaVendedor("111");
+    	comandoProductoTestDataBuilder.conFecha(new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-16"));
+        ComandoProducto comandoProducto = comandoProductoTestDataBuilder.build();
+        mockMvc.perform(post(URL_PRODUCTOS)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(comandoProducto)))
+        		.andExpect(status().isOk());
+    	// Act - Assert
+        mockMvc.perform(delete(URL_PRODUCTOS)
+        		.param("fecha", "2020-01-14"))
+		        .andExpect(status().isBadRequest())
+				.andExpect(jsonPath("$.nombreExcepcion").value(ExcepcionValorObligatorio.class.getSimpleName()))
+				.andExpect(jsonPath("$.mensaje").value(EL_CODIGO_PRODCUTO_ES_DATO_OBLIGATORIO));
     }
     
     @Test 
@@ -475,15 +496,13 @@ class ProductoControladorTest {
     	comandoProductoTestDataBuilder.conCedulaVendedor("111");
     	comandoProductoTestDataBuilder.conFecha(new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-16"));
         ComandoProducto comandoProducto = comandoProductoTestDataBuilder.build();
-        comandoProducto.setFechaEliminar(null);
         mockMvc.perform(post(URL_PRODUCTOS)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(comandoProducto)))
         		.andExpect(status().isOk());
     	// Act - Assert
         mockMvc.perform(delete(URL_PRODUCTOS)
-        		.contentType(MediaType.APPLICATION_JSON)
-        		.content(objectMapper.writeValueAsString(comandoProducto)))
+        		.param("codigo", comandoProducto.getCodigo()))
 		        .andExpect(status().isBadRequest())
 				.andExpect(jsonPath("$.nombreExcepcion").value(ExcepcionValorObligatorio.class.getSimpleName()))
 				.andExpect(jsonPath("$.mensaje").value(LA_FEHCA_ELIMINAR_ES_DATO_OBLIGATORIO));
@@ -510,12 +529,11 @@ class ProductoControladorTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(comandoCompra)))
         		.andExpect(status().isOk());
-        fecha = simpleDateFormat.parse("2020-01-15");
-        
+               
         // Act - Assert
         mockMvc.perform(delete(URL_PRODUCTOS)
-        		.contentType(MediaType.APPLICATION_JSON)
-        		.content(objectMapper.writeValueAsString(comandoProducto).replace("}", ",\"fechaEliminar\":\"2020-01-16\"}")))
+        		.param("codigo", comandoProducto.getCodigo())
+        		.param("fecha", "2020-01-15"))
 		        .andExpect(status().isBadRequest())
 				.andExpect(jsonPath("$.nombreExcepcion").value(ExcepcionProductoComprado.class.getSimpleName()))
 				.andExpect(jsonPath("$.mensaje").value(NO_ELIMINA_PRODUCTO_COMPRADO));

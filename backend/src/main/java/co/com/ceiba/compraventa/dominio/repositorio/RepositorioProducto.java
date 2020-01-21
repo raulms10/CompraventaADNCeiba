@@ -37,11 +37,11 @@ public interface RepositorioProducto {
 	 * Permite eliminar el producto
 	 * @param producto
 	 */
-	void eliminar(Producto producto);
+	void eliminar(String codigo);
 	
 	/**
 	 * Permite actualizar el producto
 	 * @param poducto
 	 */
-	boolean comprado(Producto producto);
+	boolean comprado(String codigo);
 }

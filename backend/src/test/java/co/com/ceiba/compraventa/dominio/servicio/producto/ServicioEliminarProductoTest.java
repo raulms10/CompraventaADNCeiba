@@ -26,8 +26,9 @@ import co.com.ceiba.compraventa.dominio.testdatabuilder.ProductoTestDataBuilder;
 class ServicioEliminarProductoTest {
 
 	private static final String NO_ELIMINA_PRODUCTO_COMPRADO = "No es posible eliminar un producto comprado.";
-	private static final String NO_ELIMINA_PRODUCTO_SABADO_O_DOMINGO = "No es posible eliminar un producto los d<ED>as s<E1>bados y domingos.";
+	private static final String NO_ELIMINA_PRODUCTO_SABADO_O_DOMINGO = "No es posible eliminar un producto los dias sabados y domingos.";
 	private static final String LA_FEHCA_ELIMINAR_ES_DATO_OBLIGATORIO = "La fecha para eliminar el producto es un dato obligatorio.";
+	private static final String EL_CODIGO_PRODCUTO_ES_DATO_OBLIGATORIO = "El codigo del producto es un dato obligatorio.";
 	
 	@Test
 	public void validarEliminarProducto() throws ParseException {
@@ -38,7 +39,7 @@ class ServicioEliminarProductoTest {
 		ServicioEliminarProducto servicioEliminarProducto = new ServicioEliminarProducto(repositorioProducto);
 		Producto producto = productoTestDataBuilder.build();
 		//Act
-		servicioEliminarProducto.ejecutar(producto, fecha);
+		servicioEliminarProducto.ejecutar(producto.getCodigo(), fecha);
 		//Assert
 		Assert.assertTrue(true);
 	}
@@ -53,7 +54,7 @@ class ServicioEliminarProductoTest {
 		RepositorioProducto repositorioProducto = Mockito.mock(RepositorioProducto.class);
 		ServicioEliminarProducto servicioEliminarProducto = new ServicioEliminarProducto(repositorioProducto);
 		//Act - Assert
-		BasePrueba.assertThrows(() -> servicioEliminarProducto.ejecutar(producto, fecha), ExcepcionSabadoDomingo.class, NO_ELIMINA_PRODUCTO_SABADO_O_DOMINGO);
+		BasePrueba.assertThrows(() -> servicioEliminarProducto.ejecutar(producto.getCodigo(), fecha), ExcepcionSabadoDomingo.class, NO_ELIMINA_PRODUCTO_SABADO_O_DOMINGO);
 	}
 	
 	@Test
@@ -66,7 +67,7 @@ class ServicioEliminarProductoTest {
 		RepositorioProducto repositorioProducto = Mockito.mock(RepositorioProducto.class);
 		ServicioEliminarProducto servicioEliminarProducto = new ServicioEliminarProducto(repositorioProducto);
 		//Act - Assert
-		BasePrueba.assertThrows(() -> servicioEliminarProducto.ejecutar(producto, fecha), ExcepcionSabadoDomingo.class, NO_ELIMINA_PRODUCTO_SABADO_O_DOMINGO);
+		BasePrueba.assertThrows(() -> servicioEliminarProducto.ejecutar(producto.getCodigo(), fecha), ExcepcionSabadoDomingo.class, NO_ELIMINA_PRODUCTO_SABADO_O_DOMINGO);
 	}
 	
 	@Test
@@ -79,7 +80,17 @@ class ServicioEliminarProductoTest {
 		Mockito.when(repositorioProducto.comprado(Mockito.any())).thenReturn(true);
 		ServicioEliminarProducto servicioEliminarProducto = new ServicioEliminarProducto(repositorioProducto);
 		//Act - Assert
-		BasePrueba.assertThrows(() -> servicioEliminarProducto.ejecutar(producto, fecha), ExcepcionProductoComprado.class, NO_ELIMINA_PRODUCTO_COMPRADO);
+		BasePrueba.assertThrows(() -> servicioEliminarProducto.ejecutar(producto.getCodigo(), fecha), ExcepcionProductoComprado.class, NO_ELIMINA_PRODUCTO_COMPRADO);
+	}
+	
+	
+	@Test
+	public void validarEliminarConCodigoNulo() throws ParseException {
+		//Arrange
+		RepositorioProducto repositorioProducto = Mockito.mock(RepositorioProducto.class);
+		ServicioEliminarProducto servicioEliminarProducto = new ServicioEliminarProducto(repositorioProducto);
+		//Act - Assert
+		BasePrueba.assertThrows(() -> servicioEliminarProducto.ejecutar(null, new Date()), ExcepcionValorObligatorio.class, EL_CODIGO_PRODCUTO_ES_DATO_OBLIGATORIO);
 	}
 	
 	@Test
@@ -90,7 +101,7 @@ class ServicioEliminarProductoTest {
 		RepositorioProducto repositorioProducto = Mockito.mock(RepositorioProducto.class);
 		ServicioEliminarProducto servicioEliminarProducto = new ServicioEliminarProducto(repositorioProducto);
 		//Act - Assert
-		BasePrueba.assertThrows(() -> servicioEliminarProducto.ejecutar(producto, null), ExcepcionValorObligatorio.class, LA_FEHCA_ELIMINAR_ES_DATO_OBLIGATORIO);
+		BasePrueba.assertThrows(() -> servicioEliminarProducto.ejecutar(producto.getCodigo(), null), ExcepcionValorObligatorio.class, LA_FEHCA_ELIMINAR_ES_DATO_OBLIGATORIO);
 	}
 
 }

@@ -1,0 +1,7 @@
+{
+    "/compraventa": {
+      "target": "http://localhost:4880",
+      "logLevel": "debug"
+    }
+
+}
