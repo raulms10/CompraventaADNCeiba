@@ -18,8 +18,8 @@
                   <mat-form-field class="tam-97">
                     <mat-label>Código <label class="label-required">*</label></mat-label>
                     <input matInput placeholder="Ingrese el código del producto" formControlName="formCodigo" />
-                    <mat-error *ngIf="form.get('formCodigo').hasError('required')">
-                      Debe ingresar el código del productoo
+                    <mat-error id="producto-error-codigo" *ngIf="form.get('formCodigo').hasError('required')">
+                      Debe ingresar el código del producto
                     </mat-error>
                     <mat-error *ngIf="form.get('formCodigo').hasError('espacios')">
                       El código no puede ser solo espacios
@@ -33,7 +33,7 @@
                   <mat-form-field class="tam-97">
                     <mat-label>Nombre <label class="label-required">*</label></mat-label>
                     <input matInput placeholder="Ingrese el nombre del producto" formControlName="formNombre" />
-                    <mat-error *ngIf="form.get('formNombre').hasError('required')">
+                    <mat-error id="producto-error-nombre" *ngIf="form.get('formNombre').hasError('required')">
                       Debe ingresar el nombre del producto
                     </mat-error>
                     <mat-error *ngIf="form.get('formNombre').hasError('espacios')">
@@ -50,7 +50,7 @@
                   <mat-form-field class="tam-97">
                     <mat-label>Valor ($) <label class="label-required">*</label></mat-label>
                     <input matInput placeholder="Ingrese el valor del producto" #valor formControlName="formValor" />
-                    <mat-error *ngIf="form.get('formValor').hasError('required')">
+                    <mat-error id="producto-error-valor" *ngIf="form.get('formValor').hasError('required')">
                       Debe ingresar el valor del producto
                     </mat-error>
                     <mat-error *ngIf="form.get('formValor').hasError('integer')">
@@ -62,7 +62,7 @@
                   <mat-form-field class="tam-97">
                     <mat-label>Descuento (%) <label class="label-required">*</label></mat-label>
                     <input matInput placeholder="Ingrese el descuento del producto" #descuento formControlName="formDescuento" />
-                    <mat-error *ngIf="form.get('formDescuento').hasError('required')">
+                    <mat-error id="producto-error-desceunto" *ngIf="form.get('formDescuento').hasError('required')">
                       Debe ingresar el descuento del producto
                     </mat-error>
                     <mat-error *ngIf="form.get('formDescuento').hasError('integer')">
@@ -123,7 +123,7 @@
       </mat-card-content>
       <mat-card-footer>
         <div class="container-button-center">
-          <button matTooltip="Guardar producto" mat-raised-button color="primary" type="submit" *ngIf="!cargando">GUARDAR</button>
+          <button id="producto-btn-guardar" matTooltip="Guardar producto" mat-raised-button color="primary" type="submit" *ngIf="!cargando">GUARDAR</button>
           <button matTooltip="Cancelar" (click)="regresar()" mat-raised-button color="accent" type="button">CANCELAR</button>
         </div>
       </mat-card-footer>

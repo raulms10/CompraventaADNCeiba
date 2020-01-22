@@ -33,6 +33,22 @@ export class ProductoPage {
     return element(by.id('producto-titulo-crear')).getText() as Promise<string>;
   }
 
+  obtenerCompErrorCodigo() {
+    return element(by.id('producto-error-codigo')) as ElementFinder;
+  }
+
+  obtenerCompErrorNombre() {
+    return element(by.id('producto-error-nombre')) as ElementFinder;
+  }
+
+  obtenerCompErrorValor() {
+    return element(by.id('producto-error-valor')) as ElementFinder;
+  }
+
+  obtenerCompErrorDesceunto() {
+    return element(by.id('producto-error-desceunto')) as ElementFinder;
+  }
+
   modificarCedulaInput(cedula: string) {
     return element(by.id('home-input-cedula')).sendKeys(cedula) as Promise<void>;
   }
@@ -51,5 +67,9 @@ export class ProductoPage {
 
   darClickEnBtnNuevoProducto() {
     return element(by.id('producto-btn-nuevo')).click() as Promise<void>;
+  }
+
+  darClickEnBtnGuardarProducto() {
+    return element(by.id('producto-btn-guardar')).click() as Promise<void>;
   }
 }
