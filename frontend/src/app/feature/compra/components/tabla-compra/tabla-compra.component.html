@@ -6,7 +6,7 @@
     <th id="acciones" mat-header-cell *matHeaderCellDef class="label-header-table"> Acciones </th>
     <td mat-cell data-label="Acciones: " *matCellDef="let row" class="text-center">
       <div>
-        <button matTooltip="Ver detalles" mat-icon-button (click)="verDetalle(row)" aria-label="Ver detalle producto">
+        <button *ngIf="false" matTooltip="Ver detalles" mat-icon-button (click)="verDetalle(row)" aria-label="Ver detalle producto">
           <mat-icon color="primary">pageview</mat-icon>
         </button>
         <button matTooltip="Comprar producto" mat-icon-button (click)="comprarProducto(row)" aria-label="Comprar producto">
