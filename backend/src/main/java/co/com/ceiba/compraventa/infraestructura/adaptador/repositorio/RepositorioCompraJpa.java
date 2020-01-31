@@ -24,7 +24,8 @@ public class RepositorioCompraJpa implements RepositorioCompra {
 	@Autowired
 	private final CompraJpa compraJpa;
 	
-	private ModelMapper modelMapper = new ModelMapper();
+	@Autowired
+	private ModelMapper modelMapper;
 	
 	public RepositorioCompraJpa(CompraJpa compraJpa) {
 		this.compraJpa = compraJpa;

@@ -27,7 +27,8 @@ public class RepositorioProductoJpa implements RepositorioProducto {
 	@Autowired
 	private final ProductoJpa productoJpa;
 	
-	private ModelMapper modelMapper = new ModelMapper();
+	@Autowired
+	private ModelMapper modelMapper;
 	
 	public RepositorioProductoJpa(ProductoJpa productoJpa) {
 		this.productoJpa = productoJpa;
