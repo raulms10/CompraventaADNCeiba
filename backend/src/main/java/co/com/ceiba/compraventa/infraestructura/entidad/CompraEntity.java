@@ -17,12 +17,17 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * @author raul.martinez
  *
  */
 @Entity
 @Table(name = "compra")
+@Getter
+@Setter
 public class CompraEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -48,52 +53,4 @@ public class CompraEntity implements Serializable {
 	@OneToOne
 	@JoinColumn(name = "producto", referencedColumnName = "codigo", nullable = false)
 	private ProductoEntity producto;
-
-	public Long getIdCompra() {
-		return idCompra;
-	}
-
-	public void setIdCompra(Long idCompra) {
-		this.idCompra = idCompra;
-	}
-
-	public String getCedulaComprador() {
-		return cedulaComprador;
-	}
-
-	public void setCedulaComprador(String cedulaComprador) {
-		this.cedulaComprador = cedulaComprador;
-	}
-
-	public String getNombreComprador() {
-		return nombreComprador;
-	}
-
-	public void setNombreComprador(String nombreComprador) {
-		this.nombreComprador = nombreComprador;
-	}
-
-	public Date getFechaCompra() {
-		return new Date(fechaCompra.getTime());
-	}
-
-	public void setFechaCompra(Date fechaCompra) {
-		this.fechaCompra = new Date(fechaCompra.getTime());
-	}
-
-	public Long getValorPagado() {
-		return valorPagado;
-	}
-
-	public void setValorPagado(Long valorPagado) {
-		this.valorPagado = valorPagado;
-	}
-
-	public ProductoEntity getProducto() {
-		return producto;
-	}
-
-	public void setProducto(ProductoEntity producto) {
-		this.producto = producto;
-	}
 }
