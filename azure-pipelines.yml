@@ -15,7 +15,7 @@ steps:
     script: |
       echo  '$(System.DefaultWorkingDirectory)'
       dir
-      dir backend
+      dir ./backend
 - task: Gradle@2
   inputs:
     workingDirectory: './backend'
