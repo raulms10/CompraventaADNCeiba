@@ -26,5 +26,5 @@ steps:
     jdkArchitectureOption: 'x64'
     publishJUnitResults: true
     testResultsFiles: '**/TEST-*.xml'
-    tasks: 'clean build bootRun -x test -S'
+    tasks: 'clean build -x test -S'
 
