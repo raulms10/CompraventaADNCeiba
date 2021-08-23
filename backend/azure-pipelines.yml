@@ -13,12 +13,7 @@ steps:
 - task: CmdLine@2
   inputs:
     script: |
-      echo  '- task: CopyFiles@2
-  inputs:
-    SourceFolder: 'backend/build/libs'
-    Contents: '**'
-    TargetFolder: '$(System.DefaultWorkingDirectory)'
-    OverWrite: true'
+      echo  '$(System.DefaultWorkingDirectory)'
       dir
       dir ./backend
 - task: Gradle@2
@@ -33,4 +28,9 @@ steps:
     testResultsFiles: '**/TEST-*.xml'
     tasks: 'clean build -x test -S'
 
-
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(System.DefaultWorkingDirectory)/backend/build/libs'
+    Contents: '**'
+    TargetFolder: '$(System.DefaultWorkingDirectory)'
+    OverWrite: true
