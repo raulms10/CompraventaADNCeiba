@@ -13,7 +13,12 @@ steps:
 - task: CmdLine@2
   inputs:
     script: |
-      echo  '$(System.DefaultWorkingDirectory)'
+      echo  '- task: CopyFiles@2
+  inputs:
+    SourceFolder: 'backend/build/libs'
+    Contents: '**'
+    TargetFolder: '$(System.DefaultWorkingDirectory)'
+    OverWrite: true'
       dir
       dir ./backend
 - task: Gradle@2
@@ -27,4 +32,5 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/TEST-*.xml'
     tasks: 'clean build -x test -S'
+
 
