@@ -10,6 +10,12 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
+- task: CmdLine@2
+  inputs:
+    script: |
+      echo  '$(System.DefaultWorkingDirectory)'
+      dir
+      dir ./backend
 - task: Gradle@2
   inputs:
     workingDirectory: ''
