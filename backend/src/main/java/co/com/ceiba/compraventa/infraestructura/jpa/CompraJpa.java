@@ -15,8 +15,8 @@ import co.com.ceiba.compraventa.infraestructura.entidad.ProductoEntity;
  * @author raul.martinez
  *
  */
-@Repository
-public interface CompraJpa extends JpaRepository<CompraEntity, Long> {
+//@Repository
+public interface CompraJpa {//extends JpaRepository<CompraEntity, Long> {
 	
 	List<CompraEntity> findByProducto(ProductoEntity producto);
 	

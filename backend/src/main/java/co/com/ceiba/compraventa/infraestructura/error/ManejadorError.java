@@ -31,7 +31,7 @@ import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionValorObligatorio;
 @ControllerAdvice
 public class ManejadorError extends ResponseEntityExceptionHandler {
     
-    private static final Logger LOG = LoggerFactory.getLogger(ManejadorError.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ManejadorError.class);
 
     private static final String HA_OCURRIDO_ERROR_CONCTACTE_ADMINISTRADOR = "Ha ocurrido un error, por favor contactar al administrador.";
 
@@ -62,7 +62,7 @@ public class ManejadorError extends ResponseEntityExceptionHandler {
             Error error = new Error(excepcionNombre, mensaje);
             resultado = new ResponseEntity<>(error, HttpStatus.valueOf(codigo));
         } else {
-        	LOG.error(excepcionNombre, exception);
+        	LOGGER.error(excepcionNombre, exception);
             Error error = new Error(excepcionNombre, HA_OCURRIDO_ERROR_CONCTACTE_ADMINISTRADOR);
             resultado = new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
         }

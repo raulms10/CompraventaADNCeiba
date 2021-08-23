@@ -5,7 +5,6 @@ package co.com.ceiba.compraventa.infraestructura.adaptador.repositorio;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,56 +15,53 @@ import co.com.ceiba.compraventa.dominio.modelo.Producto;
 import co.com.ceiba.compraventa.dominio.repositorio.RepositorioProducto;
 import co.com.ceiba.compraventa.infraestructura.entidad.ProductoEntity;
 import co.com.ceiba.compraventa.infraestructura.jpa.ProductoJpa;
+import co.com.ceiba.compraventa.infraestructura.sql.ProductoSql;
 
 /**
  * @author raul.martinez
  *
  */
-//@Repository
-public class RepositorioProductoJpa {//implements RepositorioProducto {
+@Repository
+public class RepositorioProductoSql implements RepositorioProducto {
+
+	@Autowired
+	private final ProductoSql productoSql;
 	
-	//@Autowired
-	private final ProductoJpa productoJpa;
-	
-	//@Autowired
+	@Autowired
 	private ModelMapper modelMapper;
 	
-	public RepositorioProductoJpa(ProductoJpa productoJpa) {
-		this.productoJpa = productoJpa;
+	public RepositorioProductoSql(ProductoSql productoSql) {
+		this.productoSql = productoSql;
 	}
-
-	//@Override
+	
+	@Override
 	public void crear(Producto producto) {
 		ProductoEntity productoEntity = modelMapper.map(producto, ProductoEntity.class);
-		//productoJpa.save(productoEntity);
+		System.out.println("Producto creado");
 	}
 
-	//@Override
+	@Override
 	public boolean existe(Producto producto) {
-		//Optional<ProductoEntity> productoById = productoJpa.findById(producto.getCodigo());
-		//return productoById.isPresent();
+		System.out.println("Producto verificado, no existe");
 		return false;
 	}
 
-	//@Override
+	@Override
 	public List<ComandoProducto> listar(String cedulaVendedor) {
 		List<ComandoProducto> listComandoProductos = new ArrayList<>();
-		List<ProductoEntity> listEntities = productoJpa.findAllOrByCedulaVendedor(cedulaVendedor);
-		for (ProductoEntity productoEntity : listEntities) {
-			ComandoProducto comandoProducto = modelMapper.map(productoEntity, ComandoProducto.class);
-			listComandoProductos.add(comandoProducto);
-		}
+		System.out.println("Producto listado");
 		return listComandoProductos;
 	}
 
-	//@Override
+	@Override
 	public void eliminar(String codigo) {
-		//productoJpa.deleteById(codigo);
+		System.out.println("Producto eliminado");
 	}
 
-	//@Override
+	@Override
 	public boolean comprado(String codigo) {
-		List<ProductoEntity> listProductos = productoJpa.findByCompra(codigo);
-		return !listProductos.isEmpty();
+		System.out.println("Producto comprado");
+		return false;
 	}
+
 }

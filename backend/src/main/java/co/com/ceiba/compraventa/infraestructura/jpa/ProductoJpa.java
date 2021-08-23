@@ -16,13 +16,13 @@ import co.com.ceiba.compraventa.infraestructura.entidad.ProductoEntity;
  * @author raul.martinez
  *
  */
-@Repository
-public interface ProductoJpa extends JpaRepository<ProductoEntity, String> {
+//@Repository
+public interface ProductoJpa {//extends JpaRepository<ProductoEntity, String> {
 	
-	@Query("SELECT p FROM ProductoEntity p WHERE :cedula is null or p.cedulaVendedor = :cedula")
+	//@Query("SELECT p FROM ProductoEntity p WHERE :cedula is null or p.cedulaVendedor = :cedula")
 	List<ProductoEntity> findAllOrByCedulaVendedor(@Param("cedula") String cedulaVendedor);
 	
-	@Query("SELECT p FROM ProductoEntity p WHERE p.codigo = :codigo and p.compra.idCompra is not null")
+	//@Query("SELECT p FROM ProductoEntity p WHERE p.codigo = :codigo and p.compra.idCompra is not null")
 	List<ProductoEntity> findByCompra(@Param("codigo") String codigo);
 
 }
