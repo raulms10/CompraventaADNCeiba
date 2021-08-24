@@ -29,7 +29,6 @@ steps:
     testResultsFiles: '**/TEST-*.xml'
     tasks: 'clean build -x test -S'
 
-
 - task: NuGetCommand@2
   inputs:
     command: 'pack'
@@ -49,3 +48,12 @@ steps:
     PathtoPublish: '$(System.DefaultWorkingDirectory)/backend/build/libs/'
     ArtifactName: 'artifact-compraventa'
     publishLocation: 'Container'
+
+- task: AzureRmWebAppDeployment@4
+  inputs:
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'Azure subscription 1 (549874f8-cc36-4540-8693-9cba1c6a34e4)'
+    appType: 'webAppLinux'
+    WebAppName: 'adn-compraventa-back'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/backend/build/libs/*.war'
+    RuntimeStack: 'TOMCAT|9.0-jre8'
