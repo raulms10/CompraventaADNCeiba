@@ -27,10 +27,3 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/TEST-*.xml'
     tasks: 'clean build -x test -S'
-
-- task: CopyFiles@2
-  inputs:
-    SourceFolder: '$(System.DefaultWorkingDirectory)/backend/build/libs'
-    Contents: '**'
-    TargetFolder: '$(System.DefaultWorkingDirectory)'
-    OverWrite: true
