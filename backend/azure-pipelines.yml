@@ -29,6 +29,12 @@ steps:
     testResultsFiles: '**/TEST-*.xml'
     tasks: 'clean build -x test -S'
 
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/backend/build/libs/*.war'
+    ArtifactName: 'artifact-compraventa'
+    publishLocation: 'Container'
+
 - task: AzureFileCopy@4
   inputs:
     SourcePath: '$(System.DefaultWorkingDirectory)/backend/build/libs/*.war'
