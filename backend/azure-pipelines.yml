@@ -28,9 +28,3 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/TEST-*.xml'
     tasks: 'clean build -x test -S'
-    
-- task: Docker@2
-  inputs:
-    repository: 'docker-container-adn'
-    command: 'buildAndPush'
-    Dockerfile: '**/Dockerfile'
