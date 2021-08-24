@@ -30,20 +30,6 @@ steps:
       dir $(System.DefaultWorkingDirectory)/backend/build/libs/
       dir ./backend    
 
-- task: NuGetCommand@2
-  inputs:
-    command: 'pack'
-    packagesToPack: '$(System.DefaultWorkingDirectory)/backend/build/libs/'
-    packDestination: '$(Build.ArtifactStagingDirectory)/**/'
-    versioningScheme: 'off'
-
-- task: NuGetCommand@2
-  inputs:
-    command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
-    nuGetFeedType: 'internal'
-    publishVstsFeed: '0dfb3042-22bf-400a-9490-36ea26c7b3b6'
-
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(System.DefaultWorkingDirectory)/backend/build/libs/'
