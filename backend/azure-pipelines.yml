@@ -10,13 +10,6 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- task: CmdLine@2
-  inputs:
-    script: |
-      echo '$(System.DefaultWorkingDirectory)'
-      dir '$(System.DefaultWorkingDirectory)'
-      dir $(System.DefaultWorkingDirectory)/backend/build/libs/
-      dir ./backend
 - task: Gradle@2
   inputs:
     workingDirectory: 'backend'
@@ -28,6 +21,14 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/TEST-*.xml'
     tasks: 'clean build -x test -S'
+
+- task: CmdLine@2
+  inputs:
+    script: |
+      echo '$(System.DefaultWorkingDirectory)'
+      dir '$(System.DefaultWorkingDirectory)'
+      dir $(System.DefaultWorkingDirectory)/backend/build/libs/
+      dir ./backend    
 
 - task: NuGetCommand@2
   inputs:
