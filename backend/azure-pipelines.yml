@@ -44,3 +44,5 @@ steps:
     WebAppName: 'adn-compraventa-back'
     packageForLinux: '$(System.DefaultWorkingDirectory)/backend/build/libs/*.*'
     RuntimeStack: 'TOMCAT|9.0-jre8'
+    StartupCommand: 'startup'
+    AppSettings: '-Port 80'
