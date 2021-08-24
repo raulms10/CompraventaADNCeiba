@@ -13,9 +13,9 @@ steps:
 - task: CmdLine@2
   inputs:
     script: |
-      echo  '$(System.DefaultWorkingDirectory)'
-      dir  '$(System.DefaultWorkingDirectory)'
-      dir
+      echo '$(System.DefaultWorkingDirectory)'
+      dir '$(System.DefaultWorkingDirectory)'
+      dir $(System.DefaultWorkingDirectory)/backend/build/libs/
       dir ./backend
 - task: Gradle@2
   inputs:
@@ -55,5 +55,5 @@ steps:
     azureSubscription: 'Azure subscription 1 (549874f8-cc36-4540-8693-9cba1c6a34e4)'
     appType: 'webAppLinux'
     WebAppName: 'adn-compraventa-back'
-    packageForLinux: '$(System.DefaultWorkingDirectory)/backend/build/libs/'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/backend/build/libs/*.war'
     RuntimeStack: 'TOMCAT|9.0-jre8'
