@@ -20,7 +20,7 @@ steps:
     jdkArchitectureOption: 'x64'
     publishJUnitResults: true
     testResultsFiles: '**/TEST-*.xml'
-    tasks: 'clean build bootWar -x test -S'
+    tasks: 'clean build -x test -S'
 
 - task: CmdLine@2
   inputs:
