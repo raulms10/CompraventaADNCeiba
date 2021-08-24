@@ -29,9 +29,8 @@ steps:
     testResultsFiles: '**/TEST-*.xml'
     tasks: 'clean build -x test -S'
     
-- task: CopyFiles@2
+- task: Docker@2
   inputs:
-    SourceFolder: '$(System.DefaultWorkingDirectory)\backend\build\libs\*.war'
-    Contents: '**'
-    TargetFolder: '$(System.DefaultWorkingDirectory)'
-    OverWrite: true
+    repository: 'docker-container-adn'
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
