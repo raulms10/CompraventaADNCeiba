@@ -31,14 +31,6 @@ steps:
 
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)/backend/build/libs/*.war'
+    PathtoPublish: '$(System.DefaultWorkingDirectory)/backend/build/libs/*.war'
     ArtifactName: 'artifact-compraventa'
     publishLocation: 'Container'
-
-- task: AzureFileCopy@4
-  inputs:
-    SourcePath: '$(System.DefaultWorkingDirectory)/backend/build/libs/*.war'
-    azureSubscription: 'Azure subscription 1 (549874f8-cc36-4540-8693-9cba1c6a34e4)'
-    Destination: 'AzureBlob'
-    storage: 'storage-releases-adn'
-    ContainerName: 'container-releases-adn'
