@@ -20,7 +20,7 @@ steps:
     jdkArchitectureOption: 'x64'
     publishJUnitResults: true
     testResultsFiles: '**/TEST-*.xml'
-    tasks: 'clean build -x test -S'
+    tasks: 'clean build war -x test -S'
 
 - task: CmdLine@2
   inputs:
@@ -42,5 +42,5 @@ steps:
     azureSubscription: 'Azure subscription 1 (549874f8-cc36-4540-8693-9cba1c6a34e4)'
     appType: 'webAppLinux'
     WebAppName: 'adn-compraventa-back'
-    packageForLinux: '$(System.DefaultWorkingDirectory)/backend/build/libs/*.jar'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/backend/build/libs/*.war'
     RuntimeStack: 'TOMCAT|9.0-jre8'
