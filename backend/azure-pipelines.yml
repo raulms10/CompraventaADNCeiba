@@ -42,5 +42,5 @@ steps:
     azureSubscription: 'Azure subscription 1 (549874f8-cc36-4540-8693-9cba1c6a34e4)'
     appType: 'webAppLinux'
     WebAppName: 'adn-compraventa-back'
-    packageForLinux: '$(System.DefaultWorkingDirectory)/backend/build/libs/*.jar'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/backend/build/libs/*.*'
     RuntimeStack: 'TOMCAT|9.0-jre8'
