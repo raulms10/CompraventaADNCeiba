@@ -31,6 +31,6 @@ steps:
 
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(System.DefaultWorkingDirectory)/backend/build/libs/*.war'
-    ArtifactName: 'artifact-compraventa'
+    PathtoPublish: '$(System.DefaultWorkingDirectory)/backend/build/libs/'
+    ArtifactName: 'artifact-compraventa.war'
     publishLocation: 'Container'
