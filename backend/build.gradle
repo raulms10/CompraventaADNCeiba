@@ -43,3 +43,7 @@ jacocoTestReport {
         html.enabled false
     }
 }
+
+war {
+    archiveName = 'compraventa.war'
+}
