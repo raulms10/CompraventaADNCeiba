@@ -14,7 +14,6 @@ import co.com.ceiba.compraventa.aplicacion.comando.ComandoProducto;
 import co.com.ceiba.compraventa.dominio.modelo.Producto;
 import co.com.ceiba.compraventa.dominio.repositorio.RepositorioProducto;
 import co.com.ceiba.compraventa.infraestructura.entidad.ProductoEntity;
-import co.com.ceiba.compraventa.infraestructura.jpa.ProductoJpa;
 import co.com.ceiba.compraventa.infraestructura.sql.ProductoSql;
 
 /**

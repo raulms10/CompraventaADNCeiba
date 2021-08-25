@@ -44,3 +44,7 @@ jacocoTestReport {
         html.enabled false
     }
 }
+
+bootWar {
+    archiveName 'compraventa.war'
+}
