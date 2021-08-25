@@ -7,8 +7,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import javax.transaction.Transactional;
 
@@ -34,6 +34,7 @@ import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionDiferenteValorPagado;
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionDuplicidad;
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionLongitudMaxima;
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionValorObligatorio;
+import co.com.ceiba.compraventa.infraestructura.compartido.FormateadorFecha;
 import co.com.ceiba.compraventa.infraestructura.testdatabuilder.ComandoCompraTestDataBuilder;
 import co.com.ceiba.compraventa.infraestructura.testdatabuilder.ComandoProductoTestDataBuilder;
 /**
@@ -83,7 +84,7 @@ class CompraControladorTest {
     @Test
     public void validarCrear() throws Exception {
         // Arrange
-    	Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-14");
+    	Date fecha = FormateadorFecha.getDate("2020-01-14");
     	ComandoProductoTestDataBuilder comandoProductoTestDataBuilder = new ComandoProductoTestDataBuilder();
     	comandoProductoTestDataBuilder.conFecha(fecha);
         ComandoProducto comandoProducto = comandoProductoTestDataBuilder.build();
@@ -105,7 +106,7 @@ class CompraControladorTest {
     @Test
     public void validarCrearConCedulaCompradorNula() throws Exception {
         // Arrange
-    	Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-14");
+    	Date fecha = FormateadorFecha.getDate("2020-01-14");
     	ComandoCompraTestDataBuilder comandoCompraTestDataBuilder = new ComandoCompraTestDataBuilder();
     	comandoCompraTestDataBuilder.conFechaCompra(fecha);
     	comandoCompraTestDataBuilder.conCedulaComprador(null);
@@ -122,7 +123,7 @@ class CompraControladorTest {
     @Test
     public void validarCrearConNombreCompradorNulo() throws Exception {
         // Arrange
-    	Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-14");
+    	Date fecha = FormateadorFecha.getDate("2020-01-14");
     	ComandoCompraTestDataBuilder comandoCompraTestDataBuilder = new ComandoCompraTestDataBuilder();
     	comandoCompraTestDataBuilder.conFechaCompra(fecha);
     	comandoCompraTestDataBuilder.conNombreComprador(null);
@@ -139,7 +140,7 @@ class CompraControladorTest {
     @Test
     public void validarCrearConFechaCompraNula() throws Exception {
         // Arrange
-    	Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-14");
+    	Date fecha = FormateadorFecha.getDate("2020-01-14");
     	ComandoCompraTestDataBuilder comandoCompraTestDataBuilder = new ComandoCompraTestDataBuilder();
     	comandoCompraTestDataBuilder.conFechaCompra(fecha);
     	comandoCompraTestDataBuilder.conFechaCompra(null);
@@ -156,7 +157,7 @@ class CompraControladorTest {
     @Test
     public void validarCrearConValorPagadoNulo() throws Exception {
         // Arrange
-    	Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-14");
+    	Date fecha = FormateadorFecha.getDate("2020-01-14");
     	ComandoCompraTestDataBuilder comandoCompraTestDataBuilder = new ComandoCompraTestDataBuilder();
     	comandoCompraTestDataBuilder.conFechaCompra(fecha);
     	comandoCompraTestDataBuilder.conValorPagado(null);
@@ -173,7 +174,7 @@ class CompraControladorTest {
     @Test
     public void validarCrearConComandoProductoNulo() throws Exception {
         // Arrange
-    	Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-14");
+    	Date fecha = FormateadorFecha.getDate("2020-01-14");
     	ComandoCompraTestDataBuilder comandoCompraTestDataBuilder = new ComandoCompraTestDataBuilder();
     	comandoCompraTestDataBuilder.conFechaCompra(fecha);
     	comandoCompraTestDataBuilder.conComandoProducto(null);
@@ -190,7 +191,7 @@ class CompraControladorTest {
     @Test
     public void validarCrearConCedulaCompradorDeLongitudMaxima() throws Exception {
         // Arrange
-    	Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-14");
+    	Date fecha = FormateadorFecha.getDate("2020-01-14");
     	ComandoCompraTestDataBuilder comandoCompraTestDataBuilder = new ComandoCompraTestDataBuilder();
     	comandoCompraTestDataBuilder.conFechaCompra(fecha);
     	comandoCompraTestDataBuilder.conCedulaComprador("700555678093223");
@@ -207,7 +208,7 @@ class CompraControladorTest {
     @Test
     public void validarCrearConNombreCompradorDeLongitudMaxima() throws Exception {
         // Arrange
-    	Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-14");
+    	Date fecha = FormateadorFecha.getDate("2020-01-14");
     	ComandoCompraTestDataBuilder comandoCompraTestDataBuilder = new ComandoCompraTestDataBuilder();
     	comandoCompraTestDataBuilder.conFechaCompra(fecha);
     	comandoCompraTestDataBuilder.conNombreComprador("Este nombre de vendedor es demasiado largo para crear un producto");
@@ -224,7 +225,7 @@ class CompraControladorTest {
     @Test
     public void validarCrearConProductoVendido() throws Exception {
         // Arrange
-    	Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-15");
+    	Date fecha = FormateadorFecha.getDate("2020-01-15");
     	ComandoProductoTestDataBuilder comandoProductoTestDataBuilder = new ComandoProductoTestDataBuilder();
     	comandoProductoTestDataBuilder.conFecha(fecha);
         ComandoProducto comandoProducto = comandoProductoTestDataBuilder.build();
@@ -252,7 +253,7 @@ class CompraControladorTest {
     @Test
     public void validarCrearElViernesSinAplicarDescuento() throws Exception {
         // Arrange
-    	Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-17");
+    	Date fecha = FormateadorFecha.getDate("2020-01-17");
     	ComandoCompraTestDataBuilder comandoCompraTestDataBuilder = new ComandoCompraTestDataBuilder();
     	comandoCompraTestDataBuilder.conFechaCompra(fecha);
         ComandoCompra comandoCompra = comandoCompraTestDataBuilder.build();
@@ -268,7 +269,7 @@ class CompraControladorTest {
     @Test
     public void validarCrearConDescuentoElViernes() throws Exception {
         // Arrange
-    	Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-17");
+    	Date fecha = FormateadorFecha.getDate("2020-01-17");
     	ComandoProductoTestDataBuilder comandoProductoTestDataBuilder = new ComandoProductoTestDataBuilder();
     	comandoProductoTestDataBuilder.conFecha(fecha);
     	comandoProductoTestDataBuilder.conValor(400000L);
@@ -293,7 +294,7 @@ class CompraControladorTest {
     @Test
     public void validarCrearConValorPagadoDiferenteAValorNoViernes() throws Exception {
         // Arrange
-    	Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-13");
+    	Date fecha = FormateadorFecha.getDate("2020-01-13");
     	ComandoProductoTestDataBuilder comandoProductoTestDataBuilder = new ComandoProductoTestDataBuilder();
     	comandoProductoTestDataBuilder.conFecha(fecha);
     	comandoProductoTestDataBuilder.conValor(500000L);

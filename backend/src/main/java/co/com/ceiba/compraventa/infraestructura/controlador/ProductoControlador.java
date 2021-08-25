@@ -4,7 +4,6 @@
 package co.com.ceiba.compraventa.infraestructura.controlador;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -20,6 +19,7 @@ import co.com.ceiba.compraventa.aplicacion.comando.ComandoProducto;
 import co.com.ceiba.compraventa.aplicacion.manejador.producto.ManejadorCrearProducto;
 import co.com.ceiba.compraventa.aplicacion.manejador.producto.ManejadorEliminarProducto;
 import co.com.ceiba.compraventa.aplicacion.manejador.producto.ManejadorListarProducto;
+import co.com.ceiba.compraventa.infraestructura.compartido.FormateadorFecha;
 /**
  * @author raul.martinez
  *
@@ -50,8 +50,7 @@ public class ProductoControlador {
 	
 	@DeleteMapping
 	public void eliminar(@RequestParam(value = "codigo", required = false) String codigo, @RequestParam(value = "fecha", required = false) String fecha) throws ParseException {
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		Date fechaEliminar = fecha == null ? null : simpleDateFormat.parse(fecha);
+		Date fechaEliminar = fecha == null ? null : FormateadorFecha.getDate(fecha);
 		this.manejadorEliminarProducto.ejecutar(codigo, fechaEliminar);
 	}
 }
