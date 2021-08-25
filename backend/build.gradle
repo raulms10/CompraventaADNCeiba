@@ -16,6 +16,7 @@ repositories {
 apply plugin: 'java'
 apply plugin: 'jacoco'
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'war'
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
