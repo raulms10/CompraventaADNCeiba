@@ -30,7 +30,7 @@ public final class ValidadorFecha {
 	}
 	
 	public static void validarDiaSabadoODomingo(Date fecha, String mensaje) {
-		Calendar calendar = new GregorianCalendar();
+		Calendar calendar = new GregorianCalendar(new Locale("es", "ES"));
 		calendar.setTime(fecha);
 		int numeroDia = calendar.get(Calendar.DAY_OF_WEEK);
 		boolean esSabadoODomingo = numeroDia == Calendar.SATURDAY || numeroDia == Calendar.SUNDAY;
