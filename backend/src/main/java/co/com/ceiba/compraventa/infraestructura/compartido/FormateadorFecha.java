@@ -16,11 +16,11 @@ import java.util.Locale;
 public class FormateadorFecha {
 	
 	public static Date getDate(String fechaString) throws ParseException {
-		SimpleDateFormat simpleDateFormat =  new SimpleDateFormat("yyyy-MM-dd", new Locale("es", "ES"));
+		SimpleDateFormat simpleDateFormat = getDateFormat();
 		return simpleDateFormat.parse(fechaString); 
 	}
 	
-	public static DateFormat getDateFormat() {
+	public static SimpleDateFormat getDateFormat() {
 		SimpleDateFormat simpleDateFormat =  new SimpleDateFormat("yyyy-MM-dd", new Locale("es", "ES"));
 		return simpleDateFormat;
 	}

@@ -9,7 +9,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
@@ -99,8 +98,6 @@ class ProductoControladorTest {
     @Before
     public void setup() {
     	this.mockMvc = MockMvcBuilders.webAppContextSetup(this.context).build();
-    	objectMapper.setLocale(new Locale("es", "ES"));
-    	objectMapper.setDateFormat(FormateadorFecha.getDateFormat());
     }
     
     @Test
