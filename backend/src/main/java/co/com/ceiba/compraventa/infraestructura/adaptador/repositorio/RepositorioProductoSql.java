@@ -49,7 +49,8 @@ public class RepositorioProductoSql implements RepositorioProducto {
 	@Override
 	public List<ComandoProducto> listar(String cedulaVendedor) {
 		List<ComandoProducto> listComandoProductos = new ArrayList<>();
-		List<ProductoEntity> listEntities = productoSql.findAllOrByCedulaVendedor(cedulaVendedor);
+//		List<ProductoEntity> listEntities = productoSql.findAllOrByCedulaVendedor(cedulaVendedor);
+		Iterable<ProductoEntity> listEntities = productoSql.findAll();
 		for (ProductoEntity productoEntity : listEntities) {
 			ComandoProducto comandoProducto = modelMapper.map(productoEntity, ComandoProducto.class);
 			listComandoProductos.add(comandoProducto);
