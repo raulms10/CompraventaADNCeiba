@@ -80,6 +80,7 @@ class CompraControladorTest {
     public void setup() {
     	this.mockMvc = MockMvcBuilders.webAppContextSetup(this.context).build();
     	objectMapper.setLocale(new Locale("es", "ES"));
+    	objectMapper.setDateFormat(FormateadorFecha.getDateFormat());
     }
 	
     @Test

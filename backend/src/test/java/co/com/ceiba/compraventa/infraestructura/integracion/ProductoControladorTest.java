@@ -9,6 +9,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
@@ -99,6 +100,7 @@ class ProductoControladorTest {
     public void setup() {
     	this.mockMvc = MockMvcBuilders.webAppContextSetup(this.context).build();
     	objectMapper.setLocale(new Locale("es", "ES"));
+    	objectMapper.setDateFormat(FormateadorFecha.getDateFormat());
     }
     
     @Test
@@ -331,6 +333,7 @@ class ProductoControladorTest {
     	ComandoProductoTestDataBuilder comandoProductoTestDataBuilder = new ComandoProductoTestDataBuilder();
     	comandoProductoTestDataBuilder.conFecha(FormateadorFecha.getDate("2020-01-11"));
         ComandoProducto comandoProducto = comandoProductoTestDataBuilder.build();
+        System.out.println("Objeto fecha: " + objectMapper.writeValueAsString(comandoProducto) + "" + objectMapper.getDateFormat());
         // Act - Assert
         mockMvc.perform(post(URL_PRODUCTOS)
                 .contentType(MediaType.APPLICATION_JSON)
