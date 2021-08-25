@@ -5,6 +5,7 @@ package co.com.ceiba.compraventa.infraestructura.adaptador.repositorio;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,31 +37,35 @@ public class RepositorioProductoSql implements RepositorioProducto {
 	@Override
 	public void crear(Producto producto) {
 		ProductoEntity productoEntity = modelMapper.map(producto, ProductoEntity.class);
-		System.out.println("Producto creado");
+		productoSql.save(productoEntity);
 	}
 
 	@Override
 	public boolean existe(Producto producto) {
-		System.out.println("Producto verificado, no existe");
-		return false;
+		Optional<ProductoEntity> productoById = productoSql.findById(producto.getCodigo());
+		return productoById.isPresent();
 	}
 
 	@Override
 	public List<ComandoProducto> listar(String cedulaVendedor) {
 		List<ComandoProducto> listComandoProductos = new ArrayList<>();
-		System.out.println("Producto listado");
+		List<ProductoEntity> listEntities = productoSql.findAllOrByCedulaVendedor(cedulaVendedor);
+		for (ProductoEntity productoEntity : listEntities) {
+			ComandoProducto comandoProducto = modelMapper.map(productoEntity, ComandoProducto.class);
+			listComandoProductos.add(comandoProducto);
+		}
 		return listComandoProductos;
 	}
 
 	@Override
 	public void eliminar(String codigo) {
-		System.out.println("Producto eliminado");
+		productoSql.deleteById(codigo);
 	}
 
 	@Override
 	public boolean comprado(String codigo) {
-		System.out.println("Producto comprado");
-		return false;
+		List<ProductoEntity> listProductos = productoSql.findByCompra(codigo);
+		return !listProductos.isEmpty();
 	}
 
 }
