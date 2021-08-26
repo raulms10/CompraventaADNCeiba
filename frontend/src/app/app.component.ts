@@ -14,17 +14,17 @@ export class AppComponent implements OnInit {
     { url: '/producto', nombre: 'Producto' },
     { url: '/compra', nombre: 'Compra' }
   ];
-  itemActivo = location.pathname;
+  itemActivo = location.hash;
 
   constructor(private router: Router) {}
 
   ngOnInit() {
-    const elemento = this.companies.find(item => location.pathname.includes(item.url));
+    const elemento = this.companies.find(item => location.hash.includes(item.url));
     this.itemActivo = elemento ? elemento.url : this.companies[0].url;
   }
 
   navegar(url: string) {
     this.itemActivo = url;
-    this.router.navigate([url]);
+    this.router.navigateByUrl(url);
   }
 }

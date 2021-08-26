@@ -1,0 +1,9 @@
+{
+    "/compraventa": {
+      "target": "https://adn-compraventa-back.azurewebsites.net",
+      "logLevel": "debug",
+      "changeOrigin": true,
+      "secure": false
+    }
+
+}
