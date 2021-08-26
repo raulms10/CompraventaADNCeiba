@@ -13,7 +13,7 @@ export class BaseService {
 
     protected createDefaultOptions(): Options {
         return {
-            headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': location.origin})
         };
     }
 
