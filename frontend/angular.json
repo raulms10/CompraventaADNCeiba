@@ -65,6 +65,7 @@
           "configurations": {
             "production": {
               "browserTarget": "compraventa:build:production"
+            //   "proxyConfig": "proxy.prod.conf.json"
             }
           }
         },

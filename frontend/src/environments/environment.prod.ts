@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  endpoint: '/compraventa/'
+  endpoint: 'https://adn-compraventa-back.scm.azurewebsites.net/compraventa/'
 };

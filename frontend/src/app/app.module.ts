@@ -11,7 +11,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTabsModule } from '@angular/material/tabs';
-import { DatePipe } from '@angular/common';
+import { DatePipe, HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { CompraModule } from './feature/compra/compra.module';
 import { SharedModule } from './shared/shared.module';
 
@@ -31,7 +31,7 @@ import { SharedModule } from './shared/shared.module';
     MatTabsModule,
     SharedModule
   ],
-  providers: [CookieService, DatePipe],
+  providers: [CookieService, DatePipe, {provide: LocationStrategy, useClass: HashLocationStrategy}],
     bootstrap: [AppComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     exports: []
