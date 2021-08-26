@@ -9,8 +9,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import javax.transaction.Transactional;
 
@@ -39,6 +39,7 @@ import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionRango;
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionSabadoDomingo;
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionValorMinimo;
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionValorObligatorio;
+import co.com.ceiba.compraventa.infraestructura.compartido.FormateadorFecha;
 import co.com.ceiba.compraventa.infraestructura.testdatabuilder.ComandoCompraTestDataBuilder;
 import co.com.ceiba.compraventa.infraestructura.testdatabuilder.ComandoProductoTestDataBuilder;
 /**
@@ -103,7 +104,7 @@ class ProductoControladorTest {
     public void validarCrear() throws Exception{
         // Arrange
     	ComandoProductoTestDataBuilder comandoProductoTestDataBuilder = new ComandoProductoTestDataBuilder();
-    	comandoProductoTestDataBuilder.conFecha(new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-14"));
+    	comandoProductoTestDataBuilder.conFecha(FormateadorFecha.getDate("2020-01-14"));
         ComandoProducto comandoProducto = comandoProductoTestDataBuilder.build();
         // Act - Assert
         mockMvc.perform(post(URL_PRODUCTOS)
@@ -327,8 +328,9 @@ class ProductoControladorTest {
     public void validarCrearConFechaSabado() throws Exception {
     	// Arrange
     	ComandoProductoTestDataBuilder comandoProductoTestDataBuilder = new ComandoProductoTestDataBuilder();
-    	comandoProductoTestDataBuilder.conFecha(new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-11"));
+    	comandoProductoTestDataBuilder.conFecha(FormateadorFecha.getDate("2020-01-11"));
         ComandoProducto comandoProducto = comandoProductoTestDataBuilder.build();
+        System.out.println("Objeto fecha: " + objectMapper.writeValueAsString(comandoProducto) + "" + objectMapper.getDateFormat());
         // Act - Assert
         mockMvc.perform(post(URL_PRODUCTOS)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -342,7 +344,7 @@ class ProductoControladorTest {
     public void validarCrearConFechaDomingo() throws Exception {
     	// Arrange
     	ComandoProductoTestDataBuilder comandoProductoTestDataBuilder = new ComandoProductoTestDataBuilder();
-    	comandoProductoTestDataBuilder.conFecha(new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-12"));
+    	comandoProductoTestDataBuilder.conFecha(FormateadorFecha.getDate("2020-01-12"));
         ComandoProducto comandoProducto = comandoProductoTestDataBuilder.build();
         // Act - Assert
         mockMvc.perform(post(URL_PRODUCTOS)
@@ -357,7 +359,7 @@ class ProductoControladorTest {
     public void validarCrearProductoIngresado() throws Exception {
         // Arrange
     	ComandoProductoTestDataBuilder comandoProductoTestDataBuilder = new ComandoProductoTestDataBuilder();
-    	comandoProductoTestDataBuilder.conFecha(new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-14"));
+    	comandoProductoTestDataBuilder.conFecha(FormateadorFecha.getDate("2020-01-14"));
         ComandoProducto comandoProducto = comandoProductoTestDataBuilder.build();
         // Act - Assert
         mockMvc.perform(post(URL_PRODUCTOS)
@@ -376,7 +378,7 @@ class ProductoControladorTest {
     public void validarListar() throws Exception {
     	// Arrange
     	ComandoProductoTestDataBuilder comandoProductoTestDataBuilder = new ComandoProductoTestDataBuilder();
-    	comandoProductoTestDataBuilder.conFecha(new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-14"));
+    	comandoProductoTestDataBuilder.conFecha(FormateadorFecha.getDate("2020-01-14"));
         ComandoProducto comandoProducto = comandoProductoTestDataBuilder.build();
         mockMvc.perform(post(URL_PRODUCTOS)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -394,7 +396,7 @@ class ProductoControladorTest {
     public void validarListarConCedula111() throws Exception {
     	// Arrange
     	ComandoProductoTestDataBuilder comandoProductoTestDataBuilder = new ComandoProductoTestDataBuilder();
-    	comandoProductoTestDataBuilder.conFecha(new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-14"));
+    	comandoProductoTestDataBuilder.conFecha(FormateadorFecha.getDate("2020-01-14"));
     	comandoProductoTestDataBuilder.conCedulaVendedor("111");
         ComandoProducto comandoProducto = comandoProductoTestDataBuilder.build();
         mockMvc.perform(post(URL_PRODUCTOS)
@@ -417,7 +419,7 @@ class ProductoControladorTest {
     	ComandoProductoTestDataBuilder comandoProductoTestDataBuilder = new ComandoProductoTestDataBuilder();
     	comandoProductoTestDataBuilder.conCedulaVendedor("111");
     	comandoProductoTestDataBuilder.conCodigo("1010000001");
-    	comandoProductoTestDataBuilder.conFecha(new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-15"));
+    	comandoProductoTestDataBuilder.conFecha(FormateadorFecha.getDate("2020-01-15"));
         ComandoProducto comandoProducto = comandoProductoTestDataBuilder.build();
         mockMvc.perform(post(URL_PRODUCTOS)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -435,7 +437,7 @@ class ProductoControladorTest {
     	// Arrange
     	ComandoProductoTestDataBuilder comandoProductoTestDataBuilder = new ComandoProductoTestDataBuilder();
     	comandoProductoTestDataBuilder.conCedulaVendedor("111");
-    	comandoProductoTestDataBuilder.conFecha(new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-15"));
+    	comandoProductoTestDataBuilder.conFecha(FormateadorFecha.getDate("2020-01-15"));
         ComandoProducto comandoProducto = comandoProductoTestDataBuilder.build();
         mockMvc.perform(post(URL_PRODUCTOS)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -455,7 +457,7 @@ class ProductoControladorTest {
     	// Arrange
     	ComandoProductoTestDataBuilder comandoProductoTestDataBuilder = new ComandoProductoTestDataBuilder();
     	comandoProductoTestDataBuilder.conCedulaVendedor("111");
-    	comandoProductoTestDataBuilder.conFecha(new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-16"));
+    	comandoProductoTestDataBuilder.conFecha(FormateadorFecha.getDate("2020-01-16"));
         ComandoProducto comandoProducto = comandoProductoTestDataBuilder.build();
         mockMvc.perform(post(URL_PRODUCTOS)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -475,7 +477,7 @@ class ProductoControladorTest {
     	// Arrange
     	ComandoProductoTestDataBuilder comandoProductoTestDataBuilder = new ComandoProductoTestDataBuilder();
     	comandoProductoTestDataBuilder.conCedulaVendedor("111");
-    	comandoProductoTestDataBuilder.conFecha(new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-16"));
+    	comandoProductoTestDataBuilder.conFecha(FormateadorFecha.getDate("2020-01-16"));
         ComandoProducto comandoProducto = comandoProductoTestDataBuilder.build();
         mockMvc.perform(post(URL_PRODUCTOS)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -494,7 +496,7 @@ class ProductoControladorTest {
     	// Arrange
     	ComandoProductoTestDataBuilder comandoProductoTestDataBuilder = new ComandoProductoTestDataBuilder();
     	comandoProductoTestDataBuilder.conCedulaVendedor("111");
-    	comandoProductoTestDataBuilder.conFecha(new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-16"));
+    	comandoProductoTestDataBuilder.conFecha(FormateadorFecha.getDate("2020-01-16"));
         ComandoProducto comandoProducto = comandoProductoTestDataBuilder.build();
         mockMvc.perform(post(URL_PRODUCTOS)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -511,8 +513,7 @@ class ProductoControladorTest {
     @Test 
     public void validarEliminarProductoComprado() throws Exception {
     	// Arrange
-    	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    	Date fecha = simpleDateFormat.parse("2020-01-14");
+    	Date fecha = FormateadorFecha.getDate("2020-01-14");
     	ComandoProductoTestDataBuilder comandoProductoTestDataBuilder = new ComandoProductoTestDataBuilder();
     	comandoProductoTestDataBuilder.conFecha(fecha);
         ComandoProducto comandoProducto = comandoProductoTestDataBuilder.build();

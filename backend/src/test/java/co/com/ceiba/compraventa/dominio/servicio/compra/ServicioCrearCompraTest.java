@@ -4,7 +4,6 @@
 package co.com.ceiba.compraventa.dominio.servicio.compra;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.junit.Assert;
@@ -18,9 +17,9 @@ import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionDuplicidad;
 import co.com.ceiba.compraventa.dominio.modelo.Compra;
 import co.com.ceiba.compraventa.dominio.modelo.Producto;
 import co.com.ceiba.compraventa.dominio.repositorio.RepositorioCompra;
-import co.com.ceiba.compraventa.dominio.servicio.compra.ServicioCrearCompra;
 import co.com.ceiba.compraventa.dominio.testdatabuilder.CompraTestDataBuilder;
 import co.com.ceiba.compraventa.dominio.testdatabuilder.ProductoTestDataBuilder;
+import co.com.ceiba.compraventa.infraestructura.compartido.FormateadorFecha;
 
 /**
  * @author raul.martinez
@@ -35,7 +34,7 @@ class ServicioCrearCompraTest {
 	@Test
 	public void validarCrearCompra() throws ParseException {
 		//Arrange
-		Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-16");
+		Date fecha = FormateadorFecha.getDate("2020-01-16");
 		ProductoTestDataBuilder productoTestDataBuilder = new ProductoTestDataBuilder();
 		productoTestDataBuilder.conFecha(fecha);
 		Producto producto = productoTestDataBuilder.build();
@@ -56,7 +55,7 @@ class ServicioCrearCompraTest {
 	@Test
 	public void validarCrearCompraConDescuentoElViernes() throws ParseException {
 		//Arrange
-		Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-17");
+		Date fecha = FormateadorFecha.getDate("2020-01-17");
 		ProductoTestDataBuilder productoTestDataBuilder = new ProductoTestDataBuilder();
 		productoTestDataBuilder.conFecha(fecha);
 		productoTestDataBuilder.conValor(500000L);
@@ -80,7 +79,7 @@ class ServicioCrearCompraTest {
 	@Test
 	public void validarExistenciaPrevia() throws ParseException {
 		//Arrange
-		Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-15");
+		Date fecha = FormateadorFecha.getDate("2020-01-15");
 		CompraTestDataBuilder compraTestDataBuilder = new CompraTestDataBuilder();
 		compraTestDataBuilder.conFechaCompra(fecha);
 		Compra compra = compraTestDataBuilder.build();
@@ -95,7 +94,7 @@ class ServicioCrearCompraTest {
 	@Test
 	public void validarValorPagadoSinAplicarDescuentoViernes() throws ParseException {
 		//Arrange
-		Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-17");
+		Date fecha = FormateadorFecha.getDate("2020-01-17");
 		CompraTestDataBuilder compraTestDataBuilder = new CompraTestDataBuilder();
 		compraTestDataBuilder.conFechaCompra(fecha);
 		Compra compra = compraTestDataBuilder.build();
@@ -109,7 +108,7 @@ class ServicioCrearCompraTest {
 	@Test
 	public void validarValorPagadoDiferenteAValorNoViernes() throws ParseException {
 		//Arrange
-		Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-14");
+		Date fecha = FormateadorFecha.getDate("2020-01-14");
 		ProductoTestDataBuilder productoTestDataBuilder = new ProductoTestDataBuilder();
 		productoTestDataBuilder.conFecha(fecha);
 		productoTestDataBuilder.conValor(250000L);

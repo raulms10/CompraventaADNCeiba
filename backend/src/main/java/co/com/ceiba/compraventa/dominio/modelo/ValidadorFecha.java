@@ -6,6 +6,7 @@ package co.com.ceiba.compraventa.dominio.modelo;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionLunesViernes;
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionSabadoDomingo;
@@ -19,7 +20,7 @@ public final class ValidadorFecha {
 	private ValidadorFecha() {}
 	
 	public static void validarDiaLunesAViernes(Date fecha, String mensaje) {
-		Calendar calendar = new GregorianCalendar();
+		Calendar calendar = new GregorianCalendar(new Locale("es", "ES"));
 		calendar.setTime(fecha);
 		int numeroDia = calendar.get(Calendar.DAY_OF_WEEK);
 		boolean esLunesAViernes = numeroDia >= Calendar.MONDAY && numeroDia <= Calendar.FRIDAY;
@@ -29,7 +30,7 @@ public final class ValidadorFecha {
 	}
 	
 	public static void validarDiaSabadoODomingo(Date fecha, String mensaje) {
-		Calendar calendar = new GregorianCalendar();
+		Calendar calendar = new GregorianCalendar(new Locale("es", "ES"));
 		calendar.setTime(fecha);
 		int numeroDia = calendar.get(Calendar.DAY_OF_WEEK);
 		boolean esSabadoODomingo = numeroDia == Calendar.SATURDAY || numeroDia == Calendar.SUNDAY;

@@ -4,7 +4,9 @@
 package co.com.ceiba.compraventa.infraestructura.adaptador.repositorio;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,31 +38,41 @@ public class RepositorioProductoSql implements RepositorioProducto {
 	@Override
 	public void crear(Producto producto) {
 		ProductoEntity productoEntity = modelMapper.map(producto, ProductoEntity.class);
-		System.out.println("Producto creado");
+		productoSql.save(productoEntity);
 	}
 
 	@Override
 	public boolean existe(Producto producto) {
-		System.out.println("Producto verificado, no existe");
-		return false;
+		Optional<ProductoEntity> productoById = productoSql.findById(producto.getCodigo());
+		return productoById.isPresent();
 	}
 
 	@Override
 	public List<ComandoProducto> listar(String cedulaVendedor) {
 		List<ComandoProducto> listComandoProductos = new ArrayList<>();
-		System.out.println("Producto listado");
+//		List<ProductoEntity> listEntities = productoSql.findAllOrByCedulaVendedor(cedulaVendedor);
+		Iterable<ProductoEntity> listEntities = productoSql.findAll();
+		for (ProductoEntity productoEntity : listEntities) {
+			if (cedulaVendedor == null || cedulaVendedor.equals(productoEntity.getCedulaVendedor())) {
+				ComandoProducto comandoProducto = modelMapper.map(productoEntity, ComandoProducto.class);
+				listComandoProductos.add(comandoProducto);
+			}
+		}
 		return listComandoProductos;
 	}
 
 	@Override
 	public void eliminar(String codigo) {
-		System.out.println("Producto eliminado");
+		productoSql.deleteById(codigo);
 	}
 
 	@Override
-	public boolean comprado(String codigo) {
-		System.out.println("Producto comprado");
-		return false;
+	public boolean comprado(String codigoProducto) {
+		List<ProductoEntity> listProductos = productoSql.findByCompra(codigoProducto);
+		return !listProductos.isEmpty();
+//		Optional<ProductoEntity> producto = productoSql.findById(codigoProducto);
+//		return producto.isPresent() && producto.get().getCompra() != null;
+//		return !listProductos.isEmpty();
 	}
 
 }

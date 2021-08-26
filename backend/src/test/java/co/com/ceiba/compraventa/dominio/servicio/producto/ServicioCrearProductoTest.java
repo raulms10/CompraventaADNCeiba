@@ -4,7 +4,6 @@
 package co.com.ceiba.compraventa.dominio.servicio.producto;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.junit.Assert;
@@ -16,8 +15,8 @@ import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionDuplicidad;
 import co.com.ceiba.compraventa.dominio.excepcion.ExcepcionLunesViernes;
 import co.com.ceiba.compraventa.dominio.modelo.Producto;
 import co.com.ceiba.compraventa.dominio.repositorio.RepositorioProducto;
-import co.com.ceiba.compraventa.dominio.servicio.producto.ServicioCrearProducto;
 import co.com.ceiba.compraventa.dominio.testdatabuilder.ProductoTestDataBuilder;
+import co.com.ceiba.compraventa.infraestructura.compartido.FormateadorFecha;
 
 /**
  * @author raul.martinez
@@ -32,7 +31,7 @@ class ServicioCrearProductoTest {
 	public void validarCrearProducto() throws ParseException {
 		//Arrange
 		ProductoTestDataBuilder productoTestDataBuilder = new ProductoTestDataBuilder();
-		Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-15");
+		Date fecha = FormateadorFecha.getDate("2020-01-15");
 		productoTestDataBuilder.conFecha(fecha);
 		RepositorioProducto repositorioProducto = Mockito.mock(RepositorioProducto.class);
 		ServicioCrearProducto servicioCrearProducto = new ServicioCrearProducto(repositorioProducto);
@@ -47,7 +46,7 @@ class ServicioCrearProductoTest {
 	public void validarFechaCrearProductoSabado() throws ParseException {
 		//Arrange
 		ProductoTestDataBuilder productoTestDataBuilder = new ProductoTestDataBuilder();
-		Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-11");
+		Date fecha = FormateadorFecha.getDate("2020-01-11");
 		productoTestDataBuilder.conFecha(fecha);
 		Producto producto = productoTestDataBuilder.build();
 		RepositorioProducto repositorioProducto = Mockito.mock(RepositorioProducto.class);
@@ -60,7 +59,7 @@ class ServicioCrearProductoTest {
 	public void validarFechaCrearProductoDomingo() throws ParseException {
 		//Arrange
 		ProductoTestDataBuilder productoTestDataBuilder = new ProductoTestDataBuilder();
-		Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-12");
+		Date fecha = FormateadorFecha.getDate("2020-01-12");
 		productoTestDataBuilder.conFecha(fecha);
 		Producto producto = productoTestDataBuilder.build();
 		RepositorioProducto repositorioProducto = Mockito.mock(RepositorioProducto.class);
@@ -73,7 +72,7 @@ class ServicioCrearProductoTest {
 	public void validarExistenciaPrevia() throws ParseException {
 		//Arrange
 		ProductoTestDataBuilder productoTestDataBuilder = new ProductoTestDataBuilder();
-		Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-14");
+		Date fecha = FormateadorFecha.getDate("2020-01-14");
 		productoTestDataBuilder.conFecha(fecha);
 		Producto producto = productoTestDataBuilder.build();
 		RepositorioProducto repositorioProducto = Mockito.mock(RepositorioProducto.class);
