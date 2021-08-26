@@ -25,16 +25,17 @@ jobs:
 
     - name: npm install, build, and test
       run: |
-        npm config set @ceiba:registry=https://binary.ceiba.com.co/repository/temp-npm/
-        npm install
-        npm run build --if-present
+        #npm config set @ceiba:registry=https://binary.ceiba.com.co/repository/temp-npm/
+        #npm install
+        #npm run build --if-present
+        npm version
       working-directory: ./frontend
 
     - name: Upload artifact for deployment job
       uses: actions/upload-artifact@v2
       with:
         name: node-app
-        path: .
+        path: ./frontend/dist/compraventa
 
   deploy:
     runs-on: windows-latest
