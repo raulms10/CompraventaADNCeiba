@@ -4,6 +4,7 @@
 package co.com.ceiba.compraventa.infraestructura.adaptador.repositorio;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,8 +53,10 @@ public class RepositorioProductoSql implements RepositorioProducto {
 //		List<ProductoEntity> listEntities = productoSql.findAllOrByCedulaVendedor(cedulaVendedor);
 		Iterable<ProductoEntity> listEntities = productoSql.findAll();
 		for (ProductoEntity productoEntity : listEntities) {
-			ComandoProducto comandoProducto = modelMapper.map(productoEntity, ComandoProducto.class);
-			listComandoProductos.add(comandoProducto);
+			if (cedulaVendedor == null || cedulaVendedor.equals(productoEntity.getCedulaVendedor())) {
+				ComandoProducto comandoProducto = modelMapper.map(productoEntity, ComandoProducto.class);
+				listComandoProductos.add(comandoProducto);
+			}
 		}
 		return listComandoProductos;
 	}
@@ -64,9 +67,12 @@ public class RepositorioProductoSql implements RepositorioProducto {
 	}
 
 	@Override
-	public boolean comprado(String codigo) {
-		List<ProductoEntity> listProductos = productoSql.findByCompra(codigo);
+	public boolean comprado(String codigoProducto) {
+		List<ProductoEntity> listProductos = productoSql.findByCompra(codigoProducto);
 		return !listProductos.isEmpty();
+//		Optional<ProductoEntity> producto = productoSql.findById(codigoProducto);
+//		return producto.isPresent() && producto.get().getCompra() != null;
+//		return !listProductos.isEmpty();
 	}
 
 }
