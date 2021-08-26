@@ -12,7 +12,6 @@ export class BaseService {
     constructor(protected http: HttpClient) { }
 
     protected createDefaultOptions(): Options {
-        console.log(location);
         return {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': location.origin})
         };
