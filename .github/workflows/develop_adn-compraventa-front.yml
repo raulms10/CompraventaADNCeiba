@@ -6,7 +6,7 @@ name: Build and deploy Node.js app to Azure Web App - adn-compraventa-front
 on:
   push:
     branches:
-      - develop
+      - master
   workflow_dispatch:
 
 jobs:
