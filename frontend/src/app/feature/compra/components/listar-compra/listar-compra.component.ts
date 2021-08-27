@@ -6,6 +6,7 @@ import { ProductoService } from 'src/app/feature/producto/shared/service/product
 import { Producto } from 'src/app/feature/producto/shared/model/producto';
 import { Constantes } from 'src/app/shared/utilidades/constantes';
 import { Validador } from 'src/app/shared/utilidades/validador';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-listar-compra',
@@ -21,12 +22,13 @@ export class ListarCompraComponent implements OnInit, OnDestroy {
   cargando: boolean;
   productos: Producto[];
 
-  constructor(protected productoService: ProductoService, private snackBar: MatSnackBar) { }
+  constructor(protected productoService: ProductoService, private snackBar: MatSnackBar, private router: Router) { }
 
   ngOnInit() {
     const redireccionar = this.verificarLocalStorage();
     if (redireccionar === true) {
-      location.replace('/home');
+      // location.replace('/home');
+      this.router.navigateByUrl('/home');
     }
     this.cargando = true;
     this.productos = [];
