@@ -29,7 +29,8 @@ export class ListarProductoComponent implements OnInit, OnDestroy {
   ngOnInit() {
     const redireccionar = this.verificarLocalStorage();
     if (redireccionar === true) {
-      location.replace('/home');
+    //   location.replace('/home');
+        this.router.navigateByUrl('/home');
     }
     this.cargando = true;
     this.productos = [];

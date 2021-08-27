@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
   cedula: string;
   nombre: string;
 
-  constructor(private snackBar: MatSnackBar) { }
+  constructor(private snackBar: MatSnackBar, private router: Router) { }
 
   ngOnInit() {
     this.verificarLocalStorage();
@@ -31,7 +31,8 @@ export class HomeComponent implements OnInit {
       this.cedula = this.form.get('formCedula').value;
       this.nombre = this.form.get('formNombreVendedor').value;
       if (this.guardarEnLocalStorage()) {
-        location.replace('/producto');
+        // location.replace('/producto');
+        this.router.navigateByUrl('/producto');
       } else {
         this.abrirSnackBar('No se soporta LocalStorage.');
       }
